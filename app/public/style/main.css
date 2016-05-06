@@ -1,0 +1,171 @@
+@import url(http://fonts.googleapis.com/css?subset=latin,cyrillic-ext,latin-ext,cyrillic&family=Open+Sans+Condensed:300|Merriweather:400,300,300italic,400italic,700,700italic|Roboto+Slab:400,300);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css);
+
+body, .footer {
+	color: #eee;
+	background: #080009;
+	background: #00394C;
+}
+
+.container {
+	background: #190720;
+	background: #006688;
+}
+
+.header {
+
+}
+
+.circle {
+	fill: black;
+}
+#logo-svg {
+	width: 100%;
+}
+
+h1 {
+	font-family: "Roboto Slab",Merriweather,"Open Sans","Helvetica Neue",Helvetica,Arial,"Nimbus L",sans-serif;
+	font-size: 36pt;
+	font-weight: normal;
+
+	text-align: center;
+	margin-top: 0.7em;
+}
+
+p, div {
+	font-size: 18pt;
+	font-weight: 100;
+	line-height: 24pt;
+
+	font-family: Merriweather,"Open Sans","Helvetica Neue",Helvetica,Arial,"Nimbus L",sans-serif;
+}
+p {
+	margin-bottom: 1.1em;
+}
+
+a {
+	color: gold;
+}
+a:hover {
+	color: goldenrod;
+}
+
+.content {
+	padding-top: 1.4em;
+}
+.content p {
+
+}
+
+.logo-wrapper {
+	text-align: center;
+}
+
+.making {
+	background-color: #130414;
+	background-color: #005F7F;
+}
+
+/* video */
+.embed-container { 
+  position: relative; 
+  padding-bottom: 56.25%; 
+  height: 0; 
+  overflow: hidden; 
+  max-width: 100%; 
+  height: auto; 
+} 
+.embed-container iframe, 
+.embed-container object, 
+.embed-container embed { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; height: 100%; 
+}
+.after-video {
+  padding-top: 1em;
+}
+
+.supporting {
+	background-color: #090309;
+	background-color: #00445B;
+	padding-bottom: 1.5em;
+}
+p.first {
+	margin-top: 1.25em;
+}
+.supporting h2 {
+	margin-top: 2em;
+}
+.supporting h2.first {
+	margin-top: inherit;
+}
+
+.community-logos {
+	margin-top: 1.25em;
+/*	padding-bottom: 2em;*/
+}
+h2.after-community-logos {
+	margin-top: 1.25em;
+}
+.logo {
+	margin-top: 1em;
+	/*margin-bottom: 1em;*/
+}
+.name {
+	margin-top: 1ex;
+	font-size: small;
+}
+.logo .name {
+	color: transparent;
+}
+.logo:hover .name {
+	color: gold;
+}
+
+.rain-wrapper {
+	margin-top: 1.75em;
+	margin-left: -2ex;
+}
+
+.mission, .mission p, .mission div {
+	font-size: 14pt;
+	line-height: 20pt;
+}
+
+.oregon {
+	margin-top: 1.75em;
+	margin-bottom: 1ex;
+}
+.oregon-wrapper {
+	text-align: right;
+}
+
+.holmwell {
+	margin-top: 0.5em;
+	font-size: small;
+	margin-bottom: 1em;
+}
+.footer {
+	padding-bottom: 2em;
+}
+
+/* Smaller font sizes on mobile devices */
+@media (max-width: 667px) {
+	h1 {
+		font-size: 28pt;
+	}
+	h2 {
+		font-size: 22pt;
+	}
+	p, div {
+		font-size: 14pt;
+		line-height: 20pt;
+	}
+
+	.mission, .mission p, .mission div {
+		font-size: 12pt;
+		line-height: 18pt;
+	}
+}
