@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/exclsr/philmanijak.com#readme",
   "dependencies": {
+    "body-parser": "^1.15.1",
     "express": "^4.13.4",
-    "pug": "^2.0.0-alpha6"
+    "pug": "^2.0.0-alpha6",
+    "stripe": "^4.6.0"
   }
 }

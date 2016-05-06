@@ -2,9 +2,9 @@
 
 angular.module('CopperHeart')
 .controller('SubscribeController', 
-    ['$scope', 'config', SubscribeController]);
+    ['$scope', '$http', 'config', SubscribeController]);
 
-function SubscribeController($scope, config) {
+function SubscribeController($scope, $http, config) {
 
     $scope.amount = undefined;
 
@@ -15,8 +15,19 @@ function SubscribeController($scope, config) {
         token: function(token) {
           // You can access the token ID with `token.id`.
           // Get the token ID to your server-side code for use.
-          console.log(token);
-          console.log($scope.amount);
+          var data = {
+            stripeTokenId: token.id,
+            email: token.email,
+            amount: $scope.amount
+          };
+
+          $http.post("/data/subscribe", data)
+          .success(function () {
+            console.log('ok');
+          })
+          .error(function (data, status) {
+            console.log(data);
+          });
         }
     });
     
