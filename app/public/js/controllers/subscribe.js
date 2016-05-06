@@ -2,14 +2,14 @@
 
 angular.module('CopperHeart')
 .controller('SubscribeController', 
-    ['$scope', SubscribeController]);
+    ['$scope', 'config', SubscribeController]);
 
-function SubscribeController($scope) {
+function SubscribeController($scope, config) {
 
     $scope.amount = undefined;
 
     var handler = StripeCheckout.configure({
-        key: 'pk_test_yDbrXtFE5wIe0nRvcUT39JEN',
+        key: config.stripePublicKey,
         image: 'https://s3.amazonaws.com/stripe-uploads/acct_18818EAOogUkjkilmerchant-icon-1462511432881-black-circle.png',
         locale: 'auto',
         token: function(token) {

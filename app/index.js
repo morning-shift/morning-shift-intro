@@ -1,5 +1,6 @@
-var path = require('path');
-var https = require('./https-server.js');
+var path   = require('path');
+var https  = require('./https-server.js');
+var config = require('./config.js');
 
 var express = require('express');
 var app = express();
@@ -10,7 +11,11 @@ app.set('view engine', 'pug');
 
 
 app.get('/', function (req, res) {
-    res.render('index');
+    res.render('index', {
+        config: {
+            stripePublicKey: config.stripePublicKey
+        }
+    });
 });
 
 app.use(express.static(path.join(__dirname, 'public')));

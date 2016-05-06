@@ -9,6 +9,9 @@ html(ng-app="CopperHeart")
 
     script(src="/js/main.js")
     script(src="/js/controllers/subscribe.js")
+    script.
+        var app = angular.module("CopperHeart");
+        app.value('config', !{JSON.stringify(config)})
 
     script(src="https://checkout.stripe.com/checkout.js")
 
