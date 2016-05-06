@@ -151,6 +151,18 @@ h2.after-community-logos {
 	padding-bottom: 2em;
 }
 
+.btn-subscribe {
+	display: inline-block;
+	padding-right: 2ex;
+}
+.right-most {
+	padding-right: 0;
+}
+
+.debug.on {
+	border: solid 1px red !important;
+}
+
 /* Smaller font sizes on mobile devices */
 @media (max-width: 667px) {
 	h1 {

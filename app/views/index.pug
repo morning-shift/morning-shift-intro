@@ -1,10 +1,28 @@
 doctype html
-html
+html(ng-app="CopperHeart")
   head
     title philmanijak.com
     link(rel="stylesheet" type="text/css" href="style/main.css")
     meta(name="viewport" content="width=device-width, initial-scale=1")
 
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js")
+
+    script(src="/js/main.js")
+    script(src="/js/controllers/subscribe.js")
+
+    script(src="https://checkout.stripe.com/checkout.js")
+
   body
-    .container
-      p Hello, world.
+    .container(ng-controller="SubscribeController")
+
+      .row.debug
+        .col-sm-4.debug.on
+          .btn-subscribe
+            button.btn.btn-default(ng-click="subscribe(5)") $5
+          .btn-subscribe
+            button.btn.btn-default(ng-click="subscribe(10)") $10
+          .btn-subscribe.right-most
+            button.btn.btn-default(ng-click="subscribe(15)") $15
+
+        .col-sm-8.debug.on
+          p Hello, world.
