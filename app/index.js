@@ -87,7 +87,8 @@ app.post('/data/subscribe', function (req, res) {
             stripeCustomerId: customer.id,
             stripePlan: processAmountEntry(customerData.amount),
             email: customer.email,
-            timestamp: Date.now()
+            created: Date.now(),
+            type: "customer"
         };
 
         db.insert(dbRecord, handleDatabaseResponse);
