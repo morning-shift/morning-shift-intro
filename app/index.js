@@ -12,12 +12,17 @@ database.whenReady(function () {
     db = database.db;
 });
 
+var forceHttps = require('./force-https.js');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 
+var httpsServer = https(app);
+
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
+
+app.use(forceHttps(httpsServer));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -101,7 +106,7 @@ app.listen(3000, function () {
     console.log('philmanijak.com http on port 3000');
 });
 
-https(app).listen(4000, function (err) {
+httpsServer.listen(4000, function (err) {
     if (err) {
         console.log(err);
     }
