@@ -3,7 +3,7 @@ var https   = require('./https-server.js');
 var config  = require('./config.js');
 var secrets = require('./config-secrets.js');
 
-var stripe = require('stripe');
+var stripe = require('stripe')(secrets.stripePrivateKey);
 
 var bodyParser = require('body-parser');
 var express = require('express');
@@ -25,8 +25,46 @@ app.get('/', function (req, res) {
 });
 
 app.post('/data/subscribe', function (req, res) {
-    console.log(req.body);
-    res.sendStatus(200);
+    var customerData = req.body;
+
+    function processAmountEntry (customerAmountEntry) {
+        switch (customerAmountEntry) {
+            case 2000:
+                return '20-monthly';
+            case 1000: 
+                return '10-monthly';
+            default:
+                return '20-monthly';
+        }
+    };
+
+    function createCustomer (customer, callback) {
+        var stripePlan = processAmountEntry(customer.amount);
+        var juneThird  = Math.floor(new Date(2016, 5, 3) / 1000);
+
+        var stripeRequest = {
+            source: customer.stripeTokenId,
+            email: customer.email,
+            plan: stripePlan,
+            quantity: 1,
+            trial_end: juneThird
+        };
+
+        stripe.customers.create(stripeRequest, callback);
+    }
+
+    function handleCustomer (err, customer) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+            return;
+        }
+
+        console.log(customer);
+        res.sendStatus(200);
+    }
+
+    createCustomer(customerData, handleCustomer);
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
