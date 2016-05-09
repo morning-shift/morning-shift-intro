@@ -3,7 +3,7 @@ module.exports = function () {
 
     var stripeKeyPath = '/home/ubuntu/stripe/private.key';
 
-     try {
+    try {
         var values = {
             stripePrivateKey: fs.readFileSync(stripeKeyPath)
         };  
@@ -16,4 +16,4 @@ module.exports = function () {
     }
 
     return values;
-};
+}();
