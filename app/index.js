@@ -4,12 +4,17 @@ var config  = require('./config.js');
 var secrets = require('./config-secrets.js');
 
 var stripe   = require('stripe')(secrets.stripePrivateKey);
+
+var db;
 var database = require('./database.js')('phil-manijak-com');
+
+database.whenReady(function () {
+    db = database.db;
+});
 
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
-
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
@@ -62,7 +67,26 @@ app.post('/data/subscribe', function (req, res) {
         }
 
         console.log(customer);
-        res.sendStatus(200);
+
+        function handleDatabaseResponse (err, body) {
+            if (err) {
+                // We're in the Stripe database but 
+                // not in our local CouchDB.
+                console.log(err);
+                res.status(500);
+                res.send()
+            }
+            res.sendStatus(200);
+        }
+
+        var dbRecord = {
+            stripeCustomerId: customer.id,
+            stripePlan: processAmountEntry(customerData.amount),
+            email: customer.email,
+            timestamp: Date.now()
+        };
+
+        db.insert(dbRecord, handleDatabaseResponse);
     }
 
     createCustomer(customerData, handleCustomer);
