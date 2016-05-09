@@ -70,8 +70,6 @@ app.post('/data/subscribe', function (req, res) {
             return;
         }
 
-        console.log(customer);
-
         function handleDatabaseResponse (err, body) {
             if (err) {
                 // We're in the Stripe database but 

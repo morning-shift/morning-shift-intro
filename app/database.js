@@ -12,7 +12,6 @@ module.exports = function (databaseName) {
     var isDatabaseReady = false;
 
     var databaseExists = function (callback) {
-        console.log('databaseExists');
         var opts = {
             db: databaseName,
             method: "GET"
