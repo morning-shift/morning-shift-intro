@@ -3,7 +3,8 @@ var https   = require('./https-server.js');
 var config  = require('./config.js');
 var secrets = require('./config-secrets.js');
 
-var stripe = require('stripe')(secrets.stripePrivateKey);
+var stripe   = require('stripe')(secrets.stripePrivateKey);
+var database = require('./database.js')('phil-manijak-com');
 
 var bodyParser = require('body-parser');
 var express = require('express');
