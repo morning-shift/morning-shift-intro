@@ -10,6 +10,8 @@ body, .footer {
 .container {
 	background: #190720;
 	background: #006688;
+	background: #eee;
+	color: #333;
 }
 
 .header {
@@ -45,6 +47,7 @@ p {
 
 a {
 	color: gold;
+	color: #006688;
 }
 a:hover {
 	color: goldenrod;
@@ -161,6 +164,24 @@ h2.after-community-logos {
 
 .debug.on {
 	border: solid 1px red !important;
+}
+
+.intro {
+	margin-top: 1.4em;
+}
+
+.code-corvallis {
+}
+h3 {
+	font-size: 26pt;
+	border-bottom: solid 1px #ddd;
+	padding-bottom: 0.75ex;
+	margin-bottom: 1.25ex;
+	color: black;
+}
+
+p {
+	font-family: "Helvetica Neue", Helvetica, "Open Sans Condensed", Arial
 }
 
 /* Smaller font sizes on mobile devices */

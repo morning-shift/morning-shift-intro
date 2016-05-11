@@ -19,13 +19,161 @@ html(ng-app="CopperHeart")
     .container(ng-controller="SubscribeController")
 
       .row.debug
-        .col-sm-4.debug.on
-          .btn-subscribe
-            button.btn.btn-default(ng-click="subscribe(5)") $5
-          .btn-subscribe
-            button.btn.btn-default(ng-click="subscribe(10)") $10
-          .btn-subscribe.right-most
-            button.btn.btn-default(ng-click="subscribe(15)") $15
+        .col-sm-4.debug
 
-        .col-sm-8.debug.on
-          p Hello, world.
+          h3 Become a patron
+
+          .row
+            .col-xs-12 
+              p Please choose a monthly contribution to 
+               | support Phil:
+
+          .row
+            .col-xs-12
+              .btn-subscribe
+                button.btn.btn-default(ng-click="subscribe(5)") $5
+              .btn-subscribe
+                button.btn.btn-default(ng-click="subscribe(10)") $10
+              .btn-subscribe.right-most
+                button.btn.btn-default(ng-click="subscribe(15)") $15
+
+
+
+        .col-sm-8.debug
+          h3 Support Phil Manijak
+
+          .row
+            .col-sm-4.col-xs-6
+              img(src="img/january-dance.png" width="100%")
+            .col-sm-4.col-xs-6
+              img(src="img/code-corvallis-group.png" width="100%")
+            .col-sm-4.hidden-xs
+              img(src="img/red-star-cards.png" width="100%")
+
+
+
+          p.intro My name is Phil Manijak. After three years of devoting my 
+           | life to the people of Corvallis, Oregon and its communities, 
+           | our time together is at a crossroads.
+
+          p Below are a few examples of what I have brought to Corvallis, 
+           | and wish to continue working on, with your support.
+
+        .col-sm-offset-4.col-sm-8
+          h3 Community swing dancing
+          p The Corvallis Swing Dance Society is an organization I 
+           | co-founded in 2010 to share my favorite hobby, swing dancing,
+           | with the Corvallis area. 
+
+          .row
+            .col-sm-6
+              img(src="img/january-dance.png" width="100%")
+            .col-sm-6
+              p Now in its sixth year, this all-volunteer group of 
+               | more than 20 people supports local musicians
+               | and brings a joyous quality of life to Corvallis.
+
+              p To read more about Corvallis Swing and its upcoming 
+               | events, please visit <a href="http://corvallisswing.com">corvallisswing.com</a>.
+
+        .col-sm-offset-4.col-sm-8.section.code-corvallis
+            h3 Code Corvallis
+
+            p Code Corvallis is a meetup for people who are 
+             | excited about computer programming. Since its 
+             | beginnings in 2014, it has become a favorite 
+             | for people on small teams looking to connect 
+             | with a larger tech. community.
+
+            .row
+              .col-sm-6
+                p Meetings are free and open to the public. After 
+                 | two years of casual meetings in pubs and cafés, 
+                 | we are on our way toward adding seminars to 
+                 | our schedule. 
+
+                p For more information on Code Corvallis, 
+                 | consider joining the 
+                 | <a href="http://www.meetup.com/Code-Corvallis/">group on Meetup</a>.
+
+              .col-sm-6
+                img(src="img/code-corvallis-group.png" width="100%")
+
+        .col-sm-offset-4.col-sm-8
+          h3 Swing dance instruction
+
+          p Red Star Dance Studios is a collaboration of 
+           | swing dance instructors that bring premier social 
+           | dance classes to the greater Corvallis area, with 
+           | a focus on Lindy hop, the original swing dance. 
+
+          .row
+            .col-sm-6
+              img(src="img/red-star-cards.png" width="100%")
+
+            .col-sm-6
+              p Red Star is a for-profit enterprise that has a lot 
+               | of local potential &mdash; it has been the most financially 
+               | successful of all these projects, and has the clearest 
+               | business model.
+
+              p The Red Star website is at <a href="http://lindyhoppers.co">lindyhoppers.co</a>.
+
+          h3 Community apps
+
+          p The Corvallis Arts Walk app, available for free on 
+           | <a href="https://play.google.com/store/apps/details?id=com.holmwell.corvallis_arts_walk&hl=en">Google Play</a> and the <a href="https://itunes.apple.com/us/app/corvallis-arts-walk/id1028923377?mt=8">Apple App Store</a>, is a great example 
+           | of the little things that a software developer can 
+           | bring to a community. 
+
+          .row
+            .col-sm-6
+              img(src="/img/arts-walk-app.png" width="100%")
+            .col-sm-6
+              p The technology created for the arts walk can be 
+               | applied to other groups and organizations in Corvallis, 
+               | and, with a little bit of effort, help more-distant organizations 
+               | around the world. 
+
+          h3 Grassroots organizing
+
+          p Using the lessons learned 
+           | managing Corvallis Swing and professional software projects, 
+           | <a href="https://circleblvd.org">Circle Blvd</a> is a project management 
+           | tool for local community organizers. 
+
+          p The product of two years of development, it is perfect for 
+           | local groups to get things done at the grassroots level. 
+
+          p Circle Blvd is in its infancy, with a few initial customers, 
+           | including Corvallis Swing, the Portland 
+           | Lindy Society, Thompson &amp; Urey Resources for Nonprofits, Smith  
+           | &amp; Williamson, and the OSU Advantage Accelerator. 
+
+          p If this campaign is a success, I will work directly with more 
+           | Corvallis groups and organizations to share both the benefits 
+           | of Circle Blvd and tailor it to meet their specific needs.
+
+          h3 Combining it all under Holmwell
+
+          p <a href="http://holmwell.com">Holmwell Software</a> looks at the broader picture, and has the 
+           | most potential of all my efforts. Holmwell is behind the 
+           | technology of Corvallis Swing, Code Corvallis, Red Star Dance 
+           | Studios, the Corvallis Arts Walk app, and Circle Blvd.
+
+          p Small communities have specific needs, and they are often different 
+           | from those of large corporations. Holmwell's goal is 
+           | to help grassroots efforts turn into organizations. 
+
+          h3 Goals
+
+          p I am asking for your financial support, in the form of
+           | monthly contributions.
+
+          p My fundraising goal is $1,500 per month. At this level of 
+           | funding, I will be able to cover my living expenses, work in 
+           | a productive environment on the above projects, and make ends meet with the help
+           | of additional income through Red Star Dance Studios and occasional 
+           | freelance software work.
+
+          p Thank you.
