@@ -37,7 +37,17 @@ html(ng-app="CopperHeart")
               .btn-subscribe.right-most
                 button.btn.btn-default(ng-click="subscribe(15)") $15
 
+          .row
+            .col-xs-12
+              p.note Note, if the fundraising goal is not met by June 1, 
+               | nobody's cards will be charged. 
 
+          .row(ng-show="isSuccess" ng-cloak)
+            .col-xs-12
+              p.thanks Thank you! You are one of the first people to 
+               | make a contribution. Please let me know if you
+               | have any advice about this fundraising campaign. 
+               | See you around. &ndash;Phil
 
         .col-sm-8.debug
           h3 Support Phil Manijak
@@ -175,5 +185,8 @@ html(ng-app="CopperHeart")
            | a productive environment on the above projects, and make ends meet with the help
            | of additional income through Red Star Dance Studios and occasional 
            | freelance software work.
+
+          p Note, if the fundraising goal is not met, nobody's cards 
+           | will be charged. The deadline is June 1. 
 
           p Thank you.

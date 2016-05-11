@@ -23,7 +23,7 @@ function SubscribeController($scope, $http, config) {
 
           $http.post("/data/subscribe", data)
           .success(function () {
-            console.log('ok');
+            $scope.isSuccess = true;
           })
           .error(function (data, status) {
             console.log(data);

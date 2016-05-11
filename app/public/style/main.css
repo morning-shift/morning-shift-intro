@@ -44,6 +44,16 @@ p, div {
 p {
 	margin-bottom: 1.1em;
 }
+.note, .thanks {
+	font-size: 10pt;
+	line-height: 14pt;
+	margin-top: 1.4em;
+}
+.thanks {
+	border-left: solid 3px #080;
+	padding-left: 2ex;
+}
+
 
 a {
 	color: gold;
@@ -195,6 +205,10 @@ p {
 	p, div {
 		font-size: 14pt;
 		line-height: 20pt;
+	}
+	.note, .thanks {
+		font-size: 10pt;
+		line-height: 14pt;
 	}
 
 	.mission, .mission p, .mission div {
