@@ -205,10 +205,12 @@ p {
 	p, div {
 		font-size: 14pt;
 		line-height: 20pt;
+		font-weight: 400;
 	}
 	.note, .thanks {
 		font-size: 10pt;
 		line-height: 14pt;
+		font-weight: 400;
 	}
 
 	.mission, .mission p, .mission div {
