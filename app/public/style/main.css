@@ -44,6 +44,7 @@ p, div {
 	line-height: 24pt;
 
 	font-family: Merriweather,"Open Sans","Helvetica Neue",Helvetica,Arial,"Nimbus L",sans-serif;
+	font-weight: 400;
 }
 p {
 	margin-bottom: 1.1em;
@@ -52,6 +53,7 @@ p {
 	font-size: 10pt;
 	line-height: 14pt;
 	margin-top: 1.4em;
+	font-weight: 400;
 }
 .thanks {
 	border-left: solid 3px #080;
