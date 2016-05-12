@@ -25,6 +25,10 @@ body, .footer {
 	width: 100%;
 }
 
+.col-sm-6 img, .col-sm-7 img {
+	margin-bottom: 1em;
+}
+
 h1 {
 	font-family: "Roboto Slab",Merriweather,"Open Sans","Helvetica Neue",Helvetica,Arial,"Nimbus L",sans-serif;
 	font-size: 36pt;
