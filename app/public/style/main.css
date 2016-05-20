@@ -196,8 +196,12 @@ h3 {
 	color: black;
 }
 
-p {
+p, li {
 	font-family: "Helvetica Neue", Helvetica, "Open Sans Condensed", Arial
+}
+
+blockquote {
+	padding-left: 5ex;
 }
 
 /* Smaller font sizes on mobile devices */
