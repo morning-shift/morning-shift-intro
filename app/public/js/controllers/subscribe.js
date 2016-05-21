@@ -35,7 +35,7 @@ function SubscribeController($scope, $http, config) {
         $scope.amount = amount;
         // Open Checkout with further options:
         handler.open({
-          name: 'Support Phil Manijak',
+          name: 'Join Phil Manijak',
           description: 'Contribute $' + amount + ' per month',
           amount: amount * 100
         });
