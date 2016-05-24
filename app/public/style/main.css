@@ -196,6 +196,12 @@ h3 {
 	color: black;
 }
 
+h4 {
+	font-family: "Helvetica Neue", Helvetica, "Open Sans Condensed", Arial;
+	font-size: 18pt;
+	color: #111;
+}
+
 p, li {
 	font-family: "Helvetica Neue", Helvetica, "Open Sans Condensed", Arial
 }
@@ -211,6 +217,9 @@ blockquote {
 	}
 	h2 {
 		font-size: 22pt;
+	}
+	h4 {
+		font-size: 14pt;
 	}
 	p, div {
 		font-size: 14pt;
