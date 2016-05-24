@@ -22,6 +22,7 @@
     "express": "^4.13.4",
     "nano": "^6.2.0",
     "pug": "^2.0.0-alpha6",
+    "serve-favicon": "^2.3.0",
     "stripe": "^4.6.0"
   }
 }

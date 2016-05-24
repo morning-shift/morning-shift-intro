@@ -15,6 +15,7 @@ database.whenReady(function () {
 var forceHttps = require('./force-https.js');
 var bodyParser = require('body-parser');
 var express = require('express');
+var favicon = require('serve-favicon');
 var app = express();
 
 var httpsServer = https(app);
@@ -23,6 +24,7 @@ app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
 
 app.use(forceHttps(httpsServer));
+app.use(favicon(path.join(__dirname, 'public', 'img', 'black-circle.png')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
