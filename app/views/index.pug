@@ -38,7 +38,7 @@ html(ng-app="CopperHeart")
     .container(ng-controller="SubscribeController")
 
       .row.debug
-        .col-sm-4.debug
+        .col-md-4.debug
 
           h3 Become a member
 
@@ -68,7 +68,7 @@ html(ng-app="CopperHeart")
                | have any advice about this. 
                | See you around. &ndash;Phil
 
-        .col-sm-8.debug
+        .col-md-8.debug
           h3 Phil Manijak, community citizen?
 
           .row
@@ -105,11 +105,16 @@ html(ng-app="CopperHeart")
            | I've been working full-time on them for about three years, without 
            | any pay, except for Red Star, which earns a small amount.
 
-          p We have an opportunity in Corvallis to do a lot of things, and 
-           | here are five options to help our town flourish. Let me know 
-           | which one 
-           | you like the best. Since most people are unfamiliar with 
-           | Holmwell, and I think it's the coolest, here's a short overview.  
+          .row
+            .col-sm-5
+              p We have an opportunity in Corvallis to do a lot of things, and 
+               | here are five options to help our town flourish. Let me know 
+               | which one 
+               | you like the best. Since most people are unfamiliar with 
+               | Holmwell, and I think it's the coolest, here's 
+               | a short overview.
+            .col-sm-7
+              img(src="img/portrait-odd-fellows.jpg" width="100%")  
  
           h3 Holmwell Software
 
@@ -170,7 +175,7 @@ html(ng-app="CopperHeart")
            | communities I'm asking to join me, if you'd like 
            | to read about everyone.
 
-        .col-sm-offset-4.col-sm-8
+        .col-md-offset-4.col-md-8
           h3 Community swing dancing
           p The Corvallis Swing Dance Society is an organization I 
            | co-founded in 2010 to share my favorite hobby, swing dancing,
@@ -187,7 +192,7 @@ html(ng-app="CopperHeart")
               p To read more about Corvallis Swing and its upcoming 
                | events, please visit <a href="http://corvallisswing.com">corvallisswing.com</a>.
 
-        .col-sm-offset-4.col-sm-8.section.code-corvallis
+        .col-md-offset-4.col-md-8.section.code-corvallis
             h3 Code Corvallis
 
             p Code Corvallis is a meetup for people who are 
@@ -210,7 +215,7 @@ html(ng-app="CopperHeart")
               .col-sm-6
                 img(src="img/code-corvallis-group.png" width="100%")
 
-        .col-sm-offset-4.col-sm-8
+        .col-md-offset-4.col-md-8
           h3 Swing dance instruction
 
           p Red Star Dance Studios is a collaboration of 
