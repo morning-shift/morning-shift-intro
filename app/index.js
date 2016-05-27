@@ -42,6 +42,8 @@ app.post('/data/subscribe', function (req, res) {
 
     function processAmountEntry (customerAmountEntry) {
         switch (customerAmountEntry) {
+            case 30:
+                return '30-monthly';
             case 20:
                 return '20-monthly';
             case 15:

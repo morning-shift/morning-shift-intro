@@ -210,6 +210,10 @@ blockquote {
 	padding-left: 5ex;
 }
 
+.join-row {
+	margin-top: 1.1em;
+}
+
 /* Smaller font sizes on mobile devices */
 @media (max-width: 667px) {
 	h1 {
