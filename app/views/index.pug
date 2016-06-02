@@ -38,307 +38,310 @@ html(ng-app="CopperHeart")
     .container(ng-controller="SubscribeController")
 
       .row.debug
-        .col-md-4.debug
+        //- .col-md-4.debug
 
-          h3 Become a member
+        //-   h3 Become a member
 
-          .row
-            .col-xs-12 
-              p Please choose a monthly contribution to 
-               | join Phil:
+        //-   .row
+        //-     .col-xs-12 
+        //-       p Please choose a monthly contribution to 
+        //-        | join Phil:
 
-          .row
-            .col-xs-12
-              .btn-subscribe
-                button.btn.btn-default(ng-click="subscribe(5)") $5
-              .btn-subscribe
-                button.btn.btn-default(ng-click="subscribe(10)") $10
-              .btn-subscribe.right-most
-                button.btn.btn-default(ng-click="subscribe(15)") $15
+        //-   .row
+        //-     .col-xs-12
+        //-       .btn-subscribe
+        //-         button.btn.btn-default(ng-click="subscribe(5)") $5
+        //-       .btn-subscribe
+        //-         button.btn.btn-default(ng-click="subscribe(10)") $10
+        //-       .btn-subscribe.right-most
+        //-         button.btn.btn-default(ng-click="subscribe(15)") $15
           
-          .row.join-row
-            .col-xs-12
-              .btn-subscribe
-                button.btn.btn-default(ng-click="subscribe(20)") $20
-              .btn-subscribe
-                button.btn.btn-default(ng-click="subscribe(30)") $30
+        //-   .row.join-row
+        //-     .col-xs-12
+        //-       .btn-subscribe
+        //-         button.btn.btn-default(ng-click="subscribe(20)") $20
+        //-       .btn-subscribe
+        //-         button.btn.btn-default(ng-click="subscribe(30)") $30
 
-          .row
-            .col-xs-12
-              p.note Note, if the goal of the membership drive is not met by June&nbsp;1, 
-               | nobody's cards will be charged. 
+        //-   .row
+        //-     .col-xs-12
+        //-       p.note Note, if the goal of the membership drive is not met by June&nbsp;1, 
+        //-        | nobody's cards will be charged. 
 
-          .row(ng-show="isSuccess" ng-cloak)
-            .col-xs-12
-              p.thanks Thank you! You are one of the first people to 
-               | make a contribution. Please let me know if you
-               | have any advice about this. 
-               | See you around. &ndash;Phil
+        //-   .row(ng-show="isSuccess" ng-cloak)
+        //-     .col-xs-12
+        //-       p.thanks Thank you! You are one of the first people to 
+        //-        | make a contribution. Please let me know if you
+        //-        | have any advice about this. 
+        //-        | See you around. &ndash;Phil
 
-        .col-md-8.debug
-          h3 Phil Manijak, community citizen!
+        .col-md-offset-2.col-md-8.debug
+          blockquote Like most days, the crowd had decided his fate.<br/>
+           | And the sun set, and the cool breeze became still.
 
-          .row
-            .col-sm-4.col-xs-6
-              img(src="img/january-dance.png" width="100%")
-            .col-sm-4.col-xs-6
-              img(src="img/code-corvallis-group.png" width="100%")
-            .col-sm-4.hidden-xs
-              img(src="img/red-star-cards.png" width="100%")
+          //- h3 Phil Manijak, community citizen!
 
-          p.intro Hello!
+          //- .row
+          //-   .col-sm-4.col-xs-6
+          //-     img(src="img/january-dance.png" width="100%")
+          //-   .col-sm-4.col-xs-6
+          //-     img(src="img/code-corvallis-group.png" width="100%")
+          //-   .col-sm-4.hidden-xs
+          //-     img(src="img/red-star-cards.png" width="100%")
 
-          p My name is Phil Manijak, and I'm a dance instructor, 
-           | software engineer, and community organizer in Corvallis, 
-           | Oregon.
+        //-   p.intro Hello!
 
-          p This is a membership drive &ndash; a way to ask the communities 
-           | I'm a part of if they'd like me to continue working for them. 
-           | If enough people join, I get to stay in Corvallis and 
-           | work for you good people, and if not then it's time to 
-           | move on.
+        //-   p My name is Phil Manijak, and I'm a dance instructor, 
+        //-    | software engineer, and community organizer in Corvallis, 
+        //-    | Oregon.
 
-          p The communities at hand are: 
+        //-   p This is a membership drive &ndash; a way to ask the communities 
+        //-    | I'm a part of if they'd like me to continue working for them. 
+        //-    | If enough people join, I get to stay in Corvallis and 
+        //-    | work for you good people, and if not then it's time to 
+        //-    | move on.
 
-          ol
-            li The Corvallis Swing Dance Society
-            li Code Corvallis
-            li Red Star Dance Studios
-            li Circle Blvd project management
-            li Holmwell Software
+        //-   p The communities at hand are: 
 
-          p.intro In case we haven't talked much, which is probably true (sorry!),
-           | these are all either businesses or projects that I've started, and 
-           | I've been working full-time on them for about three years, without 
-           | any pay, except for Red Star, which earns a small amount.
+        //-   ol
+        //-     li The Corvallis Swing Dance Society
+        //-     li Code Corvallis
+        //-     li Red Star Dance Studios
+        //-     li Circle Blvd project management
+        //-     li Holmwell Software
 
-          .row
-            .col-sm-5
-              p We have an opportunity in Corvallis to do a lot of things, and 
-               | here are five options to help our town flourish. Let me know 
-               | which one 
-               | you like the best. Since most people are unfamiliar with 
-               | Holmwell, and I think it's the coolest, here's 
-               | a short overview.
-            .col-sm-7
-              img(src="img/portrait-odd-fellows.jpg" width="100%")  
+        //-   p.intro In case we haven't talked much, which is probably true (sorry!),
+        //-    | these are all either businesses or projects that I've started, and 
+        //-    | I've been working full-time on them for about three years, without 
+        //-    | any pay, except for Red Star, which earns a small amount.
+
+        //-   .row
+        //-     .col-sm-5
+        //-       p We have an opportunity in Corvallis to do a lot of things, and 
+        //-        | here are five options to help our town flourish. Let me know 
+        //-        | which one 
+        //-        | you like the best. Since most people are unfamiliar with 
+        //-        | Holmwell, and I think it's the coolest, here's 
+        //-        | a short overview.
+        //-     .col-sm-7
+        //-       img(src="img/portrait-odd-fellows.jpg" width="100%")  
  
-          h3 Holmwell Software
+        //-   h3 Holmwell Software
 
-          p Holmwell is what we get when we develop technology for the 
-           | Corvallis Swing Dance Society and then share it with the 
-           | rest of the country.
+        //-   p Holmwell is what we get when we develop technology for the 
+        //-    | Corvallis Swing Dance Society and then share it with the 
+        //-    | rest of the country.
 
-          p For example, to manage the projects run by the Corvallis Swing 
-           | board of directors, I made a website called Circle Blvd. 
-           | It's probably the best website of its kind. Anyway, I then 
-           | took that website, and made it so other organizations 
-           | could make their own accounts.
+        //-   p For example, to manage the projects run by the Corvallis Swing 
+        //-    | board of directors, I made a website called Circle Blvd. 
+        //-    | It's probably the best website of its kind. Anyway, I then 
+        //-    | took that website, and made it so other organizations 
+        //-    | could make their own accounts.
 
-          p Then, I allowed people to edit the Circle Blvd 
-           | program itself, so that their organizations could make 
-           | their own copies, specific to their needs 
-           | &ndash; it is open-source software, if you're familiar with that 
-           | term. This is the basic idea behind Holmwell.
+        //-   p Then, I allowed people to edit the Circle Blvd 
+        //-    | program itself, so that their organizations could make 
+        //-    | their own copies, specific to their needs 
+        //-    | &ndash; it is open-source software, if you're familiar with that 
+        //-    | term. This is the basic idea behind Holmwell.
 
-          p Corvallis Swing also has a website for managing documents, 
-           | another one for event reservations, and plans to make 
-           | a program for managing inventory.
+        //-   p Corvallis Swing also has a website for managing documents, 
+        //-    | another one for event reservations, and plans to make 
+        //-    | a program for managing inventory.
 
-          p The goal of Holmwell is to make these tools available to 
-           | organizations around town and beyond &ndash; and this can happen 
-           | with community participation.
+        //-   p The goal of Holmwell is to make these tools available to 
+        //-    | organizations around town and beyond &ndash; and this can happen 
+        //-    | with community participation.
 
-          h3 Why should we care about this?
+        //-   h3 Why should we care about this?
 
-          p We should care about this so that we have more of a say 
-           | in how our lives play out. 
+        //-   p We should care about this so that we have more of a say 
+        //-    | in how our lives play out. 
 
-          p This point is a bit nuanced. I don't know 
-           | why people <em>really</em> care or don't care about 
-           | locally produced, community 
-           | backed solutions to broad problems.
+        //-   p This point is a bit nuanced. I don't know 
+        //-    | why people <em>really</em> care or don't care about 
+        //-    | locally produced, community 
+        //-    | backed solutions to broad problems.
 
-          p I can say 
-           | that I think projects like this are what we need to get 
-           | out of the larger situation we're in &ndash; that is, in 
-           | an economy that unfairly distributes wealth and in an  
-           | environment that wants us out of here. 
+        //-   p I can say 
+        //-    | that I think projects like this are what we need to get 
+        //-    | out of the larger situation we're in &ndash; that is, in 
+        //-    | an economy that unfairly distributes wealth and in an  
+        //-    | environment that wants us out of here. 
 
-          p I've been told our economic and environmental situations are 
-           | both hopeless and my generation's 
-           | problem to fix, so here is a decentralized solution that 
-           | I think can work for a lot of people. 
+        //-   p I've been told our economic and environmental situations are 
+        //-    | both hopeless and my generation's 
+        //-    | problem to fix, so here is a decentralized solution that 
+        //-    | I think can work for a lot of people. 
 
-          p I have 14 years experience 
-           | making software and about eight years experience organizing 
-           | communities &ndash; and people say I am good at these things 
-           | &ndash; here I am if you want to help make it happen. 
+        //-   p I have 14 years experience 
+        //-    | making software and about eight years experience organizing 
+        //-    | communities &ndash; and people say I am good at these things 
+        //-    | &ndash; here I am if you want to help make it happen. 
 
-          h3 Rewards
+        //-   h3 Rewards
 
-          p There are rewards. Have your name in lights. Get into events 
-           | for free. Have influence, clout, attention 
-           | and prestige. Get tiny pins. Get early access. Do I 
-           | really need to lay out all of the possibilities? 
+        //-   p There are rewards. Have your name in lights. Get into events 
+        //-    | for free. Have influence, clout, attention 
+        //-    | and prestige. Get tiny pins. Get early access. Do I 
+        //-    | really need to lay out all of the possibilities? 
 
-          p Below is an outline of the 
-           | communities I'm asking to join me, if you'd like 
-           | to read about everyone.
+        //-   p Below is an outline of the 
+        //-    | communities I'm asking to join me, if you'd like 
+        //-    | to read about everyone.
 
-        .col-md-offset-4.col-md-8
-          h3 Community swing dancing
-          p The Corvallis Swing Dance Society is an organization I 
-           | co-founded in 2010 to share my favorite hobby, swing dancing,
-           | with the Corvallis area. 
+        //- .col-md-offset-4.col-md-8
+        //-   h3 Community swing dancing
+        //-   p The Corvallis Swing Dance Society is an organization I 
+        //-    | co-founded in 2010 to share my favorite hobby, swing dancing,
+        //-    | with the Corvallis area. 
 
-          .row
-            .col-sm-6
-              img(src="img/january-dance.png" width="100%")
-            .col-sm-6
-              p Now in its sixth year, this all-volunteer group of 
-               | more than 20 people supports local musicians
-               | and brings a joyous quality of life to Corvallis.
+        //-   .row
+        //-     .col-sm-6
+        //-       img(src="img/january-dance.png" width="100%")
+        //-     .col-sm-6
+        //-       p Now in its sixth year, this all-volunteer group of 
+        //-        | more than 20 people supports local musicians
+        //-        | and brings a joyous quality of life to Corvallis.
 
-              p To read more about Corvallis Swing and its upcoming 
-               | events, please visit <a href="http://corvallisswing.com">corvallisswing.com</a>.
+        //-       p To read more about Corvallis Swing and its upcoming 
+        //-        | events, please visit <a href="http://corvallisswing.com">corvallisswing.com</a>.
 
-        .col-md-offset-4.col-md-8.section.code-corvallis
-            h3 Code Corvallis
+        //- .col-md-offset-4.col-md-8.section.code-corvallis
+        //-     h3 Code Corvallis
 
-            p Code Corvallis is a meetup for people who are 
-             | excited about computer programming. Since its 
-             | beginnings in 2014, it has become a favorite 
-             | for people on small teams looking to connect 
-             | with a larger tech. community.
+        //-     p Code Corvallis is a meetup for people who are 
+        //-      | excited about computer programming. Since its 
+        //-      | beginnings in 2014, it has become a favorite 
+        //-      | for people on small teams looking to connect 
+        //-      | with a larger tech. community.
 
-            .row
-              .col-sm-6
-                p Meetings are free and open to the public. After 
-                 | two years of casual meetings in pubs and cafés, 
-                 | we are on our way toward adding seminars to 
-                 | our schedule. 
+        //-     .row
+        //-       .col-sm-6
+        //-         p Meetings are free and open to the public. After 
+        //-          | two years of casual meetings in pubs and cafés, 
+        //-          | we are on our way toward adding seminars to 
+        //-          | our schedule. 
 
-                p For more information on Code Corvallis, 
-                 | consider joining the 
-                 | <a href="http://www.meetup.com/Code-Corvallis/">group on Meetup</a>.
+        //-         p For more information on Code Corvallis, 
+        //-          | consider joining the 
+        //-          | <a href="http://www.meetup.com/Code-Corvallis/">group on Meetup</a>.
 
-              .col-sm-6
-                img(src="img/code-corvallis-group.png" width="100%")
+        //-       .col-sm-6
+        //-         img(src="img/code-corvallis-group.png" width="100%")
 
-        .col-md-offset-4.col-md-8
-          h3 Swing dance instruction
+        //- .col-md-offset-4.col-md-8
+        //-   h3 Swing dance instruction
 
-          p Red Star Dance Studios is a collaboration of 
-           | swing dance instructors that bring premier social 
-           | dance classes to the greater Corvallis area, with 
-           | a focus on Lindy hop, the original swing dance. 
+        //-   p Red Star Dance Studios is a collaboration of 
+        //-    | swing dance instructors that bring premier social 
+        //-    | dance classes to the greater Corvallis area, with 
+        //-    | a focus on Lindy hop, the original swing dance. 
 
-          .row
-            .col-sm-6
-              img(src="img/red-star-cards.png" width="100%")
+        //-   .row
+        //-     .col-sm-6
+        //-       img(src="img/red-star-cards.png" width="100%")
 
-            .col-sm-6
-              p Red Star is a for-profit enterprise that has a lot 
-               | of local potential.
+        //-     .col-sm-6
+        //-       p Red Star is a for-profit enterprise that has a lot 
+        //-        | of local potential.
 
-              p The Red Star website is at <a href="http://lindyhoppers.co">lindyhoppers.co</a>.
+        //-       p The Red Star website is at <a href="http://lindyhoppers.co">lindyhoppers.co</a>.
 
-          h3 Community apps
+        //-   h3 Community apps
 
-          p The Corvallis Arts Walk app, available for free on 
-           | <a href="https://play.google.com/store/apps/details?id=com.holmwell.corvallis_arts_walk&hl=en">Google Play</a> and the <a href="https://itunes.apple.com/us/app/corvallis-arts-walk/id1028923377?mt=8">Apple App Store</a>, is a great example 
-           | of the little things that Holmwell Software can 
-           | bring to a community. 
+        //-   p The Corvallis Arts Walk app, available for free on 
+        //-    | <a href="https://play.google.com/store/apps/details?id=com.holmwell.corvallis_arts_walk&hl=en">Google Play</a> and the <a href="https://itunes.apple.com/us/app/corvallis-arts-walk/id1028923377?mt=8">Apple App Store</a>, is a great example 
+        //-    | of the little things that Holmwell Software can 
+        //-    | bring to a community. 
 
-          .row
-            .col-sm-6
-              img(src="/img/caw-logo.jpg" width="100%")
-            .col-sm-6
-              p The technology created for the arts walk can be 
-               | applied to other groups and organizations in Corvallis, 
-               | and, with a little bit of effort, help more-distant organizations 
-               | around the world. 
+        //-   .row
+        //-     .col-sm-6
+        //-       img(src="/img/caw-logo.jpg" width="100%")
+        //-     .col-sm-6
+        //-       p The technology created for the arts walk can be 
+        //-        | applied to other groups and organizations in Corvallis, 
+        //-        | and, with a little bit of effort, help more-distant organizations 
+        //-        | around the world. 
 
-          h3 Grassroots organizing
+        //-   h3 Grassroots organizing
 
-          p Using the lessons learned 
-           | managing Corvallis Swing and professional software projects, 
-           | <a href="https://circleblvd.org">Circle Blvd</a> is a project management 
-           | tool for local community organizers. 
+        //-   p Using the lessons learned 
+        //-    | managing Corvallis Swing and professional software projects, 
+        //-    | <a href="https://circleblvd.org">Circle Blvd</a> is a project management 
+        //-    | tool for local community organizers. 
 
-          p The product of two years of development, it is perfect for 
-           | local groups to get things done at the grassroots level. 
+        //-   p The product of two years of development, it is perfect for 
+        //-    | local groups to get things done at the grassroots level. 
 
-          p Circle Blvd is in its infancy, with a few initial customers, 
-           | including Corvallis Swing, the Portland 
-           | Lindy Society, Thompson &amp; Urey Resources for Nonprofits, Smith  
-           | &amp; Williamson, and the OSU Advantage Accelerator. 
+        //-   p Circle Blvd is in its infancy, with a few initial customers, 
+        //-    | including Corvallis Swing, the Portland 
+        //-    | Lindy Society, Thompson &amp; Urey Resources for Nonprofits, Smith  
+        //-    | &amp; Williamson, and the OSU Advantage Accelerator. 
 
-          p If this membership drive is a success, I will work directly with more 
-           | Corvallis groups and organizations to share both the benefits 
-           | of Circle Blvd and tailor it to meet their specific needs.
+        //-   p If this membership drive is a success, I will work directly with more 
+        //-    | Corvallis groups and organizations to share both the benefits 
+        //-    | of Circle Blvd and tailor it to meet their specific needs.
 
-          h3 Combining it all under Holmwell
+        //-   h3 Combining it all under Holmwell
 
-          p <a href="http://holmwell.com">Holmwell Software</a> looks at the broader picture, and is behind the 
-           | technology of Corvallis Swing, Code Corvallis, Red Star Dance 
-           | Studios, the Corvallis Arts Walk app, and Circle Blvd.
+        //-   p <a href="http://holmwell.com">Holmwell Software</a> looks at the broader picture, and is behind the 
+        //-    | technology of Corvallis Swing, Code Corvallis, Red Star Dance 
+        //-    | Studios, the Corvallis Arts Walk app, and Circle Blvd.
 
-          .row
-            .col-sm-5
-              p Small communities have specific needs, and they are 
-               | often different 
-               | from those of large corporations. Holmwell's goal is 
-               | to help grassroots efforts turn into organizations. 
-            .col-sm-7
-              img(src="/img/talk-holmwell.png" width="100%")
+        //-   .row
+        //-     .col-sm-5
+        //-       p Small communities have specific needs, and they are 
+        //-        | often different 
+        //-        | from those of large corporations. Holmwell's goal is 
+        //-        | to help grassroots efforts turn into organizations. 
+        //-     .col-sm-7
+        //-       img(src="/img/talk-holmwell.png" width="100%")
 
 
-          h3 Goals
+        //-   h3 Goals
 
-          p I am asking you to join me in this effort, in the form of 
-           | monthly financial contributions.
+        //-   p I am asking you to join me in this effort, in the form of 
+        //-    | monthly financial contributions.
 
-          p My goal for the membership drive is 150 members, or about 
-           | $1,500 per month. At this level of 
-           | backing, I will be able to cover my living expenses, work in 
-           | a productive environment on the above projects, and make ends 
-           | meet with the help
-           | of additional income through Red Star Dance Studios and occasional 
-           | freelance software work.
+        //-   p My goal for the membership drive is 150 members, or about 
+        //-    | $1,500 per month. At this level of 
+        //-    | backing, I will be able to cover my living expenses, work in 
+        //-    | a productive environment on the above projects, and make ends 
+        //-    | meet with the help
+        //-    | of additional income through Red Star Dance Studios and occasional 
+        //-    | freelance software work.
 
-          p Fun fact: If all of the people who are members of groups I 
-           | started, or Like my products, gave $0.50 per month, 
-           | this campaign would be over.
+        //-   p Fun fact: If all of the people who are members of groups I 
+        //-    | started, or Like my products, gave $0.50 per month, 
+        //-    | this campaign would be over.
 
-          p Note, if the goal of the membership drive is not met, nobody's cards 
-           | will be charged. The deadline is June&nbsp;1. 
+        //-   p Note, if the goal of the membership drive is not met, nobody's cards 
+        //-    | will be charged. The deadline is June&nbsp;1. 
 
-          p Thank you for this opportunity, and please contact me at 
-           | <a href="mailto:membership@holmwell.com">membership@holmwell.com</a> if you have any questions.
+        //-   p Thank you for this opportunity, and please contact me at 
+        //-    | <a href="mailto:membership@holmwell.com">membership@holmwell.com</a> if you have any questions.
 
-          h3 Frequently Unasked Questions
+        //-   h3 Frequently Unasked Questions
 
-          h4 Q: Why not just find a job?
-          p A: This is a job. I would like to work directly for my communities.
+        //-   h4 Q: Why not just find a job?
+        //-   p A: This is a job. I would like to work directly for my communities.
 
-          h4 Q: Why not just sell some crap?
-          p A: Really?
+        //-   h4 Q: Why not just sell some crap?
+        //-   p A: Really?
 
-          h4 Q: Why so much money? 
-          p A: This goal works out to be less than minimum wage, 
-           | and if this goal is met, I would still qualify for 
-           | food stamps. I think my work is worth at least that. 
+        //-   h4 Q: Why so much money? 
+        //-   p A: This goal works out to be less than minimum wage, 
+        //-    | and if this goal is met, I would still qualify for 
+        //-    | food stamps. I think my work is worth at least that. 
 
-          h4 Q: Couldn't anyone do this?
-          p A: That would be pretty cool.
+        //-   h4 Q: Couldn't anyone do this?
+        //-   p A: That would be pretty cool.
 
-          h4 Q: Why should I pay you to work on these other projects I 
-           | don't care about?
-          p A: You won't. What I work on depends on who is paying. I'll 
-           | be sending out preference questionnaires once the campaign is 
-           | a success.
+        //-   h4 Q: Why should I pay you to work on these other projects I 
+        //-    | don't care about?
+        //-   p A: You won't. What I work on depends on who is paying. I'll 
+        //-    | be sending out preference questionnaires once the campaign is 
+        //-    | a success.
 
-          h4 Q: Does my contribution matter?
-          p A: Yes, it does.
+        //-   h4 Q: Does my contribution matter?
+        //-   p A: Yes, it does.
