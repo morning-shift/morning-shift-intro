@@ -28,6 +28,9 @@ body, .footer {
 .col-sm-6 img, .col-sm-7 img {
 	margin-bottom: 1em;
 }
+img {
+	margin-bottom: 8em;
+}
 
 h1 {
 	font-family: "Roboto Slab",Merriweather,"Open Sans","Helvetica Neue",Helvetica,Arial,"Nimbus L",sans-serif;
@@ -47,7 +50,9 @@ p, div {
 	font-weight: 400;
 }
 p {
+	margin-top: 1.1em;
 	margin-bottom: 1.1em;
+	text-align: center;
 }
 .note, .thanks {
 	font-size: 10pt;
