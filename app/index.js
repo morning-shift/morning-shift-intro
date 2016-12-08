@@ -6,7 +6,7 @@ var secrets = require('./config-secrets.js');
 var stripe   = require('stripe')(secrets.stripePrivateKey);
 
 var db;
-var database = require('./database.js')('phil-manijak-com');
+var database = require('./database.js')('morning-shift-intro');
 
 database.whenReady(function () {
     db = database.db;
@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
     res.render('index', {
         config: {
-            stripePublicKey: config.stripePublicKey
+            // stripePublicKey: config.stripePublicKey
         }
     });
 });
@@ -107,7 +107,7 @@ app.post('/data/subscribe', function (req, res) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(3000, function () {
-    console.log('philmanijak.com http on port 3000');
+    console.log('morning-shift-intro http on port 3000');
 });
 
 httpsServer.listen(4000, function (err) {
@@ -115,6 +115,6 @@ httpsServer.listen(4000, function (err) {
         console.log(err);
     }
     else {
-        console.log('philmanijak.com https on port 4000');
+        console.log('morning-shift-intro https on port 4000');
     }
 });

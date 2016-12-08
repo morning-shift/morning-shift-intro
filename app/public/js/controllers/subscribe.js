@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('CopperHeart')
+angular.module('MorningShiftIntro')
 .controller('SubscribeController', 
     ['$scope', '$http', 'config', SubscribeController]);
 
@@ -35,7 +35,7 @@ function SubscribeController($scope, $http, config) {
         $scope.amount = amount;
         // Open Checkout with further options:
         handler.open({
-          name: 'Join Phil Manijak',
+          name: 'Join ...',
           description: 'Contribute $' + amount + ' per month',
           amount: amount * 100
         });

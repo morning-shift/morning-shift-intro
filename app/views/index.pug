@@ -1,46 +1,47 @@
 doctype html
-html(ng-app="CopperHeart")
+html(ng-app="MorningShiftIntro")
   head
-    title Phil Manijak
+    title Morning Shift Coalition
     link(rel="stylesheet" type="text/css" href="style/main.css")
     meta(name="viewport" content="width=device-width, initial-scale=1")
 
-    meta(name="description" content="Another website by Phil Manijak.")
+    meta(name="description" content="The Morning Shift Coalition. Wake up early with us, and change the status quo. #MorningShift")
 
-    meta(name="keywords" content="phil manijak")
+    meta(name="keywords" content="morning shift coalition")
 
-    meta(property="og:title" content="Phil Manijak, community citizen!")
+    meta(property="og:title" content="Morning Shift Coalition")
     meta(property="og:type" content="website")
-    meta(property="og:image" content="http://philmanijak.com/img/black-circle.png")
-    meta(property="og:image:secure_url" content="https://philmanijak.com/img/black-circle.png")
-    meta(property="og:url" content="https://philmanijak.com/")
+    meta(property="og:image" content="http://morningshift.org/img/black-circle.png")
+    meta(property="og:image:secure_url" content="https://morningshift.org/img/black-circle.png")
+    meta(property="og:url" content="https://morningshift.org/")
     meta(property="og:description" 
-      content="Another website by Phil Manijak")
+      content="The Morning Shift Coalition. Wake up early with us, and change the status quo. #MorningShift")
 
     meta(name="twitter:card" content="summary_large_image")
-    meta(name="twitter:site" content="@pmnjk")
-    meta(name="twitter:creator" content="@pmnjk")
-    meta(name="twitter:title" content="Phil Manijak")
-    meta(name="twitter:description" content="Another website by Phil Manijak")
-    meta(name="twitter:image" content="https://philmanijak.com/img/black-circle.png")
+    meta(name="twitter:site" content="@shiftmorning")
+    meta(name="twitter:creator" content="@shiftmorning")
+    meta(name="twitter:title" content="Morning Shift Coalition")
+    meta(name="twitter:description" 
+      content="The Morning Shift Coalition. Wake up early with us, and change the status quo. #MorningShift")
+    meta(name="twitter:image" content="https://morningshift.org/img/black-circle.png")
 
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js")
 
-    //- script(src="/js/main.js")
-    //- script(src="/js/controllers/subscribe.js")
-    //- script.
-    //-     var app = angular.module("CopperHeart");
+    script(src="/js/main.js")
+    script.
+         var app = angular.module("MorningShiftIntro");
     //-     app.value('config', !{JSON.stringify(config)})
 
     //- script(src="https://checkout.stripe.com/checkout.js")
 
   body
-    .container(ng-controller="SubscribeController")
+    .container
 
       .row.debug
 
         .col-md-offset-2.col-md-8.debug
-          p Like most days, the crowd had decided his fate.<br/>
-           | And the sun set, and the cool breeze became still.
+          h1 Morning Shift Coalition
+          p Wake up early with us,<br/>
+           | and change the status quo.<br/> 
+           | #MorningShift
 
-          img(src="/img/sketch.png" width="100%")

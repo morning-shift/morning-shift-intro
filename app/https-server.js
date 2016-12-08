@@ -7,8 +7,8 @@ var httpsServer = undefined;
 
 module.exports = function (app) {
 
-    var sslKeyPath    = '/home/ubuntu/ssl/philmanijak.key';
-    var sslCertPath   = '/home/ubuntu/ssl/philmanijak.cert';
+    var sslKeyPath    = '/home/ubuntu/ssl/morningshift.key';
+    var sslCertPath   = '/home/ubuntu/ssl/morningshift.cert';
     var sslCaPath     = '/home/ubuntu/ssl/GandiStandardSSLCA2.pem';
     var sslCaPathRoot = '/home/ubuntu/ssl/USERTrust.pem';
 

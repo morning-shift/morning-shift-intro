@@ -1,7 +1,7 @@
 {
-  "name": "philmanijak.com",
+  "name": "morning-shift-intro",
   "version": "1.0.0",
-  "description": "Website of the same name.",
+  "description": "Intro website for Morning Shift.",
   "main": "./app/index.js",
   "scripts": {
     "start": "node ./app/index.js",
@@ -14,9 +14,9 @@
   "author": "Phil Manijak",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/exclsr/philmanijak.com/issues"
+    "url": "https://github.com/morning-shift/morning-shift-intro/issues"
   },
-  "homepage": "https://github.com/exclsr/philmanijak.com#readme",
+  "homepage": "https://github.com/morning-shift/morning-shift-intro#readme",
   "dependencies": {
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
