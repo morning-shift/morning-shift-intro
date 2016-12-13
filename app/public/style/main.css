@@ -54,7 +54,7 @@ p, div {
 p {
 	margin-top: 1.1em;
 	margin-bottom: 1.1em;
-	text-align: center;
+	text-align: left;
 }
 .note, .thanks {
 	font-size: 10pt;
