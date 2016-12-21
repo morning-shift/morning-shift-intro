@@ -12,7 +12,8 @@ body, .footer {
 	background: #190720;
 	background: #006688;
 	background: #eee;
-	color: #333;
+	background: #2E0C54;
+	color: #e6e6e6;
 }
 
 .header {
@@ -86,6 +87,27 @@ a:hover {
 .logo-wrapper {
 	text-align: center;
 }
+
+.clockIn {
+	margin-top: 3em;
+	margin-bottom: 3em;
+	text-align: center;
+}
+
+.clockIn button {
+	background: inherit;
+	padding: 1.5ex;
+}
+.clockIn button:active {
+	background-color: #eee;
+	color: #2E0C54;
+} 
+
+.description p {
+	text-align: center;
+}
+
+
 
 .making {
 	background-color: #130414;

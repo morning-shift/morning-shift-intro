@@ -25,9 +25,13 @@ html(ng-app="MorningShiftIntro")
       content="The Morning Shift Coalition. Wake up early with us, and change the status quo. #MorningShift")
     meta(name="twitter:image" content="https://morningshift.org/img/black-circle.png")
 
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular-cookies.min.js")
+
 
     script(src="/js/main.js")
+    script(src="/js/controllers/timeClock.js")
+
     script.
          var app = angular.module("MorningShiftIntro");
     //-     app.value('config', !{JSON.stringify(config)})
@@ -42,29 +46,17 @@ html(ng-app="MorningShiftIntro")
         .col-md-offset-2.col-md-8.debug
           h1 Morning Shift Coalition
 
-          p On Monday, December 19, in the 51 capital cities of our nation, 
-           | the Electoral College will convene.
+          .clockIn(ng-controller="TimeClockCtrl as clock")
+            button(ng-click="clock.toggleClockIn()") 
+              span(ng-if="clock.isClockedIn") Clock Out
+              span(ng-if="!clock.isClockedIn") Clock In
 
-          p These 538 people, chosen by our political parties to honorably 
-           | represent our country, are granted power by the Constitution 
-           | to elect our next president. In the great state of Washington, 
-           | there are 12 such electors. 
+            //- Soon:
+            //- div(ng-if="clock.isClockedIn")
+            //-   p {{clock.clockedInDate}}
+ 
+          .description
+            p Wake up early, and work with us to change the status quo. 
 
-          p We don't have to tell you things are bad. We all know that the 
-           | nation is tired of 2016, tired of the election. Yet there 
-           | is still work to do.  
-
-          p The Hamilton Electors know this. They are fighting for us, 
-           | choosing to stand up and say "enough" to the madness of 
-           | our time. And we must stand with them.
-
-          p We will be gathering on the steps of the Washington State  
-           | capitol on Monday, December 19. Join us 11 a.m. to 
-           | show solidarity with those who defend our country.
-
-          p Bring yourself, bring a sign, and bring some cards to 
-           | exchange information with fellow supporters. If we fail, 
-           | it will be a long road ahead.
-
-          p #MorningShift
+            p #MorningShift
 
