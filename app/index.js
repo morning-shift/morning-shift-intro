@@ -23,8 +23,7 @@ var httpsServer = https(app);
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
 
-// Comment for deploy test
-// app.use(forceHttps(httpsServer));
+app.use(forceHttps(httpsServer));
 app.use(favicon(path.join(__dirname, 'public', 'img', 'black-circle.png')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
