@@ -124,18 +124,22 @@ a:hover {
 	transition-property: background, color;
 	transition-duration: 0.25s;
 }
-.btn-start:hover {
+/*.btn-start:hover,
+.btn-start:focus {
 	color: #444;
 	background-color: #fdcd2b;
 }
+*/
 .btn-start.isClockedIn {
 	color: #444;
 	background-color: #fdcd2b;
 }
-.btn-start.isClockedIn:hover {
+/*.btn-start.isClockedIn:hover,
+.btn-start.isClockedIn:focus {
 	color: #444;
 	background-color: #fdcd2b;
 }
+*/
 .btn-start:active {
 	position:relative;
 	top:1px;
