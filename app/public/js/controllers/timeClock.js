@@ -5,10 +5,23 @@ angular.module('MorningShiftIntro')
 
 	var vm = this;
 
-	var isClockedIn = $cookies.get("isClockedIn");
+	var isClockedIn = function () {
+		var val = $cookies.get("isClockedIn");
+
+		if (val === "false") {
+			return false;
+		}
+
+		if (val === "true") {
+			return true;
+		}
+
+		return val;
+	}(); // closure
+
 	var clockedInDate = $cookies.get("clockedInDate");
 
-	vm.isClockedIn = isClockedIn ? true : false;
+	vm.isClockedIn = isClockedIn;
 	vm.clockedInDate = clockedInDate;
 
 	vm.toggleClockIn = function () {
@@ -18,7 +31,6 @@ angular.module('MorningShiftIntro')
 		if (vm.isClockedIn) {
 			vm.clockedInDate = Date.now();
 			$cookies.put("clockedInDate", vm.clockedInDate);
-
 		}
 
 		// TODO: Send vm.isClockedIn to server ...

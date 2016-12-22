@@ -47,9 +47,11 @@ html(ng-app="MorningShiftIntro")
           h1 Morning Shift Coalition
 
           .clockIn(ng-controller="TimeClockCtrl as clock")
-            button(ng-click="clock.toggleClockIn()") 
-              span(ng-if="clock.isClockedIn") Clock Out
-              span(ng-if="!clock.isClockedIn") Clock In
+            button.btn-start(
+              ng-click="clock.toggleClockIn()" 
+              ng-class="{ 'isClockedIn': clock.isClockedIn }") 
+              span(ng-if="clock.isClockedIn") Stop Shift
+              span(ng-if="!clock.isClockedIn") Start Shift
 
             //- Soon:
             //- div(ng-if="clock.isClockedIn")

@@ -94,7 +94,7 @@ a:hover {
 	text-align: center;
 }
 
-.clockIn button {
+/*.clockIn button {
 	background: inherit;
 	padding: 1.5ex;
 }
@@ -102,9 +102,46 @@ a:hover {
 	background-color: #eee;
 	color: #2E0C54;
 } 
-
+*/
 .description p {
 	text-align: center;
+}
+
+.btn-start {
+	background-color:transparent;
+	-moz-border-radius:42px;
+	-webkit-border-radius:42px;
+	border-radius:42px;
+	border:3px solid #54077a;
+	border-color: #606;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:20px;
+	padding:16px 29px;
+	text-decoration:none;
+
+	transition-property: background, color;
+	transition-duration: 0.25s;
+}
+.btn-start:hover {
+	color: #444;
+	background-color: #fdcd2b;
+}
+.btn-start.isClockedIn {
+	color: #444;
+	background-color: #fdcd2b;
+}
+.btn-start.isClockedIn:hover {
+	color: #444;
+	background-color: #fdcd2b;
+}
+.btn-start:active {
+	position:relative;
+	top:1px;
+}
+.btn-start:focus {
+	outline: 0;
 }
 
 
@@ -243,6 +280,9 @@ blockquote {
 .join-row {
 	margin-top: 1.1em;
 }
+
+
+
 
 /* Smaller font sizes on mobile devices */
 @media (max-width: 667px) {
