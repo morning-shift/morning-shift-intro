@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('MorningShiftIntro')
-.controller("TimeClockCtrl", ["$http", "$cookies", function TimeClockCtrl($http, $cookies) {
+.controller("TimeClockCtrl", ["$http", "$cookies", "$interval", 
+	function TimeClockCtrl($http, $cookies, $interval) {
 
 	var vm = this;
 
@@ -19,10 +20,13 @@ angular.module('MorningShiftIntro')
 		return val;
 	}(); // closure
 
-	var clockedInDate = $cookies.get("clockedInDate");
-
 	vm.isClockedIn = isClockedIn;
-	vm.clockedInDate = clockedInDate;
+
+	if (isClockedIn) {
+		var dateString = $cookies.get("clockedInDate");
+		vm.clockedInDate = new Date(parseInt(dateString));
+		updateTimer();
+	}
 
 	vm.toggleClockIn = function () {
 		vm.isClockedIn = !vm.isClockedIn;
@@ -32,7 +36,34 @@ angular.module('MorningShiftIntro')
 			vm.clockedInDate = Date.now();
 			$cookies.put("clockedInDate", vm.clockedInDate);
 		}
-
 		// TODO: Send vm.isClockedIn to server ...
 	};
+
+	function updateTimer() {
+		if (vm.isClockedIn) {
+			var now  = Date.now();
+			var diff = now - vm.clockedInDate;
+
+			var totalSeconds = Math.floor(diff / 1000);
+
+			var hours   = Math.floor(totalSeconds / (60 * 60));
+			var minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+			var seconds = Math.floor((totalSeconds % (60 * 60)) % 60);
+
+			if (hours < 10) {
+				hours = "0" + hours;
+			}
+			if (minutes < 10) {
+				minutes = "0" + minutes;
+			}
+			if (seconds < 10) {
+				seconds = "0" + seconds;
+			}
+
+			vm.shiftDuration = hours + ":" + minutes + ":" + seconds;
+		}
+	}
+
+	$interval(updateTimer, 1000);
+
 }]);
