@@ -6,7 +6,7 @@ angular.module('MorningShiftIntro')
 
 	var vm = this;
 
-	var isClockedIn = function () {
+	var getIsClockedIn = function () {
 		var val = $cookies.get("isClockedIn");
 
 		if (val === "false") {
@@ -18,15 +18,14 @@ angular.module('MorningShiftIntro')
 		}
 
 		return val;
-	}(); // closure
+	}; 
 
-	vm.isClockedIn = isClockedIn;
-
-	if (isClockedIn) {
+	var getClockedInDate = function () {
 		var dateString = $cookies.get("clockedInDate");
-		vm.clockedInDate = new Date(parseInt(dateString));
-		updateTimer();
-	}
+		return new Date(parseInt(dateString));
+	};
+
+	updateViewModel();
 
 	vm.toggleClockIn = function () {
 		vm.isClockedIn = !vm.isClockedIn;
@@ -39,8 +38,12 @@ angular.module('MorningShiftIntro')
 		// TODO: Send vm.isClockedIn to server ...
 	};
 
-	function updateTimer() {
+	function updateViewModel() {
+		vm.isClockedIn = getIsClockedIn();
+
 		if (vm.isClockedIn) {
+			vm.clockedInDate = getClockedInDate();
+
 			var now  = Date.now();
 			var diff = now - vm.clockedInDate;
 
@@ -64,6 +67,6 @@ angular.module('MorningShiftIntro')
 		}
 	}
 
-	$interval(updateTimer, 1000);
+	$interval(updateViewModel, 1000);
 
 }]);
