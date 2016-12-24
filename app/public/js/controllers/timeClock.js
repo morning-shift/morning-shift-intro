@@ -51,6 +51,16 @@ angular.module('MorningShiftIntro')
 		$cookies.put("shiftId", shiftData.shiftId);
 	}
 
+	function stopShift() {
+		var shiftData = {
+			shiftId: $cookies.get("shiftId")
+		};
+
+		$http.put('/api/shift/stop', shiftData)
+		.then(shiftStopped)
+		.catch(shiftStopped); // Errors are fine
+	}
+
 	function shiftStopped (res) {
 		var data = res.data;
 		console.log(data);
@@ -64,13 +74,7 @@ angular.module('MorningShiftIntro')
 			startShift();
 		}
 		else {
-			var shiftData = {
-				shiftId: $cookies.get("shiftId")
-			};
-
-			$http.put('/api/shift/stop', shiftData)
-			.then(shiftStopped)
-			.catch(shiftStopped);
+			stopShift();
 		}
 	};
 
@@ -108,5 +112,4 @@ angular.module('MorningShiftIntro')
 	}
 
 	$interval(updateViewModel, 1000);
-
 }]);
