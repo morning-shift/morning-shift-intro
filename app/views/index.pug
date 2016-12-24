@@ -53,6 +53,8 @@ html(ng-app="MorningShiftIntro")
               span(ng-if="clock.isClockedIn") Stop Shift
               span(ng-if="!clock.isClockedIn") Start Shift
 
+            div.message(ng-if="clock.isClockedIn") Thank you. :-) 
+
             //- Soon:
             div.shift-duration(ng-if="clock.isClockedIn || clock.clockedInDate") {{clock.shiftDuration}}
  
