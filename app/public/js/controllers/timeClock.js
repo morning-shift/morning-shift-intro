@@ -32,6 +32,7 @@ angular.module('MorningShiftIntro')
 		$cookies.put("isClockedIn", vm.isClockedIn);
 
 		if (vm.isClockedIn) {
+			resetShiftDuration();
 			vm.clockedInDate = Date.now();
 			$cookies.put("clockedInDate", vm.clockedInDate);
 		}
@@ -65,6 +66,10 @@ angular.module('MorningShiftIntro')
 
 			vm.shiftDuration = hours + ":" + minutes + ":" + seconds;
 		}
+	}
+
+	function resetShiftDuration() {
+		vm.shiftDuration = "00:00:00";
 	}
 
 	$interval(updateViewModel, 1000);
