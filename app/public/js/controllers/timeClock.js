@@ -25,18 +25,53 @@ angular.module('MorningShiftIntro')
 		return new Date(parseInt(dateString));
 	};
 
+	var logError = function (err) {
+		console.log(err);
+	};
+
 	updateViewModel();
 
-	vm.toggleClockIn = function () {
-		vm.isClockedIn = !vm.isClockedIn;
-		$cookies.put("isClockedIn", vm.isClockedIn);
 
-		if (vm.isClockedIn) {
-			resetShiftDuration();
-			vm.clockedInDate = Date.now();
-			$cookies.put("clockedInDate", vm.clockedInDate);
+	function startShift() {
+		resetShiftDuration();
+
+		$http.post('/api/shift/start')
+		.then(shiftStarted)
+		.catch(logError);
+	}
+
+	function shiftStarted (res) {
+		var shiftData = res.data;
+
+		vm.clockedInDate = shiftData.startDate;
+		$cookies.put("clockedInDate", vm.clockedInDate);
+
+		vm.isClockedIn = true;
+		$cookies.put("isClockedIn", vm.isClockedIn);
+		$cookies.put("shiftId", shiftData.shiftId);
+	}
+
+	function shiftStopped (res) {
+		var data = res.data;
+		console.log(data);
+
+		vm.isClockedIn = false;
+		$cookies.put("isClockedIn", vm.isClockedIn);
+	}
+
+	vm.toggleClockIn = function () {
+		if (!vm.isClockedIn) {
+			startShift();
 		}
-		// TODO: Send vm.isClockedIn to server ...
+		else {
+			var shiftData = {
+				shiftId: $cookies.get("shiftId")
+			};
+
+			$http.put('/api/shift/stop', shiftData)
+			.then(shiftStopped)
+			.catch(shiftStopped);
+		}
 	};
 
 	function updateViewModel() {

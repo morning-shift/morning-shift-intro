@@ -37,6 +37,54 @@ app.get('/', function (req, res) {
     });
 });
 
+app.post('/api/shift/start', function (req, res) {
+    var shift = {
+        startDate: Date.now(),
+        type: 'shift'
+    };
+
+    db.insert(shift, function (err, body) {
+        if (err) {
+            res.status(500);
+            console.log(err);
+            return;
+        }
+
+        // TODO: Don't use the doc._id
+        var data = {
+            shiftId: body.id,
+            startDate: shift.startDate
+        };
+
+        res.status(200);
+        res.send(data);
+    });
+});
+
+app.put('/api/shift/stop', function (req, res) {
+    var data = req.body;
+
+    db.get(data.shiftId, function (err, body) {
+        if (err || body.type !== 'shift') {
+            res.sendStatus(404);
+            return;
+        }
+
+        var shiftData = body;
+        shiftData.stopDate = Date.now();
+
+        db.insert(shiftData, function (err, body) {
+            if (err) {
+                res.sendStatus(500);
+                return;
+            }
+
+            res.status(200);
+            res.send('Thank you');
+        })
+    });
+});
+
 app.post('/data/subscribe', function (req, res) {
     var customerData = req.body;
 
