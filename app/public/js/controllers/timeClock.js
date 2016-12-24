@@ -43,7 +43,7 @@ angular.module('MorningShiftIntro')
 	function shiftStarted (res) {
 		var shiftData = res.data;
 
-		vm.clockedInDate = shiftData.startDate;
+		vm.clockedInDate = Date.now();
 		$cookies.put("clockedInDate", vm.clockedInDate);
 
 		vm.isClockedIn = true;
