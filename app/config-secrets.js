@@ -2,6 +2,7 @@ var fs = require('fs');
 module.exports = function () {
 
     var stripeKeyPath = '/home/ubuntu/stripe/private.key';
+    var clefKeyPath   = '/home/ubuntu/config/clef/app.key';
 
     try {
         var fileReadOptions = {
@@ -9,13 +10,15 @@ module.exports = function () {
         };
 
         var values = {
-            stripePrivateKey: fs.readFileSync(stripeKeyPath, fileReadOptions).trim()
+            stripePrivateKey: "", // fs.readFileSync(stripeKeyPath, fileReadOptions).trim(),
+            clefPrivateKey: fs.readFileSync(clefKeyPath, fileReadOptions).trim()
         };  
     }
     catch (err) {
         console.log(err);
         return {
-            stripePrivateKey: ""
+            stripePrivateKey: "",
+            clefPrivateKey: ""
         }
     }
 
