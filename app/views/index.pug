@@ -37,6 +37,7 @@ html(ng-app="MorningShiftIntro")
 
     script(src="/js/main.js")
     script(src="/js/controllers/timeClock.js")
+    script(src="/js/controllers/clef.js")
 
     script.
          var app = angular.module("MorningShiftIntro");
@@ -68,11 +69,11 @@ html(ng-app="MorningShiftIntro")
           .description
             p Wake up early, and work with us to change the status quo. 
 
-            .col-md-6 
+            .col-md-6(ng-controller="ClefCtrl as clef") 
               if isSignedIn
                 p Welcome!
               else
-                p
+                p(ng-if="clef.isSupported")
                   script.clef-button(type="text/javascript" 
                   src="https://clef.io/v3/clef.js" 
                   data-color="white" 
