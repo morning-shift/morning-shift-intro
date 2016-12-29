@@ -40,7 +40,7 @@ html(ng-app="MorningShiftIntro")
 
     script.
          var app = angular.module("MorningShiftIntro");
-    //-     app.value('config', !{JSON.stringify(config)})
+         //-app.value('config', !{JSON.stringify(config)})
 
     //- script(src="https://checkout.stripe.com/checkout.js")
 
@@ -64,6 +64,17 @@ html(ng-app="MorningShiftIntro")
             //- Soon:
             div.shift-duration(ng-if="clock.isClockedIn || clock.clockedInDate") {{clock.shiftDuration}}
  
+          .signIn
+            script.clef-button(type="text/javascript" 
+              src="https://clef.io/v3/clef.js" 
+              data-color="blue" 
+              data-style="flat"
+              data-type="login")&attributes({
+                'data-redirect-url': host + '/clef/redirect',
+                'data-app-id': clef.publicKey,
+                'data-state': clef.state
+              })
+
           .description
             p Wake up early, and work with us to change the status quo. 
 

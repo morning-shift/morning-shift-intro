@@ -2,11 +2,14 @@ var path    = require('path');
 var https   = require('./https-server.js');
 var config  = require('./config.js');
 var secrets = require('./config-secrets.js');
+var uid     = require('uid-safe');
+var clef    = require('clef');
 
 var stripe   = require('stripe')(secrets.stripePrivateKey);
 
 var db;
-var database = require('./database.js')('morning-shift-intro');
+var designDocs = require('./design-docs.js');
+var database = require('./database.js')('morning-shift-intro', designDocs);
 
 database.whenReady(function () {
     db = database.db;
@@ -15,10 +18,16 @@ database.whenReady(function () {
 var forceHttps = require('./force-https.js');
 var bodyParser = require('body-parser');
 var express = require('express');
+var session = require('express-session');
 var favicon = require('serve-favicon');
 var app = express();
 
 var httpsServer = https(app);
+
+clef = clef.initialize({
+    appID: config.clefPublicKey,
+    appSecret: secrets.clefPrivateKey
+});
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
@@ -29,11 +38,132 @@ app.use(favicon(path.join(__dirname, 'public', 'img', 'black-circle.png')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
+var getCookieSettings = function (isSecure) {
+    var oneHour = 3600000;
+    var oneWeek = 7 * 24 * oneHour;
+    var sixWeeks = 6 * oneWeek;
+    var cookieSettings = {
+        path: '/',
+        httpOnly: true,
+        secure: secrets.sessionSecret !== "local value for dev",
+        maxAge: sixWeeks
+    };
+
+    return cookieSettings;
+};
+
+// Sessions ...
+app.use(session({
+  secret: secrets.sessionSecret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: getCookieSettings()
+})); 
+
+// Session state key for Clef
+app.use(function (req, res, next) {
+    var session = req.session;
+
+    if (session.clefState) {
+        return next();
+    }
+
+    session.clefState = uid.sync(32); ;
+    next();
+});
+
+var getHost = function (req) {
+    var host = req.get('host');
+    if (httpsServer.isRunning) {
+        return 'https://' + host;
+    }
+    else {
+        return 'http://' + host;
+    }
+};
+
+// Routes
 app.get('/', function (req, res) {
     res.render('index', {
+        host: getHost(req),
+        clef: {
+            publicKey: config.clefPublicKey,
+            state: req.session.clefState
+        },
         config: {
             // stripePublicKey: config.stripePublicKey
         }
+    });
+});
+
+app.get('/clef/redirect', function (req, res) {
+    var code = req.query.code;
+    var state = req.query.state;
+
+    if (!code || !state) {
+        console.log("State and Code query params not provided");
+        return res.sendStatus(404);
+    }
+
+    if (req.session.clefState !== state) {
+        console.log("Invalid state");
+        console.log("State: " + req.session.clefState)
+        return res.sendStatus(404);
+    }
+
+    var clefOptions = {
+        code: code
+    };
+
+    clef.getLoginInformation(clefOptions, function (err, member) {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(404);
+        }
+
+        var memberDoc = {
+            _id: member.id.toString(),
+            joinDate: Date.now(),
+            type: 'member'
+        };
+
+        var memberFound = function (body) {
+            console.log(body);
+            res.redirect('/');
+        };
+
+        var nope = function (err) {
+            console.log(err);
+            res.sendStatus(404);
+        };
+
+        db.get(memberDoc._id, function (err, body) {
+            if (err && err.statusCode === 404) {
+                // New member!
+                db.insert(memberDoc, function (err, body) {
+                    if (err && err.statusCode === 409) {
+                        // Maybe not!
+                        db.get(memberDoc._id, function (err, body) {
+                            if (err) {
+                                return nope(err);
+                            }
+                            return memberFound(body);
+                        });
+                    }
+                    else if (err) {
+                        return nope(err);
+                    }
+                    else {
+                        return memberFound(body);
+                    }
+                });
+            }
+            else {
+                return memberFound(body);
+            }
+        });
+
     });
 });
 

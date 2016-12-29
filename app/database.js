@@ -1,6 +1,8 @@
 var nano = require('nano');
 
-module.exports = function (databaseName) {
+var designDocsSaver = require('./design-docs-saver.js');
+
+module.exports = function (databaseName, designDocs) {
     var databaseUrl = 'http://localhost:5984';
 
     // Connect to Couch! 
@@ -48,7 +50,6 @@ module.exports = function (databaseName) {
             }
 
             if (exists) {
-                // Do nothing
                 callback();
                 return;
             }
@@ -100,7 +101,15 @@ module.exports = function (databaseName) {
         else {
             // database ready.
             database.db = nanoMaster.use(databaseName);
-            isDatabaseReady = true;
+            designDocsSaver.create(database.db, designDocs, function (err) {
+                if (err) {
+                    console.log("Failed to update design docs. Shutting down.");
+                    console.log(err);
+                    throw (err);
+                }
+
+                isDatabaseReady = true;
+            });
         }
     });
 

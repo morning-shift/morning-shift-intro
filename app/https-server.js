@@ -27,11 +27,14 @@ module.exports = function (app) {
     catch (err) {
         console.log(err);
         return {
+            isRunning: false,
             listen: function () {
                 // no op.
                 console.log("No https server configured.");
             }
         }
     }
+
+    httpsServer.isRunning = true;
     return httpsServer;
 };

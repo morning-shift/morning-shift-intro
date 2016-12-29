@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/exclsr/philmanijak.com.git"
+    "url": "git+https://github.com/morning-shift/morning-shift-intro.git"
   },
   "author": "Phil Manijak",
   "license": "MIT",
@@ -18,11 +18,16 @@
   },
   "homepage": "https://github.com/morning-shift/morning-shift-intro#readme",
   "dependencies": {
+    "@holmwell/errors": "^1.0.1",
     "body-parser": "^1.15.1",
+    "clef": "^0.2.1",
+    "crypto": "0.0.3",
     "express": "^4.13.4",
+    "express-session": "^1.14.2",
     "nano": "^6.2.0",
     "pug": "^2.0.0-alpha6",
     "serve-favicon": "^2.3.0",
-    "stripe": "^4.6.0"
+    "stripe": "^4.6.0",
+    "uid-safe": "^2.1.3"
   }
 }
