@@ -68,6 +68,14 @@ p {
 	padding-left: 2ex;
 }
 
+.clef-button-wrapper {
+	margin: auto !important;
+}
+.clef-button {
+	text-align: center;
+	margin: auto;
+}
+
 
 a {
 	color: gold;
