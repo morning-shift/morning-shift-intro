@@ -73,6 +73,45 @@ app.use(function (req, res, next) {
     next();
 });
 
+// Destroy sessions where people already
+// signed out via Clef
+app.use(function (req, res, next) {
+    if (!req.session || req.session.clef == undefined) { 
+        return next(); 
+    }
+
+    var destroySession = function () {
+        req.session.destroy();
+        res.redirect('/');
+    };
+
+    db.get(req.session.clef.id, function (err, member) {
+        if (err) {
+            console.log(err);
+            return destroySession();
+        }
+
+        if (member.loggedOutAt > req.session.clef.loggedInAt) {
+            destroySession();
+        }
+        else {
+            next();
+        }
+    });
+});
+
+var isSignedIn = function (req) {
+    if (!req.session) {
+        return false;
+    }
+
+    if (req.session.clef) {
+        return true;
+    }
+
+    return false;
+};
+
 var getHost = function (req) {
     var host = req.get('host');
     if (httpsServer.isRunning) {
@@ -85,7 +124,7 @@ var getHost = function (req) {
 
 // Routes
 app.get('/', function (req, res) {
-    res.render('index', {
+    var vm = {
         host: getHost(req),
         clef: {
             publicKey: config.clefPublicKey,
@@ -94,7 +133,13 @@ app.get('/', function (req, res) {
         config: {
             // stripePublicKey: config.stripePublicKey
         }
-    });
+    };
+
+    if (isSignedIn(req)) {
+        vm.isSignedIn = true;
+    }
+
+    res.render('index', vm);
 });
 
 app.get('/clef/redirect', function (req, res) {
@@ -130,6 +175,10 @@ app.get('/clef/redirect', function (req, res) {
 
         var memberFound = function (body) {
             console.log(body);
+            req.session.clef = {
+                id: memberDoc._id,
+                loggedInAt: Date.now()
+            };
             res.redirect('/');
         };
 
@@ -164,6 +213,36 @@ app.get('/clef/redirect', function (req, res) {
             }
         });
 
+    });
+});
+
+app.post('/clef/logout', function (req, res) {
+    var opts = {
+        logoutToken: req.body.logout_token
+    };
+
+    clef.getLogoutInformation(opts, function (err, clefId) {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(404);
+        }
+
+        db.get(clefId, function (err, member) {
+            if (err) {
+                console.log(err);
+                return res.sendStatus(404);
+            }
+
+            member.loggedOutAt = Date.now();
+            db.insert(member, function (err, body) {
+                if (err) {
+                    console.log(err);
+                    return res.sendStatus(404);
+                }
+
+                res.sendStatus(200);
+            });
+        });
     });
 });
 
