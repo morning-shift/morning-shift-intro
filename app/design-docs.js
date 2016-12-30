@@ -18,4 +18,24 @@ var membersDesignDoc = {
 };
 designDocs.push(membersDesignDoc);
 
+
+var shiftsDesignDoc = {
+    url: '_design/shifts',
+    body: 
+    {
+        version: "1.0.1",
+        language: "javascript",
+        views: {
+            byMemberId: {
+                map: function (doc) {
+                    if (doc.type === "shift" && !doc.stopDate) {
+                        emit(doc.memberId, doc);
+                    }
+                }
+            }
+        }
+    }
+};
+designDocs.push(shiftsDesignDoc);
+
 module.exports = designDocs;

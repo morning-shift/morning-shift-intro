@@ -121,5 +121,9 @@ angular.module('MorningShiftIntro')
 		}
 	};
 
+	if (member.shiftId) {
+		$cookies.put("shiftId", member.shiftId);
+	}
+
 	$interval(updateViewModel, 1000);
 }]);

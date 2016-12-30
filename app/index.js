@@ -106,18 +106,46 @@ app.use(function (req, res, next) {
         return next(); 
     }
 
-    db.get(req.session.clef.id, function (err, member) {
+    var memberId = req.session.clef.id;
+
+    db.get(memberId, function (err, member) {
         if (err) {
             console.log(err);
             return next();
         }
 
-        req.session.member = {
-            id: req.session.clef.id,
-            shiftStartedAt: member.shiftStartedAt
-        };
+        db.view('shifts', 'byMemberId', {keys: [memberId]}, function (err, body) {
+            if (err) {
+                console.log(err);
+                return next();
+            }
 
-        next();
+            var records = body.rows;
+            var mostRecentStartDate = null;
+            var shiftId = null;
+
+            for (var index in records) {
+                var shift = records[index].value;
+                if (!mostRecentStartDate) {
+                    mostRecentStartDate = shift.startDate;
+                    shiftId = shift._id;
+                }
+
+                if (shift.startDate > mostRecentStartDate) {
+                    mostRecentStartDate = shift.startDate;
+                    shiftId = shift._id;
+                }
+            }
+
+            req.session.member = {
+                id: memberId,
+                shiftStartedAt: mostRecentStartDate,
+                shiftId: shiftId
+            };
+
+            next();
+        });
+
     });
 });
 
@@ -167,7 +195,8 @@ app.get('/', function (req, res) {
 
     if (isSignedIn(req)) {
         vm.isSignedIn = true;
-        vm.member.shiftStartedAt = getMember().shiftStartedAt;
+        vm.member.shiftStartedAt = getMember(req).shiftStartedAt;
+
     }
 
     res.render('index', vm);
@@ -211,22 +240,14 @@ app.get('/clef/redirect', function (req, res) {
                 loggedInAt: Date.now()
             };
 
-            db.get(memberDoc._id, function (err, member) {
+            startShift(req, function (err, data) {
                 if (err) {
                     console.log(err);
-                    return res.redirect('/');
+                    return res.sendStatus(500);
                 }
 
-                if (!member.shiftStartedAt) {
-                    member.shiftStartedAt = Date.now();
-                }
-
-                db.insert(member, function (err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    return res.redirect('/');
-                });
+                req.session.shiftId = data.shiftId;
+                res.redirect('/');
             });
         };
 
@@ -296,8 +317,7 @@ app.post('/clef/logout', function (req, res) {
     });
 });
 
-app.post('/api/shift/start', function (req, res) {
-
+function startShift(req, callback) {
     var shift = {
         startDate: Date.now(),
         type: 'shift'
@@ -307,44 +327,29 @@ app.post('/api/shift/start', function (req, res) {
         shift.memberId = req.session.clef.id;
     }
 
-    var finish = function (savedShift, body) {
-        // TODO: Don't use the doc._id
+    db.insert(shift, function (err, body) {
+        if (err) {
+            return callback(err);
+        }
+
         var data = {
             shiftId: body.id,
             startDate: shift.startDate
         };
 
+        return callback(null, data);
+    });
+}
+
+app.post('/api/shift/start', function (req, res) {
+    startShift(req, function (err, data) {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+        }
+
         res.status(200);
         res.send(data);
-    };
-
-    db.insert(shift, function (err, body) {
-        if (err) {
-            res.status(500);
-            console.log(err);
-            return;
-        }
-
-        if (isSignedIn(req)) {
-            // Save start time in member object
-            db.get(shift.memberId, function (err, member) {
-                if (err) {
-                    console.log(err);
-                    return finish(shift, body);
-                }
-
-                member.shiftStartedAt = shift.startDate;
-                db.insert(member, function (err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    return finish(shift, body);
-                })
-            });
-        }
-        else {
-            finish(shift, body);
-        }
     });
 });
 
@@ -365,36 +370,34 @@ app.put('/api/shift/stop', function (req, res) {
                     return callback(err);
                 }
                 callback(null, "Thank you");
-            })
+            });
         });
     };
 
     if (isSignedIn(req)) {
         var memberId = req.session.clef.id;
-        console.log(getMember());
 
-        db.get(memberId, function (err, member) {
+        db.view('shifts', 'byMemberId', {keys: [memberId]}, function (err, body) {
             if (err) {
                 console.log(err);
                 return res.sendStatus(500);
             }
 
-            member.shiftStartedAt = null;
-            
-            db.insert(member, function (err, body) {
+            var records = body.rows;
+            var shifts = [];
+            for (var index in records) {
+                var shift = records[index].value;
+                shift.stopDate = Date.now();
+                shifts.push(shift);
+            }
+
+            db.bulk({ docs: shifts }, function (err, body) {
                 if (err) {
                     console.log(err);
-                    // Ok, I guess
-                    return res.sendStatus(200);
+                    return res.sendStatus(500);
                 }
-                stopShift(function (err, message) {
-                    if (err) {
-                        console.log(err);
-                        return res.sendStatus(500);
-                    }
-                    res.status(200);
-                    res.send(message);
-                });
+
+                res.sendStatus(200);
             });
         });
     }
