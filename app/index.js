@@ -91,16 +91,33 @@ app.use(function (req, res, next) {
             return destroySession();
         }
 
-        req.session.member = {
-            shiftStartedAt: member.shiftStartedAt
-        };
-
         if (member.loggedOutAt > req.session.clef.loggedInAt) {
             destroySession();
         }
         else {
             next();
         }
+    });
+});
+
+// Save member in the session
+app.use(function (req, res, next) {
+    if (!req.session || req.session.clef == undefined) { 
+        return next(); 
+    }
+
+    db.get(req.session.clef.id, function (err, member) {
+        if (err) {
+            console.log(err);
+            return next();
+        }
+
+        req.session.member = {
+            id: req.session.clef.id,
+            shiftStartedAt: member.shiftStartedAt
+        };
+
+        next();
     });
 });
 
@@ -126,6 +143,14 @@ var getHost = function (req) {
     }
 };
 
+var getMember = function (req) {
+    var member = {};
+    if (req.session && req.session.member) {
+        member = req.session.member;
+    }
+    return member;
+};
+
 // Routes
 app.get('/', function (req, res) {
     var vm = {
@@ -140,12 +165,9 @@ app.get('/', function (req, res) {
         }
     };
 
-    if (req.session && req.session.member) {
-        vm.member.shiftStartedAt = req.session.member.shiftStartedAt;
-    }
-
     if (isSignedIn(req)) {
         vm.isSignedIn = true;
+        vm.member.shiftStartedAt = getMember().shiftStartedAt;
     }
 
     res.render('index', vm);
@@ -349,7 +371,7 @@ app.put('/api/shift/stop', function (req, res) {
 
     if (isSignedIn(req)) {
         var memberId = req.session.clef.id;
-        console.log(req.session.member);
+        console.log(getMember());
 
         db.get(memberId, function (err, member) {
             if (err) {
