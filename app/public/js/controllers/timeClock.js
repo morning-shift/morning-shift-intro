@@ -1,12 +1,18 @@
 'use strict';
 
 angular.module('MorningShiftIntro')
-.controller("TimeClockCtrl", ["$http", "$cookies", "$interval", 
-	function TimeClockCtrl($http, $cookies, $interval) {
+.controller("TimeClockCtrl", ["member", "$http", "$cookies", "$interval", 
+	function TimeClockCtrl(member, $http, $cookies, $interval) {
 
 	var vm = this;
 
-	var getIsClockedIn = function () {
+	console.log(member);
+
+	function getIsClockedIn() {
+		if (member.shiftStartedAt) {
+			resumeShift(member.shiftStartedAt);
+		}
+
 		var val = $cookies.get("isClockedIn");
 
 		if (val === "false") {
@@ -18,7 +24,7 @@ angular.module('MorningShiftIntro')
 		}
 
 		return val;
-	}; 
+	}
 
 	var getClockedInDate = function () {
 		var dateString = $cookies.get("clockedInDate");
@@ -29,8 +35,6 @@ angular.module('MorningShiftIntro')
 		console.log(err);
 	};
 
-	updateViewModel();
-
 
 	function startShift() {
 		resetShiftDuration();
@@ -40,14 +44,18 @@ angular.module('MorningShiftIntro')
 		.catch(logError);
 	}
 
-	function shiftStarted (res) {
-		var shiftData = res.data;
-
-		vm.clockedInDate = Date.now();
+	function resumeShift(date) {
+		vm.clockedInDate = date;
 		$cookies.put("clockedInDate", vm.clockedInDate);
 
 		vm.isClockedIn = true;
 		$cookies.put("isClockedIn", vm.isClockedIn);
+	}
+
+	function shiftStarted (res) {
+		var shiftData = res.data;
+
+		resumeShift(Date.now())
 		$cookies.put("shiftId", shiftData.shiftId);
 	}
 
@@ -66,17 +74,9 @@ angular.module('MorningShiftIntro')
 		console.log(data);
 
 		vm.isClockedIn = false;
+		member.shiftStartedAt = null;
 		$cookies.put("isClockedIn", vm.isClockedIn);
 	}
-
-	vm.toggleClockIn = function () {
-		if (!vm.isClockedIn) {
-			startShift();
-		}
-		else {
-			stopShift();
-		}
-	};
 
 	function updateViewModel() {
 		vm.isClockedIn = getIsClockedIn();
@@ -110,6 +110,16 @@ angular.module('MorningShiftIntro')
 	function resetShiftDuration() {
 		vm.shiftDuration = "00:00:00";
 	}
+
+	updateViewModel();
+	vm.toggleClockIn = function () {
+		if (!vm.isClockedIn) {
+			startShift();
+		}
+		else {
+			stopShift();
+		}
+	};
 
 	$interval(updateViewModel, 1000);
 }]);
