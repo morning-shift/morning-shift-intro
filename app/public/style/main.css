@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/css?subset=latin,cyrillic-ext,latin-ext,cyrillic&family=Open+Sans+Condensed:300|Merriweather:400,300,300italic,400italic,700,700italic|Roboto+Slab:400,300|Lora:700|Roboto:400);
+@import url(//fonts.googleapis.com/css?subset=latin,cyrillic-ext,latin-ext,cyrillic&family=Open+Sans+Condensed:300|Merriweather:400,300,300italic,400italic,700,700italic|Roboto+Slab:400,300|Roboto:400);
 @import url(//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css);
 
 body, .footer {
@@ -34,13 +34,23 @@ img {
 	margin-bottom: 8em;
 }
 
-h1 {
-	font-family: Lora, serif;
-	font-size: 36pt;
-	font-weight: normal;
+h1.morning-shift, 
+h1.coalition {
+	font-family: 'Ostrich Sans Inline', sans-serif;
+	font-size: 72pt;
 
+	letter-spacing: normal;
+	line-height: 0.75em;
 	text-align: center;
-	margin-top: 0.7em;
+	margin-top: 0.4em;
+
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+h1.coalition {
+	margin-top: 0;
+	padding-top: 0;
+	letter-spacing: 0.26ex;
 }
 
 p, div {
@@ -306,8 +316,9 @@ blockquote {
 
 /* Smaller font sizes on mobile devices */
 @media (max-width: 667px) {
-	h1 {
-		font-size: 28pt;
+	h1.morning-shift,
+	h1.coalition {
+		font-size: 36pt;
 	}
 	h2 {
 		font-size: 22pt;
