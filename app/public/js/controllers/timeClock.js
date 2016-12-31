@@ -7,6 +7,14 @@ angular.module('MorningShiftIntro')
 	var vm = this;
 	vm.serverTimeOffset = 0;
 
+	function setupServerTimeOffset() {
+		$http.get('/api/now').then(function (res) {
+			var serverTime = new Date(parseInt(res.data));
+			vm.serverTimeOffset = Date.now() - serverTime;
+		});
+	}
+	setupServerTimeOffset();
+
 	function getIsClockedIn(callback) {
 		$http.get('/api/shift').then(function (res) {
 
@@ -137,14 +145,6 @@ angular.module('MorningShiftIntro')
 			stopShift();
 		}
 	};
-
-	function setupServerTimeOffset() {
-		$http.get('/api/now').then(function (res) {
-			var serverTime = new Date(parseInt(res.data));
-			vm.serverTimeOffset = Date.now() - serverTime;
-		});
-	}
-	setupServerTimeOffset();
 
 	if (member.shiftId) {
 		$cookies.put("shiftId", member.shiftId);
