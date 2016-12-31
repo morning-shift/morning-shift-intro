@@ -127,6 +127,8 @@ angular.module('MorningShiftIntro')
 					seconds = "0" + seconds;
 				}
 
+				// Don't show the shift duration until we 
+				// have a server time offset
 				vm.shiftDuration = hours + ":" + minutes + ":" + seconds;
 			}
 		});

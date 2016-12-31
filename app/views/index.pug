@@ -65,7 +65,8 @@ html(ng-app="MorningShiftIntro")
             div.message(ng-if="clock.isClockedIn") Thank you. :-) 
 
             //- Soon:
-            div.shift-duration(ng-if="clock.isClockedIn || clock.clockedInDate") {{clock.shiftDuration}}
+            div.shift-duration(
+              ng-if="clock.serverTimeOffset !== 0 && (clock.isClockedIn || clock.clockedInDate)") {{clock.shiftDuration}}
  
 
           .description
