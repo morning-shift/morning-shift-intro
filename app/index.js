@@ -100,6 +100,44 @@ app.use(function (req, res, next) {
     });
 });
 
+function getLatestShift(memberId, callback) {
+    console.log('getLatestShift: ' + memberId);
+
+    db.get(memberId, function (err, member) {
+        console.log('get...');
+        if (err) {
+            return callback(err);
+        }
+
+        db.view('shifts', 'byMemberId', {keys: [memberId]}, function (err, body) {
+            console.log('view ...');
+            if (err) {
+                return callback(err);
+            }
+
+            var records = body.rows;
+            var mostRecentStartDate = null;
+            var latestShift = null;
+
+            for (var index in records) {
+                var shift = records[index].value;
+                if (!mostRecentStartDate) {
+                    mostRecentStartDate = shift.startDate;
+                    latestShift = shift;
+                }
+
+                if (shift.startDate > mostRecentStartDate) {
+                    mostRecentStartDate = shift.startDate;
+                    latestShift = shift;
+                }
+            }
+
+            callback(null, latestShift);
+        });
+
+    });
+}
+
 // Save member in the session
 app.use(function (req, res, next) {
     if (!req.session || req.session.clef == undefined) { 
@@ -108,44 +146,22 @@ app.use(function (req, res, next) {
 
     var memberId = req.session.clef.id;
 
-    db.get(memberId, function (err, member) {
+    getLatestShift(memberId, function (err, shift) {
         if (err) {
             console.log(err);
-            return next();
+            next();
         }
 
-        db.view('shifts', 'byMemberId', {keys: [memberId]}, function (err, body) {
-            if (err) {
-                console.log(err);
-                return next();
-            }
+        req.session.member = {
+            id: memberId
+        };
 
-            var records = body.rows;
-            var mostRecentStartDate = null;
-            var shiftId = null;
+        if (shift) {
+            req.session.member.shiftStartedAt = shift.startDate;
+            req.session.member.shiftId = shift._id;
+        }
 
-            for (var index in records) {
-                var shift = records[index].value;
-                if (!mostRecentStartDate) {
-                    mostRecentStartDate = shift.startDate;
-                    shiftId = shift._id;
-                }
-
-                if (shift.startDate > mostRecentStartDate) {
-                    mostRecentStartDate = shift.startDate;
-                    shiftId = shift._id;
-                }
-            }
-
-            req.session.member = {
-                id: memberId,
-                shiftStartedAt: mostRecentStartDate,
-                shiftId: shiftId
-            };
-
-            next();
-        });
-
+        next();
     });
 });
 
@@ -196,7 +212,6 @@ app.get('/', function (req, res) {
     if (isSignedIn(req)) {
         vm.isSignedIn = true;
         vm.member.shiftStartedAt = getMember(req).shiftStartedAt;
-
     }
 
     res.render('index', vm);
@@ -323,22 +338,42 @@ function startShift(req, callback) {
         type: 'shift'
     };
 
+    var insertShift = function (shift) {
+        console.log('insertShift');
+        db.insert(shift, function (err, body) {
+            callback(err, {
+                shiftId: body && body.id,
+                startDate: shift.startDate
+            });
+        });
+    };
+
     if (isSignedIn(req)) {
+        var memberId = req.session.clef.id;
         shift.memberId = req.session.clef.id;
+
+        getLatestShift(memberId, function (err, latestShift) {
+
+            if (err) {
+                return callback(err);
+            }
+
+            if (latestShift) {
+                callback(err, {
+                    shiftId: latestShift && latestShift._id,
+                    startDate: latestShift.startDate
+                });
+            }
+            else {
+                // Shift not found
+                insertShift(shift);
+            }
+        });
+
+    } 
+    else {
+        insertShift(shift);
     }
-
-    db.insert(shift, function (err, body) {
-        if (err) {
-            return callback(err);
-        }
-
-        var data = {
-            shiftId: body.id,
-            startDate: shift.startDate
-        };
-
-        return callback(null, data);
-    });
 }
 
 app.post('/api/shift/start', function (req, res) {
