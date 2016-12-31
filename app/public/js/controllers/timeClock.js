@@ -14,17 +14,13 @@ angular.module('MorningShiftIntro')
 
 			if (shift) {
 				// Signed in ...
-				console.log('signed in...');
-				console.log(shift);
 				if (shift.startDate) {
 					// Shift started ...
-					console.log('shift started...');
 					resumeShift(shift.startDate);
 					return callback(true);
 				}
 				else {
 					// Shift stopped.
-					console.log('shift stopped');
 					return callback(false)
 				}
 			}
@@ -92,7 +88,6 @@ angular.module('MorningShiftIntro')
 
 	function shiftStopped (res) {
 		var data = res.data;
-		console.log(data);
 
 		vm.isClockedIn = false;
 		member.shiftStartedAt = null;
