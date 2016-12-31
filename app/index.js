@@ -403,6 +403,11 @@ function startShift(req, callback) {
     }
 }
 
+app.get('/api/now', function (req, res) {
+    // You know, for syncing clocks
+    res.send(Date.now().toString());
+});
+
 app.get('/api/shift', function (req, res) {
     if (isSignedIn(req)) {
         res.send({

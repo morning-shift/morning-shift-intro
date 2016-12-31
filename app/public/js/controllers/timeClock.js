@@ -139,6 +139,16 @@ angular.module('MorningShiftIntro')
 		}
 	};
 
+	vm.serverTimeOffset = 0;
+	function setupServerTimeOffset() {
+		$http.get('/api/now').then(function (res) {
+			var serverTime = new Date(parseInt(res.data));
+			vm.serverTimeOffset = Date.now() - serverTime;
+			console.log(vm.serverTimeOffset);
+		});
+	}
+	setupServerTimeOffset();
+
 	if (member.shiftId) {
 		$cookies.put("shiftId", member.shiftId);
 	}
