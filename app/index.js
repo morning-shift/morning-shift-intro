@@ -261,7 +261,6 @@ app.get('/clef/redirect', function (req, res) {
                     return res.sendStatus(500);
                 }
 
-                req.session.shiftId = data.shiftId;
                 res.redirect('/');
             });
         };
@@ -338,41 +337,69 @@ function startShift(req, callback) {
         type: 'shift'
     };
 
-    var insertShift = function (shift) {
-        console.log('insertShift');
-        db.insert(shift, function (err, body) {
-            callback(err, {
-                shiftId: body && body.id,
-                startDate: shift.startDate
-            });
-        });
-    };
-
-    if (isSignedIn(req)) {
-        var memberId = req.session.clef.id;
-        shift.memberId = req.session.clef.id;
-
-        getLatestShift(memberId, function (err, latestShift) {
-
+    if (req.session.shift) {
+        db.get(req.session.shift.shiftId, function (err, savedShift) {
             if (err) {
                 return callback(err);
             }
-
-            if (latestShift) {
-                callback(err, {
-                    shiftId: latestShift && latestShift._id,
-                    startDate: latestShift.startDate
-                });
-            }
-            else {
-                // Shift not found
-                insertShift(shift);
-            }
+            ok(savedShift);
         });
-
-    } 
+    }
     else {
-        insertShift(shift);
+        ok(shift);
+    }
+
+    function ok (shift) {
+        var finish = function (err, shift) {
+            req.session.shift = shift;
+            callback(err, shift);
+        };
+
+        var insertShift = function (shift) {
+            console.log('insertShift');
+            db.insert(shift, function (err, body) {
+                finish(err, {
+                    shiftId: body && body.id,
+                    startDate: shift.startDate
+                });
+            });
+        };
+
+        if (isSignedIn(req)) {
+            var memberId = req.session.clef.id;
+            shift.memberId = req.session.clef.id;
+
+            getLatestShift(memberId, function (err, latestShift) {
+                if (err) {
+                    return callback(err);
+                }
+
+                if (latestShift) {
+                    if (shift.startDate < latestShift.startDate) {
+                        // The session shift was already here. Use that.
+                        finish(err, {
+                            shiftId: shift._id,
+                            startDate: shift.startDate
+                        });
+                    }
+                    else {
+                        // The db shift is older than the session shift.
+                        finish(err, {
+                            shiftId: latestShift._id,
+                            startDate: latestShift.startDate
+                        });
+                    }
+                }
+                else {
+                    // Shift not found
+                    insertShift(shift);
+                }
+            });
+
+        } 
+        else {
+            insertShift(shift);
+        }
     }
 }
 
@@ -402,6 +429,12 @@ app.post('/api/shift/start', function (req, res) {
 
 app.put('/api/shift/stop', function (req, res) {
     var data = req.body;
+
+    var finish = function (message) {
+        req.session.shift = null;
+        res.status(200);
+        res.send(message || "OK");
+    };
 
     var stopShift = function (callback) {
         db.get(data.shiftId, function (err, body) {
@@ -444,7 +477,7 @@ app.put('/api/shift/stop', function (req, res) {
                     return res.sendStatus(500);
                 }
 
-                res.sendStatus(200);
+                finish();
             });
         });
     }
@@ -454,8 +487,7 @@ app.put('/api/shift/stop', function (req, res) {
                 console.log(err);
                 return res.sendStatus(500);
             }
-            res.status(200);
-            res.send(message);
+            finish(message);
         })
     }
 });
