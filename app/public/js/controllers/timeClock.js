@@ -5,6 +5,7 @@ angular.module('MorningShiftIntro')
 	function TimeClockCtrl(member, $http, $cookies, $interval) {
 
 	var vm = this;
+	vm.serverTimeOffset = 0;
 
 	function getIsClockedIn(callback) {
 		$http.get('/api/shift').then(function (res) {
@@ -102,7 +103,7 @@ angular.module('MorningShiftIntro')
 				vm.clockedInDate = getClockedInDate();
 
 				var now  = Date.now();
-				var diff = now - vm.clockedInDate;
+				var diff = now - vm.clockedInDate - vm.serverTimeOffset;
 
 				var totalSeconds = Math.floor(diff / 1000);
 
@@ -139,7 +140,6 @@ angular.module('MorningShiftIntro')
 		}
 	};
 
-	vm.serverTimeOffset = 0;
 	function setupServerTimeOffset() {
 		$http.get('/api/now').then(function (res) {
 			var serverTime = new Date(parseInt(res.data));
