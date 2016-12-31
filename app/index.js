@@ -217,19 +217,27 @@ app.get('/', function (req, res) {
     res.render('index', vm);
 });
 
+app.get('/sad-clef', function (req, res) {
+    res.render('sad-clef');
+});
+
 app.get('/clef/redirect', function (req, res) {
     var code = req.query.code;
     var state = req.query.state;
 
+    var sad = function () {
+        res.redirect('/sad-clef');
+    };
+
     if (!code || !state) {
         console.log("State and Code query params not provided");
-        return res.sendStatus(404);
+        return sad();
     }
 
     if (req.session.clefState !== state) {
         console.log("Invalid state");
         console.log("State: " + req.session.clefState)
-        return res.sendStatus(404);
+        return sad();
     }
 
     var clefOptions = {
@@ -239,7 +247,7 @@ app.get('/clef/redirect', function (req, res) {
     clef.getLoginInformation(clefOptions, function (err, member) {
         if (err) {
             console.log(err);
-            return res.sendStatus(404);
+            return sad();
         }
 
         var memberDoc = {
@@ -267,7 +275,7 @@ app.get('/clef/redirect', function (req, res) {
 
         var nope = function (err) {
             console.log(err);
-            res.sendStatus(404);
+            sad();
         };
 
         db.get(memberDoc._id, function (err, body) {
