@@ -6,24 +6,41 @@ angular.module('MorningShiftIntro')
 
 	var vm = this;
 
-	console.log(member);
+	function getIsClockedIn(callback) {
+		$http.get('/api/shift').then(function (res) {
 
-	function getIsClockedIn() {
-		if (member.shiftStartedAt) {
-			resumeShift(member.shiftStartedAt);
-		}
+			var shift = res.data;
 
-		var val = $cookies.get("isClockedIn");
+			if (shift) {
+				// Signed in ...
+				console.log('signed in...');
+				console.log(shift);
+				if (shift.startDate) {
+					// Shift started ...
+					console.log('shift started...');
+					resumeShift(shift.startDate);
+					return callback(true);
+				}
+				else {
+					// Shift stopped.
+					console.log('shift stopped');
+					return callback(false)
+				}
+			}
 
-		if (val === "false") {
-			return false;
-		}
+			// Not signed in ...
+			var val = $cookies.get("isClockedIn");
 
-		if (val === "true") {
-			return true;
-		}
+			if (val === "false") {
+				return callback(false);
+			}
 
-		return val;
+			if (val === "true") {
+				return callback(true);
+			}
+
+			return callback(val);
+		});
 	}
 
 	var getClockedInDate = function () {
@@ -79,32 +96,33 @@ angular.module('MorningShiftIntro')
 	}
 
 	function updateViewModel() {
-		vm.isClockedIn = getIsClockedIn();
+		getIsClockedIn(function (isClockedIn) {
+			vm.isClockedIn = isClockedIn;
+			if (vm.isClockedIn) {
+				vm.clockedInDate = getClockedInDate();
 
-		if (vm.isClockedIn) {
-			vm.clockedInDate = getClockedInDate();
+				var now  = Date.now();
+				var diff = now - vm.clockedInDate;
 
-			var now  = Date.now();
-			var diff = now - vm.clockedInDate;
+				var totalSeconds = Math.floor(diff / 1000);
 
-			var totalSeconds = Math.floor(diff / 1000);
+				var hours   = Math.floor(totalSeconds / (60 * 60));
+				var minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+				var seconds = Math.floor((totalSeconds % (60 * 60)) % 60);
 
-			var hours   = Math.floor(totalSeconds / (60 * 60));
-			var minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
-			var seconds = Math.floor((totalSeconds % (60 * 60)) % 60);
+				if (hours < 10) {
+					hours = "0" + hours;
+				}
+				if (minutes < 10) {
+					minutes = "0" + minutes;
+				}
+				if (seconds < 10) {
+					seconds = "0" + seconds;
+				}
 
-			if (hours < 10) {
-				hours = "0" + hours;
+				vm.shiftDuration = hours + ":" + minutes + ":" + seconds;
 			}
-			if (minutes < 10) {
-				minutes = "0" + minutes;
-			}
-			if (seconds < 10) {
-				seconds = "0" + seconds;
-			}
-
-			vm.shiftDuration = hours + ":" + minutes + ":" + seconds;
-		}
+		});
 	}
 
 	function resetShiftDuration() {

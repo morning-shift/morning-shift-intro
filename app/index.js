@@ -376,6 +376,18 @@ function startShift(req, callback) {
     }
 }
 
+app.get('/api/shift', function (req, res) {
+    if (isSignedIn(req)) {
+        res.send({
+            id: req.session.member.shiftId,
+            startDate: req.session.member.shiftStartedAt
+        });
+    }
+    else {
+        res.send(null);
+    }
+});
+
 app.post('/api/shift/start', function (req, res) {
     startShift(req, function (err, data) {
         if (err) {
