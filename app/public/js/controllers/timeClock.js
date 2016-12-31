@@ -6,6 +6,7 @@ angular.module('MorningShiftIntro')
 
 	var vm = this;
 	vm.serverTimeOffset = 0;
+	vm.isDurationValid = false;
 
 	function setupServerTimeOffset() {
 		$http.get('/api/now').then(function (res) {
@@ -130,6 +131,9 @@ angular.module('MorningShiftIntro')
 				// Don't show the shift duration until we 
 				// have a server time offset
 				vm.shiftDuration = hours + ":" + minutes + ":" + seconds;
+				if (vm.serverTimeOffset !== 0) {
+					vm.isDurationValid = true;
+				}
 			}
 		});
 	}
