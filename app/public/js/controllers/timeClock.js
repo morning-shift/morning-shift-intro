@@ -53,6 +53,9 @@ angular.module('MorningShiftIntro')
 		console.log(err);
 	};
 
+	function timeNow() {
+		return Date.now() - vm.serverTimeOffset;
+	}
 
 	function startShift() {
 		resetShiftDuration();
@@ -73,7 +76,7 @@ angular.module('MorningShiftIntro')
 	function shiftStarted (res) {
 		var shiftData = res.data;
 
-		resumeShift(Date.now())
+		resumeShift(timeNow())
 		$cookies.put("shiftId", shiftData.shiftId);
 	}
 
@@ -102,8 +105,8 @@ angular.module('MorningShiftIntro')
 			if (vm.isClockedIn) {
 				vm.clockedInDate = getClockedInDate();
 
-				var now  = Date.now();
-				var diff = now - vm.clockedInDate - vm.serverTimeOffset;
+				var now  = timeNow();
+				var diff = now - vm.clockedInDate;
 
 				var totalSeconds = Math.floor(diff / 1000);
 
@@ -144,7 +147,6 @@ angular.module('MorningShiftIntro')
 		$http.get('/api/now').then(function (res) {
 			var serverTime = new Date(parseInt(res.data));
 			vm.serverTimeOffset = Date.now() - serverTime;
-			console.log(vm.serverTimeOffset);
 		});
 	}
 	setupServerTimeOffset();
