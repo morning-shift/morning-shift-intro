@@ -20,6 +20,9 @@ html(ng-app="MorningShiftIntro")
       a:hover {
         color: #990099;
       }
+      h1 a:hover {
+        text-decoration: none;
+      }
 
 
     include inc/search-meta
@@ -31,8 +34,8 @@ html(ng-app="MorningShiftIntro")
     .container
       .row.debug
         .col-md-offset-2.col-md-8.debug
-          h1.morning-shift Morning Shift
-          h1.coalition Coalition
+          h1.morning-shift <a href="/">Morning</a> <a href="/">Shift</a>
+          h1.coalition <a href="/">Coalition</a>
 
           p The U.S. election of November 8, 2016 was a terrible event. This is our response.
 
