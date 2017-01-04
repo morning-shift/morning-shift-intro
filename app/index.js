@@ -217,6 +217,14 @@ app.get('/', function (req, res) {
     res.render('index', vm);
 });
 
+app.get('/about', function (req, res) {
+    var vm = {
+        host: getHost(req)
+    };
+
+    res.render('about', vm);
+});
+
 app.get('/sad-clef', function (req, res) {
     res.render('sad-clef');
 });
