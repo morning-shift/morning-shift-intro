@@ -1,21 +1,22 @@
 //- This is at the bottom of most pages.
-.footer.desktop-view.hidden-xs
-  .container-fluid.debug
-    .row
-      .col-sm-12
-        .logo-wrapper
-          a(href="/")
-            img.logo(src="/img/logo-96.png")
-        .content
-          p 2017 . <a href="/">Morning Shift Coalition</a> . United States
-          p Made with 🌎🔥💨🌊✊ in Olympia, Washington
+.footer-wrapper(ng-controller="FooterCtrl as ctrl")
+  .footer.desktop-view.hidden-xs
+    .container-fluid.debug
+      .row
+        .col-sm-12
+          .logo-wrapper
+            a(href="/")
+              img.logo(src="/img/logo-96.png")
+          .content
+            p 2017 . <a href="/">Morning Shift Coalition</a> . United States
+            p Made <span (ng-if="ctrl.doesSupportEmoji()")>with 🌎🔥💨🌊✊</span> in Olympia,&nbsp;Washington
 
 
-.footer.visible-xs
-  .logo-wrapper
-    a(href="/")
-      img.logo(src="/img/logo-96.png")
-  .content
-    p <a href="/">Morning&nbsp;Shift&nbsp;Coalition</a> . United&nbsp;States
-    p Made with 🌎🔥💨🌊✊ in Olympia,&nbsp;Washington
+  .footer.visible-xs
+    .logo-wrapper
+      a(href="/")
+        img.logo(src="/img/logo-96.png")
+    .content
+      p <a href="/">Morning&nbsp;Shift&nbsp;Coalition</a> . United&nbsp;States
+      p Made <span (ng-if="ctrl.doesSupportEmoji()")>with 🌎🔥💨🌊✊</span> in Olympia,&nbsp;Washington
 
