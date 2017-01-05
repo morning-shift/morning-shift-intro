@@ -10,8 +10,9 @@ body, .footer {
 }
 
 .footer {
-	color: #444;
+	color: #ccc;
 	background-color: black;
+	background-color: #2E0C54;
 }
 
 .container {
@@ -296,7 +297,7 @@ h2.after-community-logos {
 	text-align: center;
 }
 .footer a {
-	color: #777;
+	color: #ccc;
 }
 
 .btn-subscribe {
