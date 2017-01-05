@@ -109,7 +109,7 @@ a:hover {
 }
 
 .content {
-	padding-top: 1.4em;
+	padding-top: 1.2em;
 }
 .content p {
 
@@ -292,9 +292,15 @@ h2.after-community-logos {
 	opacity: 1.0;
 }
 
+.footer .content {
+/*	margin-top: 1.2em;
+*/}
 .footer p {
 	font-size: 12pt;
 	text-align: center;
+	margin-bottom: 0;
+	margin-top: 0;
+	line-height: 1.5em;
 }
 .footer a {
 	color: #ccc;
