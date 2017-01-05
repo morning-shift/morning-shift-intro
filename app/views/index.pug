@@ -35,15 +35,13 @@ html(ng-app="MorningShiftIntro")
               span(ng-if="clock.isClockedIn") Stop Shift
               span(ng-if="!clock.isClockedIn") Start Shift
 
-            div.message(ng-if="clock.isClockedIn") We are now recruiting volunteers. If you would like to work with us, please reach out on <a href="https://www.facebook.com/morningshiftcoalition/">Facebook</a> or <a href="https://twitter.com/ShiftMorning">Twitter</a>. 
-
-            //- Soon:
             div.shift-duration(
               ng-if="clock.isDurationValid && (clock.isClockedIn || clock.clockedInDate)") {{clock.shiftDuration}}
- 
+
+            div.message(ng-if="clock.isClockedIn") We are now recruiting volunteers. If you would like to work with us, please reach out on <a href="https://www.facebook.com/morningshiftcoalition/">Facebook</a> or <a href="https://twitter.com/ShiftMorning">Twitter</a>. 
 
           .description
-            p Let's do this.
+            //-p Let's do this.
 
             .col-md-6(ng-controller="ClefCtrl as clef") 
               if isSignedIn
@@ -61,5 +59,7 @@ html(ng-app="MorningShiftIntro")
                   })
 
             .col-md-6
-              p <a href="/about">About #MorningShift</a>
+              p <a href="/about">About Morning Shift</a>
+
+    include inc/footer
 

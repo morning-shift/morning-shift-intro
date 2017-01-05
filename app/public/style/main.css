@@ -9,12 +9,23 @@ body, .footer {
 	background: #2E0C54;
 }
 
+.footer {
+	color: #444;
+	background-color: black;
+}
+
 .container {
 	background: #190720;
 	background: #006688;
 	background: #eee;
 	background: #2E0C54;
 	color: #e6e6e6;
+
+	padding-bottom: 2em;
+}
+
+.container, .container-fluid {
+	max-width: 850px;
 }
 
 .header {
@@ -30,9 +41,6 @@ body, .footer {
 
 .col-sm-6 img, .col-sm-7 img {
 	margin-bottom: 1em;
-}
-img {
-	margin-bottom: 8em;
 }
 
 h1.morning-shift, 
@@ -172,6 +180,7 @@ a:hover {
 
 .message {
 	margin-top: 1.1em;
+	text-align: left;
 }
 
 .shift-duration {
@@ -267,7 +276,27 @@ h2.after-community-logos {
 	margin-bottom: 1em;
 }
 .footer {
-	padding-bottom: 2em;
+}
+.footer .container-fluid,
+.footer.visible-xs {
+  padding-top: 1.1em;
+  padding-bottom: 2em;
+}
+.footer .logo {
+	filter: grayscale(100%);
+	opacity: 0.3;
+}
+.footer .logo:hover {
+	filter: none;
+	opacity: 1.0;
+}
+
+.footer p {
+	font-size: 12pt;
+	text-align: center;
+}
+.footer a {
+	color: #777;
 }
 
 .btn-subscribe {
