@@ -1,0 +1,46 @@
+doctype html
+html(ng-app="MorningShiftIntro")
+  head
+    title Morning Shift Coalition: About: Roles
+    link(rel="stylesheet" type="text/css" href="/style/main.css")
+    style.
+      .container {
+        color: #444;
+        background: #eee;
+      }
+      .outro {
+        font-size: medium;
+        line-height: 1.2em;
+      }
+      a {
+        color: purple;
+      }
+
+      a:focus, 
+      a:hover {
+        color: #990099;
+      }
+      h1 a:hover {
+        text-decoration: none;
+      }
+
+
+    include inc/search-meta
+    include inc/social-meta
+    include inc/mobile-devices
+    include inc/base-scripts
+
+  body
+    .container
+      .row.debug
+        .col-md-offset-2.col-md-8.debug
+          h1.morning-shift <a href="/">Morning</a> <a href="/">Shift</a>
+          h1.coalition <a href="/">Coalition</a>
+
+          h3 Story teller
+
+
+          p.outro We look forward to working with you. If you are interested in volunteering, or have further questions, please contact us through <a href="https://www.facebook.com/morningshiftcoalition/">Facebook</a> or <a href="https://twitter.com/ShiftMorning">Twitter</a>.
+
+    include inc/footer
+

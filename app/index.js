@@ -217,13 +217,18 @@ app.get('/', function (req, res) {
     res.render('index', vm);
 });
 
-app.get('/about', function (req, res) {
-    var vm = {
-        host: getHost(req)
-    };
+var render = function (viewPath) {
+    return function (req, res) {
+        var vm = {
+            host: getHost(req)
+        };
 
-    res.render('about', vm);
-});
+        res.render(viewPath, vm);
+    };
+};
+
+app.get('/about', render('about'));
+app.get('/about/roles', render('about-roles'));
 
 app.get('/sad-clef', function (req, res) {
     res.render('sad-clef');
