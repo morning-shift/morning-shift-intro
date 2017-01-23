@@ -265,9 +265,16 @@ h2.after-community-logos {
 .mission, 
 .mission p, 
 .mission div,
+.action label,
+.action .entry,
 p {
 	font-size: 14pt;
 	line-height: 20pt;
+}
+
+p.anything {
+	margin-top: 0;
+	white-space: pre-wrap;
 }
 
 .oregon {

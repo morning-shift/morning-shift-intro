@@ -8,7 +8,8 @@ html(ng-app="MorningShiftIntro")
         color: #444;
         background: #eee;
       }
-      h3 {
+      h3,
+      h4 {
         color: #444;
       }
       .outro {
@@ -48,23 +49,32 @@ html(ng-app="MorningShiftIntro")
 
           h3 Actions
 
-          div(ng-repeat="action in ctrl.actions")
-            table
-              tr
-                th Author: 
-                td {{action.author}}
-              tr 
-                th Cause: 
-                td {{action.cause}}
-              tr 
-                th Action: 
-                td {{action.action}}
-              tr
-                th Submit date:
-                td {{action.submitDate | date}}
+          .action(ng-repeat="action in ctrl.actions")
 
-            div <strong>Anything else?</strong>
-            pre {{action.anything}}
+            h4 Cause: {{action.cause}}
+  
+            .row
+              .col-xs-12.col-sm-4
+                label Organization: 
+
+              .col-xs-12.col-sm-8
+                .entry {{action.org || '(not entered)'}}
+
+            .row
+              .col-xs-12.col-sm-4
+                label Action: 
+
+              .col-xs-12.col-sm-8 
+                .entry {{action.action || '(not entered)'}}
+
+            .row
+              .col-xs-12 
+                label Anything else?
+
+              .col-xs-12
+                p.anything {{action.anything}}
+
+            p Submitted by <strong>{{action.name || '(anonymous)'}}</strong> on {{action.submitDate | date}}
 
             //- pre {{action | json}}
 

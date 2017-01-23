@@ -563,6 +563,12 @@ app.post('/api/action', function (req, res) {
         submitDate: Date.now()
     };
 
+    for (var prop in action) {
+        if (action[prop] && action[prop].trim) {
+            action[prop] = action[prop].trim();
+        }
+    }
+
     db.insert(action, function (err, body) {
         if (err) {
             console.log(err);
