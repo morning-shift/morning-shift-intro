@@ -11,7 +11,13 @@ angular.module('MorningShiftIntro')
 		ctrl.actions = res.data;
 	})
 	.catch(function (res) {
-		ctrl.isError = true;
+		if (res.status === 401) {
+			ctrl.isUnauthorized = true;
+		}
+		else {
+			console.log(res);
+			ctrl.isError = true;
+		}
 	})
 
 }]);

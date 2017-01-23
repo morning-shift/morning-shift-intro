@@ -220,11 +220,26 @@ app.get('/', function (req, res) {
 var render = function (viewPath) {
     return function (req, res) {
         var vm = {
-            host: getHost(req)
+            host: getHost(req),
+            clef: {
+                publicKey: config.clefPublicKey,
+                state: req.session.clefState
+            }
         };
+
+        if (isSignedIn(req)) {
+            vm.isSignedIn = true;
+        }
 
         res.render(viewPath, vm);
     };
+};
+
+var auth = function (req, res, next) {
+    if (!isSignedIn(req)) {
+        return res.send(401);
+    }
+    next();
 };
 
 app.get('/about', render('about'));
@@ -236,92 +251,97 @@ app.get('/sad-clef', function (req, res) {
     res.render('sad-clef');
 });
 
-app.get('/clef/redirect', function (req, res) {
-    var code = req.query.code;
-    var state = req.query.state;
+app.get('/clef/redirect', cleffy('/'));
+app.get('/clef/redirect/actions', cleffy('/actions'));
 
-    var sad = function () {
-        res.redirect('/sad-clef');
-    };
+function cleffy (route) {
+    return function (req, res) {
+        var code = req.query.code;
+        var state = req.query.state;
 
-    if (!code || !state) {
-        console.log("State and Code query params not provided");
-        return sad();
-    }
+        var sad = function () {
+            res.redirect('/sad-clef');
+        };
 
-    if (req.session.clefState !== state) {
-        console.log("Invalid state");
-        console.log("State: " + req.session.clefState)
-        return sad();
-    }
-
-    var clefOptions = {
-        code: code
-    };
-
-    clef.getLoginInformation(clefOptions, function (err, member) {
-        if (err) {
-            console.log(err);
+        if (!code || !state) {
+            console.log("State and Code query params not provided");
             return sad();
         }
 
-        var memberDoc = {
-            _id: member.id.toString(),
-            joinDate: Date.now(),
-            type: 'member'
+        if (req.session.clefState !== state) {
+            console.log("Invalid state");
+            console.log("State: " + req.session.clefState)
+            return sad();
+        }
+
+        var clefOptions = {
+            code: code
         };
 
-        var memberFound = function (body) {
-            console.log(body);
-            req.session.clef = {
-                id: memberDoc._id,
-                loggedInAt: Date.now()
+        clef.getLoginInformation(clefOptions, function (err, member) {
+            if (err) {
+                console.log(err);
+                return sad();
+            }
+
+            var memberDoc = {
+                _id: member.id.toString(),
+                joinDate: Date.now(),
+                type: 'member'
             };
 
-            startShift(req, function (err, data) {
-                if (err) {
-                    console.log(err);
-                    return res.sendStatus(500);
-                }
+            var memberFound = function (body) {
+                console.log(body);
+                req.session.clef = {
+                    id: memberDoc._id,
+                    loggedInAt: Date.now()
+                };
 
-                res.redirect('/');
-            });
-        };
+                startShift(req, function (err, data) {
+                    if (err) {
+                        console.log(err);
+                        return res.sendStatus(500);
+                    }
 
-        var nope = function (err) {
-            console.log(err);
-            sad();
-        };
-
-        db.get(memberDoc._id, function (err, body) {
-            if (err && err.statusCode === 404) {
-                // New member!
-                db.insert(memberDoc, function (err, body) {
-                    if (err && err.statusCode === 409) {
-                        // Maybe not!
-                        db.get(memberDoc._id, function (err, body) {
-                            if (err) {
-                                return nope(err);
-                            }
-                            return memberFound(body);
-                        });
-                    }
-                    else if (err) {
-                        return nope(err);
-                    }
-                    else {
-                        return memberFound(body);
-                    }
+                    res.redirect(route);
                 });
-            }
-            else {
-                // TODO: if (err) ....
-                return memberFound(body);
-            }
-        });
+            };
 
-    });
-});
+            var nope = function (err) {
+                console.log(err);
+                sad();
+            };
+
+            db.get(memberDoc._id, function (err, body) {
+                if (err && err.statusCode === 404) {
+                    // New member!
+                    db.insert(memberDoc, function (err, body) {
+                        if (err && err.statusCode === 409) {
+                            // Maybe not!
+                            db.get(memberDoc._id, function (err, body) {
+                                if (err) {
+                                    return nope(err);
+                                }
+                                return memberFound(body);
+                            });
+                        }
+                        else if (err) {
+                            return nope(err);
+                        }
+                        else {
+                            return memberFound(body);
+                        }
+                    });
+                }
+                else {
+                    // TODO: if (err) ....
+                    return memberFound(body);
+                }
+            });
+
+        });
+    };
+}
 
 app.post('/clef/logout', function (req, res) {
     var opts = {
@@ -551,7 +571,7 @@ app.post('/api/action', function (req, res) {
     });
 });
 
-app.get('/api/actions', function (req, res) {
+app.get('/api/actions', auth, function (req, res) {
     // {keys: [memberId]}
     db.view('actions', 'bySubmitDate', function (err, body) {
         if (err) {
