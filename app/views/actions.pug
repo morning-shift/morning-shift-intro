@@ -36,10 +36,6 @@ html(ng-app="MorningShiftIntro")
     script(src="/js/controllers/clef.js")
     script(src="/js/controllers/action.js")
 
-    script.
-      var app = angular.module("MorningShiftIntro");
-      app.value('member', !{JSON.stringify(member)})
-
   body
     .container(ng-controller="ActionCtrl as ctrl")
       .row.debug
@@ -52,22 +48,22 @@ html(ng-app="MorningShiftIntro")
           div(ng-repeat="action in ctrl.actions")
             pre {{action | json}}
 
-          div(ng-if="ctrl.isUnauthorized")
+          //- We want a server-side check here because the Clef
+          //- stuff doesn't go well with angular ng-if stuff.
+          if !isSignedIn
             p Please sign in to (possibly) see the contents of this page.
 
             .sign-in(ng-controller="ClefCtrl as clef") 
                 p
                   script.clef-button(type="text/javascript" 
-                    src="https://clef.io/v3/clef.js" 
-                    data-color="white" 
-                    data-style="flat"
-                    data-type="login")&attributes({
-                      'data-redirect-url': host + '/clef/redirect/actions',
-                      'data-app-id': clef.publicKey,
-                      'data-state': clef.state
-                    })
-
-
+                  src="https://clef.io/v3/clef.js" 
+                  data-color="white" 
+                  data-style="flat"
+                  data-type="login")&attributes({
+                    'data-redirect-url': host + '/clef/redirect/actions',
+                    'data-app-id': clef.publicKey,
+                    'data-state': clef.state
+                  })
 
     include inc/footer
 
