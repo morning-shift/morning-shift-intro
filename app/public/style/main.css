@@ -262,7 +262,10 @@ h2.after-community-logos {
 	margin-left: -2ex;
 }
 
-.mission, .mission p, .mission div {
+.mission, 
+.mission p, 
+.mission div,
+p {
 	font-size: 14pt;
 	line-height: 20pt;
 }

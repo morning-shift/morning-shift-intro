@@ -553,6 +553,7 @@ app.post('/api/action', function (req, res) {
 
         author: data.author,
         cause: data.cause,
+        org: data.org,
         action: data.action,
         contact: data.contact,
         anything: data.anything,
@@ -589,6 +590,7 @@ app.get('/api/actions', auth, function (req, res) {
                 author: action.author,
                 cause: action.cause,
                 action: action.action,
+                org: action.org,
     // TODO: Needs permissions: ... contact: action.contact ? "yes"
                 anything: action.anything,
                 submitDate: action.submitDate
