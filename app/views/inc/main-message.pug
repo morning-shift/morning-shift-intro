@@ -31,6 +31,8 @@ form(ng-controller="MainMessageCtrl as ctrl")
 		.col-xs-12.col-sm-12
 			textarea.form-control(ng-model="ctrl.anything" rows="5")
 
+	p Please note, this information might be seen by people you don't know, like volunteers looking to write stories, so please don't include anything you don't want shared with a wider audience. Better privacy controls are incoming, but for now please be aware.
+
 	.submit-wrapper
 		button.btn-start(ng-click="ctrl.submit()" type="submit" ng-class="{ 'isClockedIn': ctrl.submitSuccess }") Send Info
 
