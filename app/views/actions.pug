@@ -1,0 +1,53 @@
+doctype html
+html(ng-app="MorningShiftIntro")
+  head
+    title Morning Shift Coalition: Actions
+    link(rel="stylesheet" type="text/css" href="/style/main.css")
+    style.
+      .container {
+        color: #444;
+        background: #eee;
+      }
+      h3 {
+        color: #444;
+      }
+      .outro {
+        font-size: medium;
+        line-height: 1.2em;
+      }
+      a {
+        color: purple;
+      }
+
+      a:focus, 
+      a:hover {
+        color: #990099;
+      }
+      h1 a:hover {
+        text-decoration: none;
+      }
+
+
+    include inc/search-meta
+    include inc/social-meta
+    include inc/mobile-devices
+    include inc/base-scripts
+
+    script(src="/js/controllers/clef.js")
+    script(src="/js/controllers/action.js")
+
+  body
+    .container(ng-controller="ActionCtrl as ctrl")
+      .row.debug
+        .col-md-offset-2.col-md-8.debug
+          h1.morning-shift <a href="/">Morning</a> <a href="/">Shift</a>
+          h1.coalition <a href="/">Coalition</a>
+
+          h3 Actions
+
+          div(ng-repeat="action in ctrl.actions")
+            pre {{action | json}}
+
+
+    include inc/footer
+

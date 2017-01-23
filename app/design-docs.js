@@ -38,4 +38,31 @@ var shiftsDesignDoc = {
 };
 designDocs.push(shiftsDesignDoc);
 
+
+var actionsDesignDoc = {
+    url: '_design/actions',
+    body: 
+    {
+        version: "1.0.0",
+        language: "javascript",
+        views: {
+            bySubmitDate: {
+                map: function (doc) {
+                    if (doc.type === "action") {
+                        emit(doc.submitDate, doc);
+                    }
+                }
+            },
+            byMemberId: {
+                map: function (doc) {
+                    if (doc.type === "action") {
+                        emit(doc.memberId, doc);
+                    }
+                }
+            }
+        }
+    }
+};
+designDocs.push(actionsDesignDoc);
+
 module.exports = designDocs;

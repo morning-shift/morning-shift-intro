@@ -230,6 +230,8 @@ var render = function (viewPath) {
 app.get('/about', render('about'));
 app.get('/about/roles', render('about-roles'));
 
+app.get('/actions', render('actions'));
+
 app.get('/sad-clef', function (req, res) {
     res.render('sad-clef');
 });
@@ -521,12 +523,20 @@ app.put('/api/shift/stop', function (req, res) {
 app.post('/api/action', function (req, res) {
     var data = req.body;
 
+    var memberId = null;
+    if (isSignedIn(req)) {
+        memberId = getMember(req).id;
+    }
+
     var action = {
+        memberId: memberId,
+
         author: data.author,
         cause: data.cause,
         action: data.action,
         contact: data.contact,
         anything: data.anything,
+
         type: "action",
         schema: "1.0.0",
         submitDate: Date.now()
@@ -540,6 +550,34 @@ app.post('/api/action', function (req, res) {
         res.sendStatus(200);
     });
 });
+
+app.get('/api/actions', function (req, res) {
+    // {keys: [memberId]}
+    db.view('actions', 'bySubmitDate', function (err, body) {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+        }
+
+        var val = [];
+
+        var records = body.rows;
+        var actions = [];
+        for (var index in records) {
+            var action = records[index].value;
+            val.push({
+                author: action.author,
+                cause: action.cause,
+    // TODO: Needs permissions: ... contact: action.contact ? "yes"
+                anything: action.anything,
+                submitDate: action.submitDate
+            })
+        }
+
+        res.send(val);
+    });
+});
+
 
 app.post('/data/subscribe', function (req, res) {
     var customerData = req.body;
