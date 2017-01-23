@@ -588,6 +588,7 @@ app.get('/api/actions', auth, function (req, res) {
             val.push({
                 author: action.author,
                 cause: action.cause,
+                action: action.action,
     // TODO: Needs permissions: ... contact: action.contact ? "yes"
                 anything: action.anything,
                 submitDate: action.submitDate

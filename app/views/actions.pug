@@ -43,10 +43,30 @@ html(ng-app="MorningShiftIntro")
           h1.morning-shift <a href="/">Morning</a> <a href="/">Shift</a>
           h1.coalition <a href="/">Coalition</a>
 
+          if isSignedIn
+            p This is the action list, which contains everything entered recently by people into our system. Be aware there could be spam in it at this point in time. If you see anything weird, please contact one of the directors about it.
+
           h3 Actions
 
           div(ng-repeat="action in ctrl.actions")
-            pre {{action | json}}
+            table
+              tr
+                th Author: 
+                td {{action.author}}
+              tr 
+                th Cause: 
+                td {{action.cause}}
+              tr 
+                th Action: 
+                td {{action.action}}
+              tr
+                th Submit date:
+                td {{action.submitDate | date}}
+
+            div <strong>Anything else?</strong>
+            pre {{action.anything}}
+
+            //- pre {{action | json}}
 
           //- We want a server-side check here because the Clef
           //- stuff doesn't go well with angular ng-if stuff.
