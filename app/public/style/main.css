@@ -276,6 +276,13 @@ p.anything {
 	margin-top: 0;
 	white-space: pre-wrap;
 }
+p.submitted-by {
+	margin-top: 0;
+}
+
+.action {
+	border-bottom: solid 1px #ccc;
+}
 
 .oregon {
 	margin-top: 1.75em;
