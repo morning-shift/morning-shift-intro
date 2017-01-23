@@ -35,10 +35,14 @@ html(ng-app="MorningShiftIntro")
               span(ng-if="clock.isClockedIn") Stop Shift
               span(ng-if="!clock.isClockedIn") Start Shift
 
-            div.shift-duration(
-              ng-if="clock.isDurationValid && (clock.isClockedIn || clock.clockedInDate)") {{clock.shiftDuration}}
+            div.message(ng-if="clock.isClockedIn") 
+              include inc/main-message 
 
-            div.message(ng-if="clock.isClockedIn") We are now recruiting volunteers. If you would like to work with us, please reach out on <a href="https://www.facebook.com/morningshiftcoalition/">Facebook</a> or <a href="https://twitter.com/ShiftMorning">Twitter</a>. 
+            //- Turn off clock for now until we have a better place
+            //- to put it
+            //-
+            //- div.shift-duration(
+            //-   ng-if="clock.isDurationValid && (clock.isClockedIn || clock.clockedInDate)") {{clock.shiftDuration}}
 
           .description
             //-p Let's do this.

@@ -518,6 +518,29 @@ app.put('/api/shift/stop', function (req, res) {
     }
 });
 
+app.post('/api/action', function (req, res) {
+    var data = req.body;
+
+    var action = {
+        author: data.author,
+        cause: data.cause,
+        action: data.action,
+        contact: data.contact,
+        anything: data.anything,
+        type: "action",
+        schema: "1.0.0",
+        submitDate: Date.now()
+    };
+
+    db.insert(action, function (err, body) {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+        }
+        res.sendStatus(200);
+    });
+});
+
 app.post('/data/subscribe', function (req, res) {
     var customerData = req.body;
 

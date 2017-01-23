@@ -1,0 +1,43 @@
+form(ng-controller="MainMessageCtrl as ctrl")
+
+	h3.first Welcome
+
+	h4.first What's your name?
+	.row
+		.col-xs-12.col-sm-12
+			input.form-control(type="text" ng-model="ctrl.author" placeholder="(name or pseudonym)")
+
+	h4 Please name a cause (or situation) that is most important to you, this week.
+	.row
+		.col-xs-12.col-sm-12
+			input.form-control(type="text" ng-model="ctrl.cause" placeholder="(e.g. women's rights)")
+
+	h3 Action?
+	h4.first Did you take any action this week? "No" is an acceptable answer.
+	.row
+		.col-xs-12.col-sm-12
+			input.form-control(type="text" ng-model="ctrl.action" placeholder="(action?)")
+
+	h3 Sharing the story (optional)
+
+	h4.first Can we contact you, to learn more about what you're working on? How?
+	.row
+		.col-xs-12.col-sm-12
+			input.form-control(type="text" ng-model="ctrl.contact" placeholder="(contact info)")
+
+
+	h4 Anything else you'd like us to know?
+	.row
+		.col-xs-12.col-sm-12
+			textarea.form-control(ng-model="ctrl.anything" rows="5")
+
+	.submit-wrapper
+		button.btn-start(ng-click="ctrl.submit()" type="submit" ng-class="{ 'isClockedIn': ctrl.submitSuccess }") Send Info
+
+		.success(ng-if="ctrl.submitSuccess")
+			p Thank you! We are grateful for your contribution, and we've added it to our documents.  
+		.error(ng-if="ctrl.submitError")
+			p Sorry, it seems that our website isn't working properly right now. We should have it fixed soon, or maybe try again?
+
+
+	//- p We are now recruiting volunteers. If you would like to work with us, please reach out on <a href="https://www.facebook.com/morningshiftcoalition/">Facebook</a> or <a href="https://twitter.com/ShiftMorning">Twitter</a>.

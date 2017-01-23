@@ -189,6 +189,10 @@ a:hover {
 	text-align: center;
 }
 
+.submit-wrapper {
+	margin-top: 1.4em;
+	text-align: center;
+}
 
 .making {
 	background-color: #130414;
@@ -324,19 +328,43 @@ h2.after-community-logos {
 
 .code-corvallis {
 }
+h3.first {
+	margin-top: inherit;
+}
+
 h3 {
 	font-size: 26pt;
 	border-bottom: solid 1px #ddd;
 	padding-bottom: 0.75ex;
+	margin-top: 1.4em;
 	margin-bottom: 1.25ex;
-	color: black;
+	color: #e6e6e6;
+}
+
+h4.first {
+	margin-top: inherit;
 }
 
 h4 {
+	margin-top: 3ex;
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial;
 	font-size: 18pt;
-	color: #111;
+	line-height: 1.3em;
+	color: #ddd;
 }
+input[type=text], 
+textarea {
+	font-size: 18pt;
+	line-height: 1.3em;
+	margin-top: 0.5em;
+}
+input[type=text] {
+	height: 1.8em;
+}
+.message .btn {
+	font-size: 14pt;
+}
+
 
 p, li {
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial
