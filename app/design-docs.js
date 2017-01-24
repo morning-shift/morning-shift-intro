@@ -3,13 +3,13 @@ var membersDesignDoc = {
     url: '_design/members',
     body: 
     {
-        version: "1.0.1",
+        version: "1.0.2",
         language: "javascript",
         views: {
             byClefId: {
                 map: function (doc) {
                     if (doc.type === "member") {
-                        emit(doc.clefId, doc);
+                        emit(doc._id, doc);
                     }
                 }
             }
