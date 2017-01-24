@@ -74,7 +74,7 @@ html(ng-app="MorningShiftIntro")
               .col-xs-12
                 p.anything {{action.anything}}
 
-            p.submitted-by Submitted by <strong>{{action.name || '(anonymous)'}}</strong> on {{action.submitDate | date}}
+            p.submitted-by Submitted by <strong>{{action.author || '(anonymous)'}}</strong> on {{action.submitDate | date}}
 
             //- pre {{action | json}}
 
