@@ -4,6 +4,7 @@ var config  = require('./config.js');
 var secrets = require('./config-secrets.js');
 var uid     = require('uid-safe');
 var clef    = require('clef');
+var request = require('request');
 
 var stripe   = require('stripe')(secrets.stripePrivateKey);
 
@@ -20,6 +21,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var session = require('express-session');
 var favicon = require('serve-favicon');
+
 var app = express();
 
 var httpsServer = https(app);
@@ -574,6 +576,34 @@ app.post('/api/action', function (req, res) {
             console.log(err);
             return res.sendStatus(500);
         }
+
+        var slack = secrets.slackUrl;
+        var text = 'New action entered by ' + (action.author || '(anonymous)') + ':\n' +
+        'Cause: ' + action.cause + '\n' +
+        'Organization: ' + action.org + '\n' +
+        'Action: ' + action.action + '\n' +
+// TODO:       'Contact: ' + action.contact + '\n\n' +
+        'Anything else: ' + action.anything; 
+
+        text = text.split('&').join('&amp;');
+        text = text.split('<').join('&lt;');
+        text = text.split('>').join('&gt;');
+
+        // Fire and forget
+        var options = {
+            url: slack,
+            json: {
+                mkdwn: false,
+                text: text
+            }
+        };
+
+        request.post(options, function (err) {
+           if (err) {
+            console.log(err);
+           } 
+        });
+
         res.sendStatus(200);
     });
 });
