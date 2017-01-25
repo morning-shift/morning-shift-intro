@@ -557,7 +557,7 @@ app.post('/api/action', function (req, res) {
         cause: data.cause,
         org: data.org,
         action: data.action,
-        contact: data.contact,
+        // contact: data.contact,
         anything: data.anything,
 
         type: "action",
@@ -577,32 +577,38 @@ app.post('/api/action', function (req, res) {
             return res.sendStatus(500);
         }
 
-        var slack = secrets.slackUrl;
-        var text = 'New action entered by ' + (action.author || '(anonymous)') + ':\n' +
-        'Cause: ' + action.cause + '\n' +
-        'Organization: ' + action.org + '\n' +
-        'Action: ' + action.action + '\n' +
-// TODO:       'Contact: ' + action.contact + '\n\n' +
-        'Anything else: ' + action.anything; 
+        if (secrets.slackUrl) {
+            var slack = secrets.slackUrl;
+            var text = 'New action entered by ' + (action.author || '(anonymous)') + ':\n' +
+            'Cause: ' + action.cause + '\n' +
+            'Organization: ' + action.org + '\n' +
+            'Action: ' + action.action + '\n' +
+            // Note: Contact info is only saved in Slack,
+            // as the data in Couch is essentially public.
+            'Contact: ' + data.contact + '\n\n' +
+            'Anything else: ' + action.anything; 
 
-        text = text.split('&').join('&amp;');
-        text = text.split('<').join('&lt;');
-        text = text.split('>').join('&gt;');
+            // This is standard Slack encoding
+            text = text.split('&').join('&amp;');
+            text = text.split('<').join('&lt;');
+            text = text.split('>').join('&gt;');
 
-        // Fire and forget
-        var options = {
-            url: slack,
-            json: {
-                mkdwn: false,
-                text: text
-            }
-        };
+            // Fire and forget
+            var options = {
+                url: slack,
+                json: {
+                    mkdwn: false,
+                    text: text
+                }
+            };
 
-        request.post(options, function (err) {
-           if (err) {
-            console.log(err);
-           } 
-        });
+            request.post(options, function (err) {
+               if (err) {
+                console.log(err);
+               } 
+            });
+        }
+
 
         res.sendStatus(200);
     });
