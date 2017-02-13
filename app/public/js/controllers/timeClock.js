@@ -126,8 +126,8 @@ angular.module('MorningShiftIntro')
 				var seconds = Math.floor((totalSeconds % (60 * 60)) % 60);
 
 				// Auto-sign out if people have been "clocked in" 
-				// for over 24 hours.
-				if (hours > 24) {
+				// for over 18 hours.
+				if (hours > 18) {
 					stopShift();
 					return;
 				}
