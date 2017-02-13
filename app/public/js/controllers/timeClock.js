@@ -117,7 +117,7 @@ angular.module('MorningShiftIntro')
 				var clockedInDate = getClockedInDate();
 
 				var now  = timeNow();
-				var diff = now - vm.clockedInDate;
+				var diff = now - clockedInDate;
 
 				var totalSeconds = Math.floor(diff / 1000);
 
