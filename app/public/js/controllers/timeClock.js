@@ -113,9 +113,8 @@ angular.module('MorningShiftIntro')
 
 	function updateViewModel() {
 		getIsClockedIn(function (isClockedIn) {
-			vm.isClockedIn = isClockedIn;
-			if (vm.isClockedIn) {
-				vm.clockedInDate = getClockedInDate();
+			if (isClockedIn) {
+				var clockedInDate = getClockedInDate();
 
 				var now  = timeNow();
 				var diff = now - vm.clockedInDate;
@@ -125,6 +124,13 @@ angular.module('MorningShiftIntro')
 				var hours   = Math.floor(totalSeconds / (60 * 60));
 				var minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
 				var seconds = Math.floor((totalSeconds % (60 * 60)) % 60);
+
+				// Auto-sign out if people have been "clocked in" 
+				// for over 24 hours.
+				if (hours > 24) {
+					stopShift();
+					return;
+				}
 
 				if (hours < 10) {
 					hours = "0" + hours;
@@ -136,6 +142,7 @@ angular.module('MorningShiftIntro')
 					seconds = "0" + seconds;
 				}
 
+				vm.clockedInDate = clockedInDate;
 				// Don't show the shift duration until we 
 				// have a server time offset
 				vm.shiftDuration = hours + ":" + minutes + ":" + seconds;
@@ -143,6 +150,9 @@ angular.module('MorningShiftIntro')
 					vm.isDurationValid = true;
 				}
 			}
+
+			vm.isClockedIn = isClockedIn;
+
 		});
 	}
 
