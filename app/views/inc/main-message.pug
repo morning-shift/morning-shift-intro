@@ -1,58 +1,39 @@
 form(ng-controller="MainMessageCtrl as ctrl")
 
-	h3.first Welcome
+	h3.first Hello! 
 
-	p Thank you for joining us on the Morning Shift. Please let us know what you're working on (or would like to work on) by completing the form below.
+	p Thank you for joining us at the Morning Shift Coalition. Please let us know what you're working on:
 
-	h4.first What's your name?
-	.row
-		.col-xs-12.col-sm-12
-			input.form-control(type="text" ng-model="ctrl.author" placeholder="(name or pseudonym)")
+	//- p As a member, we ask that you do one thing:
 
-	h4 Is there a cause (or situation) that is important to you, this week?
+	//- p Schedule a weekly time when you will participate. The thing that you do can and will change from week to week, but we ask that you set aside a regular time to work on whatever it is  
 
-	p Let us know a situation in the nation, area of your life, or element of your community you would like to see improved.
+	//- if !isSignedIn
+	//- 	p If you would like us to remember what you enter, please log in or create an account with this button:
 
-	.row
-		.col-xs-12.col-sm-12
-			input.form-control(type="text" ng-model="ctrl.cause" placeholder="(e.g. women's rights)")
+	//- 	p
+	//- 		script.clef-button(type="text/javascript" 
+	//- 			src="https://clef.io/v3/clef.js" 
+	//- 			data-color="white" 
+	//- 			data-style="flat"
+	//- 			data-type="login")&attributes({
+	//- 			'data-redirect-url': host + '/clef/redirect',
+	//- 			'data-app-id': clef.publicKey,
+	//- 			'data-state': clef.state
+	//- 			})
 
-	h3 Action?
-
-	h4.first Is there an organization working for your cause?
-
-	p For the situation (or cause) listed above, is there a group you'd like us and everyone else to know about?
-	.row
-		.col-xs-12.col-sm-12
-			input.form-control(type="text" ng-model="ctrl.org" placeholder="(organization?)")
-
-
-	h4 Did you take any action this week? 
-
-	p Are you participating in the Friday Fund? "No" is an acceptable answer &ndash; to make progress, we need to know where people get stuck.
-	.row
-		.col-xs-12.col-sm-12
-			input.form-control(type="text" ng-model="ctrl.action" placeholder="(action?)")
-
-	h3 Sharing the story (optional)
-
-	h4.first Can we contact you, to learn more about what you're working on? How?
-	.row
-		.col-xs-12.col-sm-12
-			input.form-control(type="text" ng-model="ctrl.contact" placeholder="(contact info?)")
-
-
-	h4 Anything else you'd like us to know?
-
-	p A primary role of the Morning Shift Coalition is to tell our stories and frame our actions to help more people become involved. Please let us know if you're especially excited about something, or if there is anything you need.
+	//- 	p (The button above should launch the Clef app so you can log in. If it doesn't work, please install the Clef app and try again. We've only seen this happen on Android phones. Sorry! Clef is working on addressing the problem.) 
+	//- else 
+	//- 	p Welcome!
 
 	.row
 		.col-xs-12.col-sm-12
 			textarea.form-control(ng-model="ctrl.anything" rows="5")
 
-	p Note, this information might be seen by people you don't know, like volunteers looking to write stories, so please don't include anything you don't want shared with a wider audience. 
-
-	p Better privacy controls are incoming, but for now please be aware. Thank you for being here.
+	h4 What's your name?
+	.row
+		.col-xs-12.col-sm-12
+			input.form-control(type="text" ng-model="ctrl.author" placeholder="(name or pseudonym)")
 
 	.submit-wrapper
 		button.btn-start(ng-click="ctrl.submit()" type="submit" ng-class="{ 'isClockedIn': ctrl.submitSuccess }") Send Info
