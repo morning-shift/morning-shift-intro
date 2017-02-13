@@ -30,6 +30,7 @@ html(ng-app="MorningShiftIntro")
 
           .clockIn(ng-controller="TimeClockCtrl as clock")
             button.btn-start(
+              ng-if="!clock.isClockedIn"
               ng-click="clock.toggleClockIn()" 
               ng-class="{ 'isClockedIn': clock.isClockedIn }") 
               span(ng-if="clock.isClockedIn") Stop Shift
