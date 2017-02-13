@@ -8,13 +8,21 @@ angular.module('MorningShiftIntro')
 	vm.serverTimeOffset = 0;
 	vm.isDurationValid = false;
 
+	vm.toggleClockIn = function () {
+		if (!vm.isClockedIn) {
+			startShift();
+		}
+		else {
+			stopShift();
+		}
+	};
+
 	function setupServerTimeOffset() {
 		$http.get('/api/now').then(function (res) {
 			var serverTime = new Date(parseInt(res.data));
 			vm.serverTimeOffset = Date.now() - serverTime;
 		});
 	}
-	setupServerTimeOffset();
 
 	function getIsClockedIn(callback) {
 		$http.get('/api/shift').then(function (res) {
@@ -142,15 +150,8 @@ angular.module('MorningShiftIntro')
 		vm.shiftDuration = "00:00:00";
 	}
 
+	setupServerTimeOffset();
 	updateViewModel();
-	vm.toggleClockIn = function () {
-		if (!vm.isClockedIn) {
-			startShift();
-		}
-		else {
-			stopShift();
-		}
-	};
 
 	if (member.shiftId) {
 		$cookies.put("shiftId", member.shiftId);
