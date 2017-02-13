@@ -586,20 +586,20 @@ app.post('/api/action', function (req, res) {
             }
 
             if (action.org) {
-                'Organization: ' + action.org + '\n';
+                text += 'Organization: ' + action.org + '\n';
             }
 
             if (action.action) {
-                'Action: ' + action.action + '\n';
+                text += 'Action: ' + action.action + '\n';
             }
 
             if (action.contact) {
                 // Note: Contact info is only saved in Slack,
                 // as the data in Couch is essentially public.
-                'Contact: ' + data.contact + '\n';
+                text += 'Contact: ' + data.contact + '\n';
             }
 
-            'Entry: ' + action.anything; 
+            text += 'Entry: ' + action.anything; 
 
             // This is standard Slack encoding
             text = text.split('&').join('&amp;');
