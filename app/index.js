@@ -579,14 +579,27 @@ app.post('/api/action', function (req, res) {
 
         if (secrets.slackUrl) {
             var slack = secrets.slackUrl;
-            var text = 'New action entered by ' + (action.author || '(anonymous)') + ':\n' +
-            'Cause: ' + action.cause + '\n' +
-            'Organization: ' + action.org + '\n' +
-            'Action: ' + action.action + '\n' +
-            // Note: Contact info is only saved in Slack,
-            // as the data in Couch is essentially public.
-            'Contact: ' + data.contact + '\n\n' +
-            'Anything else: ' + action.anything; 
+            var text = 'New action entered by ' + (action.author || '(anonymous)') + ':\n';
+
+            if (action.cause) {
+                text += 'Cause: ' + action.cause + '\n';
+            }
+
+            if (action.org) {
+                'Organization: ' + action.org + '\n';
+            }
+
+            if (action.action) {
+                'Action: ' + action.action + '\n';
+            }
+
+            if (action.contact) {
+                // Note: Contact info is only saved in Slack,
+                // as the data in Couch is essentially public.
+                'Contact: ' + data.contact + '\n';
+            }
+
+            'Entry: ' + action.anything; 
 
             // This is standard Slack encoding
             text = text.split('&').join('&amp;');
