@@ -1,10 +1,11 @@
 var fs = require('fs');
 module.exports = function () {
 
-    var stripeKeyPath  = '/home/ubuntu/stripe/private.key';
-    var clefKeyPath    = '/home/ubuntu/config/clef/app.key';
-    var sessionKeyPath = '/home/ubuntu/config/session/key';
-    var slackUrlPath   = '/home/ubuntu/config/slackUrl';
+    var stripeKeyPath    = '/home/ubuntu/stripe/private.key';
+    var clefKeyPath      = '/home/ubuntu/config/clef/app.key';
+    var sessionKeyPath   = '/home/ubuntu/config/session/key';
+    var slackUrlPath     = '/home/ubuntu/config/slackUrl';
+    var twilioConfigPath = '/home/ubuntu/config/twilio';
 
     try {
         var fileReadOptions = {
@@ -15,7 +16,8 @@ module.exports = function () {
             stripePrivateKey: "", // fs.readFileSync(stripeKeyPath, fileReadOptions).trim(),
             clefPrivateKey: fs.readFileSync(clefKeyPath, fileReadOptions).trim(),
             sessionSecret: fs.readFileSync(sessionKeyPath, fileReadOptions).trim(),
-            slackUrl: fs.readFileSync(slackUrlPath, fileReadOptions).trim()
+            slackUrl: fs.readFileSync(slackUrlPath, fileReadOptions).trim(),
+            twilio: JSON.parse(fs.readFileSync(twilioConfigPath, fileReadOptions).trim())
         };  
     }
     catch (err) {
