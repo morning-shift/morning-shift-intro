@@ -600,32 +600,39 @@ app.post('/api/action', function (req, res) {
             }
 
             text += 'Entry: ' + action.anything; 
-
-            // This is standard Slack encoding
-            text = text.split('&').join('&amp;');
-            text = text.split('<').join('&lt;');
-            text = text.split('>').join('&gt;');
-
-            // Fire and forget
-            var options = {
-                url: slack,
-                json: {
-                    mkdwn: false,
-                    text: text
-                }
-            };
-
-            request.post(options, function (err) {
-               if (err) {
-                console.log(err);
-               } 
-            });
+            sendSlackMessage(slack, text);
         }
 
 
         res.sendStatus(200);
     });
 });
+
+function sendSlackMessage(slackUrl, text) {
+    if (!text) {
+        return;
+    }
+
+    // This is standard Slack encoding
+    text = text.split('&').join('&amp;');
+    text = text.split('<').join('&lt;');
+    text = text.split('>').join('&gt;');
+
+    // Fire and forget
+    var options = {
+        url: slackUrl,
+        json: {
+            mkdwn: false,
+            text: text
+        }
+    };
+
+    request.post(options, function (err) {
+       if (err) {
+        console.log(err);
+       } 
+    });
+}
 
 app.get('/api/actions', auth, function (req, res) {
     // {keys: [memberId]}
@@ -655,6 +662,38 @@ app.get('/api/actions', auth, function (req, res) {
         res.send(val);
     });
 });
+
+
+app.post('/api/incoming/twilio', function (req, res) {
+    if (!secrets || !secrets.twilio || !secrets.twilio.slackUrl) {
+        res.sendStatus(404);
+        return;
+    }
+
+    var msg = req.body;
+    var slackUrl = secrets.twilio.slackUrl;
+
+    if (msg.AccountSid !== secrets.twilio.accountSid) {
+        res.sendStatus(404);
+        return;
+    }
+
+    if (msg.FromCountry !== 'US') {
+        res.sendStatus(403);
+        return;
+    }
+
+    var text = "From: " + msg.From + '\n';
+    text += "Entry: " + msg.Body;
+
+    sendSlackMessage(slackUrl, text);
+
+    var ack = "Ok!";
+    var reply = "<Response><Message>" + ack + "</Message></Response>";
+
+    res.status(200).send(reply);
+});
+
 
 
 app.post('/data/subscribe', function (req, res) {
