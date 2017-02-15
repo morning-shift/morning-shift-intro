@@ -695,13 +695,15 @@ app.post('/api/incoming/twilio', function (req, res) {
 });
 
 app.get('/api/incoming/facebook', function (req, res) {
-    res.sendStatus(200);
+    res.send(req.query['hub.challenge']);
+    console.log('Facebook GET');
+    console.log(req);
 });
 
 app.post('/api/incoming/facebook', function (req, res) {
-    var msg = req.body;
-    console.log(msg);
-    res.sendStatus(200);
+    res.send(req.query['hub.challenge']);
+    console.log('Facebook POST');
+    console.log(req.body);
 });
 
 app.post('/data/subscribe', function (req, res) {
