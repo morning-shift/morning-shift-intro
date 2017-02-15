@@ -694,6 +694,10 @@ app.post('/api/incoming/twilio', function (req, res) {
     res.status(200).send(reply);
 });
 
+app.get('/api/incoming/facebook', function (req, res) {
+    res.sendStatus(200);
+});
+
 app.post('/api/incoming/facebook', function (req, res) {
     var msg = req.body;
     console.log(msg);
