@@ -92,6 +92,10 @@ html(ng-app="MorningShiftIntro")
           document.getElementById('status').innerHTML =
             'Thanks for logging in, ' + response.name + '!';
         });
+
+        FB.api('/me/feed', function (response) {
+          console.log(response);
+        });
       }
 
   body
@@ -107,7 +111,7 @@ html(ng-app="MorningShiftIntro")
           //-- the JavaScript SDK to present a graphical Login button that triggers
           //-- the FB.login() function when clicked.
           div.
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+            <fb:login-button scope="public_profile,user_posts" onlogin="checkLoginState();">
             </fb:login-button>
 
 
