@@ -14,11 +14,14 @@ html(ng-app="MorningShiftIntro")
 
     script.
       var app = angular.module("MorningShiftIntro");
-      app.value('member', !{JSON.stringify(member || null)})
-      app.run(['$window', '$rootScope', function ($window, $rootScope) {
+      app.value('member', !{JSON.stringify(member || null)});
+      app.value('facebookAppId', !{JSON.stringify(facebook.appId || null)});
+
+      app.run(['$window', '$rootScope', 'facebookAppId', 
+      function ($window, $rootScope, facebookAppId) {
         window.fbAsyncInit = function() {
           FB.init({
-            appId      : '385805705132348',
+            appId      : facebookAppId,
             cookie     : true,
             xfbml      : true,
             version    : 'v2.8'

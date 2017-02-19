@@ -209,6 +209,9 @@ app.get('/', function (req, res) {
         },
         config: {
             // stripePublicKey: config.stripePublicKey
+        },
+        facebook: {
+            appId: config.facebookAppId
         }
     };
 
@@ -227,6 +230,9 @@ var render = function (viewPath) {
             clef: {
                 publicKey: config.clefPublicKey,
                 state: req.session.clefState
+            },
+            facebook: {
+                appId: config.facebookAppId
             }
         };
 
