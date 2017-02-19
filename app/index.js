@@ -4,6 +4,7 @@ var config  = require('./config.js');
 var secrets = require('./config-secrets.js');
 var uid     = require('uid-safe');
 var clef    = require('clef');
+var fb      = require('fbgraph');
 var request = require('request');
 
 var stripe   = require('stripe')(secrets.stripePrivateKey);
@@ -699,13 +700,124 @@ app.post('/api/incoming/twilio', function (req, res) {
 app.get('/api/incoming/facebook', function (req, res) {
     res.send(req.query['hub.challenge']);
     console.log('Facebook GET');
-    console.log(req);
+    console.log(req.query);
 });
 
 app.post('/api/incoming/facebook', function (req, res) {
-    res.send(req.query['hub.challenge']);
+    res.send(200);
     console.log('Facebook POST');
-    console.log(req.body);
+    if (req.body.object !== 'user') {
+        return;
+    }
+
+    var entry = req.body.entry;
+
+    for (var index in entry) {
+        var item = entry[index];
+        var userId = item.id;
+
+        if (!item.changed_fields || item.changed_fields.indexOf('statuses') < 0) {
+            // We only care about status updates.
+            continue;
+        }
+        console.log(item);
+
+        var viewOptions = {
+            startKey: [userId, {}],
+            endKey: [userId],
+            descending: true
+        };
+
+        db.view('facebook', 'tokensByUserId', viewOptions, function (err, body) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            if (body.rows.length < 1) {
+                return;
+            }
+
+            var newestIndex = 0;
+            var facebookUserInfo = body.rows[newestIndex].value;
+            
+            var minDate = new Date(0);
+            facebookUserInfo.processedUpToDate = facebookUserInfo.processedUpToDate || facebookUserInfo.timestamp;
+
+            var token = facebookUserInfo.token;
+
+            fb.setVersion('2.8');
+            fb.setAccessToken(token);
+
+            fb.setAppSecret(secrets.fbPrivateKey);
+
+            fb.get(userId + "/posts", function (err, response) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                var posts = response.data;
+                var maxDate = minDate;
+                var postCount = 0;
+
+                for (var index in posts) {
+                    var post = posts[index];
+                    var postDate = new Date(post.created_time);
+
+                    if (facebookUserInfo.processedUpToDate < postDate) {
+                        processFacebookPost(post, userId);
+                        postCount++;
+                    }
+
+                    if (postDate > maxDate) {
+                        maxDate = postDate;
+                    }
+                }
+
+                if (maxDate > facebookUserInfo.processedUpToDate) {
+                    facebookUserInfo.processedUpToDate = maxDate;
+                    db.insert(facebookUserInfo, function (err, body) {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                    });
+                }
+
+                console.log("Processed posts: " + postCount);
+
+            });
+        });
+    }
+});
+
+function processFacebookPost(post, userId) {
+    console.log(post);
+}
+
+app.get('/api/oauth/facebook', function (req, res) {
+    console.log("Facebook Oauth");
+    console.log(req.query);
+    res.send(200);
+});
+
+app.post('/api/oauth/facebook/token', function (req, res) {
+    var body = req.body;
+
+    var token = {
+        userId: body.userID,
+        token: body.accessToken,
+        tokenDuration: 'short',
+        timestamp: Date.now(),
+        type: 'facebook'
+    };
+
+    db.insert(token, function (err) {
+        if (err) {
+            return res.send(500);
+        }
+        res.send(200);
+    });
 });
 
 app.post('/data/subscribe', function (req, res) {

@@ -59,19 +59,20 @@ function FacebookLoginCtrl($scope, $http) {
 	// Here we run a very simple test of the Graph API after login is
 	// successful.  See statusChangeCallback() for when this call is made.
 	function testAPI(loginResponse) {
-		console.log('Welcome! Fetching your information.... ');
-		var accessToken = loginResponse.authResponse.accessToken;
-		console.log(accessToken);
+		var authResponse = loginResponse.authResponse;
+		$http.post('api/oauth/facebook/token', {
+			userID: authResponse.userID,
+			accessToken: authResponse.accessToken
+		});
 
 		FB.api('/me', function (response) {
-			console.log('Successful login for: ' + response.name);
 			$scope.$apply(function() {
 				vm.status = 'Thanks for logging in, ' + response.name + '!';
 			});
 		});
 
-		FB.api('/me/feed', function (response) {
-			console.log(response);
-		});
+		// FB.api('/me/feed', function (response) {
+		// 	console.log(response);
+		// });
 	}
 }]);

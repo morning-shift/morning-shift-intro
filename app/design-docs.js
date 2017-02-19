@@ -65,4 +65,25 @@ var actionsDesignDoc = {
 };
 designDocs.push(actionsDesignDoc);
 
+
+var facebookDesignDoc = {
+    url: '_design/facebook',
+    body: 
+    {
+        version: "1.0.1",
+        language: "javascript",
+        views: {
+            tokensByUserId: {
+                map: function (doc) {
+                    if (doc.type === "facebook") {
+                        emit([doc.userId, doc.timestamp], doc);
+                    }
+                }
+            }
+        }
+    }
+};
+designDocs.push(facebookDesignDoc);
+
+
 module.exports = designDocs;
