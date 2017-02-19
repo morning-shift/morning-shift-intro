@@ -7,6 +7,7 @@ module.exports = function () {
     var slackUrlPath     = '/home/ubuntu/config/slackUrl';
     var twilioConfigPath = '/home/ubuntu/config/twilio';
     var fbConfigPath     = '/home/ubuntu/config/fb';
+    var fbSlackUrlPath   = '/home/ubutnu/config/fbSlackUrl';
 
     try {
         var fileReadOptions = {
@@ -19,7 +20,10 @@ module.exports = function () {
             sessionSecret: fs.readFileSync(sessionKeyPath, fileReadOptions).trim(),
             slackUrl: fs.readFileSync(slackUrlPath, fileReadOptions).trim(),
             twilio: JSON.parse(fs.readFileSync(twilioConfigPath, fileReadOptions).trim()),
-            fbPrivateKey: fs.readFileSync(fbConfigPath, fileReadOptions).trim()
+            fb: {
+                privateKey: fs.readFileSync(fbConfigPath, fileReadOptions).trim(),
+                slackUrl: fs.readFileSync(fbSlackUrlPath, fileReadOptions).trim()
+            }
         };  
     }
     catch (err) {

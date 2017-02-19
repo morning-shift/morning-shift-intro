@@ -603,7 +603,7 @@ app.post('/api/action', function (req, res) {
             }
 
             text += 'Entry: ' + action.anything; 
-            sendSlackMessage(slack, text);
+            sendSlackMessage(slack, formatForSlack(text));
         }
 
 
@@ -615,11 +615,6 @@ function sendSlackMessage(slackUrl, text) {
     if (!text) {
         return;
     }
-
-    // This is standard Slack encoding
-    text = text.split('&').join('&amp;');
-    text = text.split('<').join('&lt;');
-    text = text.split('>').join('&gt;');
 
     // Fire and forget
     var options = {
@@ -635,6 +630,14 @@ function sendSlackMessage(slackUrl, text) {
         console.log(err);
        } 
     });
+}
+
+function formatForSlack(text) {
+    // This is standard Slack encoding
+    text = text.split('&').join('&amp;');
+    text = text.split('<').join('&lt;');
+    text = text.split('>').join('&gt;');
+    return text;
 }
 
 app.get('/api/actions', auth, function (req, res) {
@@ -687,7 +690,7 @@ app.post('/api/incoming/twilio', function (req, res) {
     }
 
     var text = "From: " + msg.From + '\n';
-    text += "Entry: " + msg.Body;
+    text += "Entry: " + formatForSlack(msg.Body);
 
     sendSlackMessage(slackUrl, text);
 
@@ -704,7 +707,7 @@ app.get('/api/incoming/facebook', function (req, res) {
 });
 
 app.post('/api/incoming/facebook', function (req, res) {
-    res.send(200);
+    res.sendStatus(200);
     console.log('Facebook POST');
     if (req.body.object !== 'user') {
         return;
@@ -742,16 +745,14 @@ app.post('/api/incoming/facebook', function (req, res) {
             var facebookUserInfo = body.rows[newestIndex].value;
             
             var minDate = new Date(0);
-            facebookUserInfo.processedUpToDate = facebookUserInfo.processedUpToDate || facebookUserInfo.timestamp;
+            facebookUserInfo.processedUpToDate = new Date(facebookUserInfo.processedUpToDate || facebookUserInfo.timestamp);
 
             var token = facebookUserInfo.token;
 
             fb.setVersion('2.8');
-            fb.setAccessToken(token);
+            fb.setAppSecret(secrets.fb.privateKey);
 
-            fb.setAppSecret(secrets.fbPrivateKey);
-
-            fb.get(userId + "/posts", function (err, response) {
+            fb.get(userId + "/posts?access_token=" + token, function (err, response) {
                 if (err) {
                     console.log(err);
                     return;
@@ -765,7 +766,7 @@ app.post('/api/incoming/facebook', function (req, res) {
                     var postDate = new Date(post.created_time);
 
                     if (facebookUserInfo.processedUpToDate < postDate) {
-                        processFacebookPost(post, userId);
+                        processFacebookPost(post, userId, token);
                         postCount++;
                     }
 
@@ -791,8 +792,34 @@ app.post('/api/incoming/facebook', function (req, res) {
     }
 });
 
-function processFacebookPost(post, userId) {
-    console.log(post);
+function processFacebookPost(post, userId, token) {
+    var validTags = {
+        '#morningshift': true,
+        '#fridayfund': true
+    };
+
+    var message = post && post.message;
+    if (message) {
+        var words = message.split(" ");
+        for (var index in words) {
+            var word = words[index].toLowerCase();
+            if (validTags[word]) {
+                sendToSlack(post, userId, token);
+                return;
+            }
+        }
+    }
+
+    function sendToSlack(post, userId, token) {
+        var message = "From: ";
+
+        fb.get(userId + "?access_token=" + token, function (err, response) {
+            message += "<https://www.facebook.com/" + userId + "|" + response.name + ">\n";
+            message += "Post: " + formatForSlack(post.message);
+            sendSlackMessage(secrets.fb.slackUrl, message);
+        });
+    }
+
 }
 
 app.get('/api/oauth/facebook', function (req, res) {
@@ -816,7 +843,7 @@ app.post('/api/oauth/facebook/token', function (req, res) {
         if (err) {
             return res.send(500);
         }
-        res.send(200);
+        res.sendStatus(200);
     });
 });
 
