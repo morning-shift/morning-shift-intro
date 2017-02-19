@@ -1,4 +1,4 @@
-var overrides = require('config-overrides.js');
+var overrides = require('./config-overrides.js');
 // For publicly viewable configuration.
 module.exports = { 
 	clefPublicKey: overrides.clefPublicKey || "db5b5d2cdd53e9ed9abba7d4d4df685f",
