@@ -845,11 +845,41 @@ app.post('/api/oauth/facebook/token', function (req, res) {
         type: 'facebook'
     };
 
-    db.insert(token, function (err) {
+    var viewOptions = {
+        startKey: [token.userId, {}],
+        endKey: [token.userId],
+        descending: true
+    };
+
+    db.view('facebook', 'tokensByUserId', viewOptions, function (err, body) {
         if (err) {
-            return res.send(500);
+            console.log(err);
+            return;
         }
-        res.sendStatus(200);
+
+        if (body.rows.length < 1) {
+            db.insert(token, function (err) {
+                if (err) {
+                    return res.sendStatus(500);
+                }
+                res.sendStatus(200);
+            });
+            return;
+        }
+        else {
+            for (var index in body.rows) {
+                var existingToken = body.rows[index].value;
+                existingToken.token = token.token;
+                existingToken.timestamp = Date.now();
+                db.insert(existingToken, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+            return res.sendStatus(200);
+        }
+
     });
 });
 
