@@ -837,7 +837,7 @@ app.get('/api/oauth/facebook', function (req, res) {
 app.post('/api/oauth/facebook/token', function (req, res) {
     var body = req.body;
 
-    var token = {
+    var fbInfo = {
         userId: body.userID,
         token: body.accessToken,
         tokenDuration: 'short',
@@ -845,41 +845,66 @@ app.post('/api/oauth/facebook/token', function (req, res) {
         type: 'facebook'
     };
 
+    var sendError = function () {
+        res.sendStatus(500);
+    };
+
+    var sendOk = function () {
+        res.sendStatus(200);
+    };
+
+    function extendToken(token) {
+        var extendTokenRequest = {
+            "access_token": token.token,
+            "client_id": config.facebookAppId,
+            "client_secret":  secrets.fb.privateKey
+        };
+
+        fb.extendAccessToken(extendTokenRequest, handleTokenExtension);
+
+        function handleTokenExtension(err, bearerToken) {
+            if (err) {
+                console.log(err);
+                return sendError();;
+            }
+
+            if (bearerToken.access_token) {
+                token.token = bearerToken.access_token;
+                token.timestamp = Date.now();
+                token.tokenDuration = bearerToken.token_type;
+            }
+
+            db.insert(token, function (err) {
+                if (err) {
+                    console.log(err);
+                    return sendError();
+                }
+                return sendOk();
+            });
+        };
+    }
+
     var viewOptions = {
-        startKey: [token.userId, {}],
-        endKey: [token.userId],
+        startKey: [fbInfo.userId, {}],
+        endKey: [fbInfo.userId],
         descending: true
     };
 
     db.view('facebook', 'tokensByUserId', viewOptions, function (err, body) {
         if (err) {
             console.log(err);
-            return;
+            return sendError();
         }
 
+        // No existing tokens for this person
         if (body.rows.length < 1) {
-            db.insert(token, function (err) {
-                if (err) {
-                    return res.sendStatus(500);
-                }
-                res.sendStatus(200);
-            });
-            return;
+            return extendToken(fbInfo);
         }
         else {
-            for (var index in body.rows) {
-                var existingToken = body.rows[index].value;
-                existingToken.token = token.token;
-                existingToken.timestamp = Date.now();
-                db.insert(existingToken, function (err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                });
-            }
-            return res.sendStatus(200);
+            var latestToken = body.rows[0].value;
+            latestToken.token = fbInfo.token;
+            return extendToken(latestToken);
         }
-
     });
 });
 
