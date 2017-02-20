@@ -51,30 +51,36 @@ html(ng-app="MorningShiftIntro")
 
           .action(ng-repeat="action in ctrl.actions")
 
-            h4 Cause: {{action.cause}}
-  
-            .row
-              .col-xs-12.col-sm-4
-                label Organization: 
+            div(ng-if="action.schema === '1.0.1'")
+              p.message {{action.message}}
 
-              .col-xs-12.col-sm-8
-                .entry {{action.org || '(not entered)'}}
+              p.submitted-by Submitted by <strong>{{action.author || '(anonymous)'}}</strong> on {{action.timestamp | date}}
 
-            .row
-              .col-xs-12.col-sm-4
-                label Action: 
+            div(ng-if="action.schema === '1.0.0'")
+              h4 Cause: {{action.cause}}
+    
+              .row
+                .col-xs-12.col-sm-4
+                  label Organization: 
 
-              .col-xs-12.col-sm-8 
-                .entry {{action.action || '(not entered)'}}
+                .col-xs-12.col-sm-8
+                  .entry {{action.org || '(not entered)'}}
 
-            .row
-              .col-xs-12 
-                label Anything else?
+              .row
+                .col-xs-12.col-sm-4
+                  label Action: 
 
-              .col-xs-12
-                p.anything {{action.anything}}
+                .col-xs-12.col-sm-8 
+                  .entry {{action.action || '(not entered)'}}
 
-            p.submitted-by Submitted by <strong>{{action.author || '(anonymous)'}}</strong> on {{action.submitDate | date}}
+              .row
+                .col-xs-12 
+                  label Anything else?
+
+                .col-xs-12
+                  p.anything {{action.anything}}
+
+              p.submitted-by Submitted by <strong>{{action.author || '(anonymous)'}}</strong> on {{action.submitDate | date}}
 
             //- pre {{action | json}}
 

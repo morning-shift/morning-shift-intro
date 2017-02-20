@@ -17,11 +17,14 @@ function MainMessageCtrl(member, $http, $cookies) {
 
 		var data = {
 			author: ctrl.author,
+			message: ctrl.message,
+			
 			cause: ctrl.cause,
 			org: ctrl.org,
 			action: ctrl.action,
 			contact: ctrl.contact,
 			anything: ctrl.anything,
+
 			member: member
 		};
 

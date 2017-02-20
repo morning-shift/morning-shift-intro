@@ -43,13 +43,13 @@ var actionsDesignDoc = {
     url: '_design/actions',
     body: 
     {
-        version: "1.0.0",
+        version: "1.0.1",
         language: "javascript",
         views: {
-            bySubmitDate: {
+            byTimestamp: {
                 map: function (doc) {
                     if (doc.type === "action") {
-                        emit(doc.submitDate, doc);
+                        emit(doc.timestamp, doc);
                     }
                 }
             },

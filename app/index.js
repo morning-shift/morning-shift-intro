@@ -563,6 +563,8 @@ app.post('/api/action', function (req, res) {
         memberId: memberId,
 
         author: data.author,
+        message: data.message,
+
         cause: data.cause,
         org: data.org,
         action: data.action,
@@ -570,8 +572,8 @@ app.post('/api/action', function (req, res) {
         anything: data.anything,
 
         type: "action",
-        schema: "1.0.0",
-        submitDate: Date.now()
+        schema: "1.0.1",
+        timestamp: Date.now()
     };
 
     for (var prop in action) {
@@ -608,7 +610,11 @@ app.post('/api/action', function (req, res) {
                 text += 'Contact: ' + data.contact + '\n';
             }
 
-            text += 'Entry: ' + action.anything; 
+            if (action.anything) {
+                text += 'Anything: ' + action.anything + '\n';
+            }
+
+            text += 'Entry: ' + action.message; 
             sendSlackMessage(slack, formatForSlack(text));
         }
 
@@ -648,7 +654,12 @@ function formatForSlack(text) {
 
 app.get('/api/actions', auth, function (req, res) {
     // {keys: [memberId]}
-    db.view('actions', 'bySubmitDate', function (err, body) {
+    var options = {
+        descending: true,
+        limit: 100
+    };
+
+    db.view('actions', 'byTimestamp', options, function (err, body) {
         if (err) {
             console.log(err);
             return res.sendStatus(500);
@@ -662,12 +673,16 @@ app.get('/api/actions', auth, function (req, res) {
             var action = records[index].value;
             val.push({
                 author: action.author,
+                message: action.message,
+                schema: action.schema,
+
                 cause: action.cause,
                 action: action.action,
                 org: action.org,
     // TODO: Needs permissions: ... contact: action.contact ? "yes"
                 anything: action.anything,
-                submitDate: action.submitDate
+                timestamp: action.timestamp,
+                submitDate: action.submitDate // deprecated
             })
         }
 
@@ -810,20 +825,40 @@ function processFacebookPost(post, userId, token) {
         for (var index in words) {
             var word = words[index].toLowerCase();
             if (validTags[word]) {
-                sendToSlack(post, userId, token);
+                fb.get(userId + "?access_token=" + token, function (err, response) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    sendToSlack(post, userId, response.name, token);
+                    addToCouch(post, userId, response.name, token);
+                });
                 return;
             }
         }
     }
 
-    function sendToSlack(post, userId, token) {
+    function sendToSlack(post, userId, userName, token) {
         var message = "From: ";
 
-        fb.get(userId + "?access_token=" + token, function (err, response) {
-            message += "<https://www.facebook.com/" + userId + "|" + response.name + ">\n";
-            message += "Post: " + formatForSlack(post.message);
-            sendSlackMessage(secrets.fbSlackUrl, message);
-        });
+        message += "<https://www.facebook.com/" + userId + "|" + userName + ">\n";
+        message += "Post: " + formatForSlack(post.message);
+        sendSlackMessage(secrets.fbSlackUrl, message);
+    }
+
+    function addToCouch(post, userId, token) {
+        var firstName = userName.split(" ")[0]
+        
+        var action = {
+            author: firstName,
+            message: post.message,
+
+            type: "action",
+            schema: "1.0.1",
+            timestamp: Date.now()
+        };
+
+        db.insert(action);
     }
 
 }

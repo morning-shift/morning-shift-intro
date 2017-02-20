@@ -285,7 +285,8 @@ p {
 	line-height: 20pt;
 }
 
-p.anything {
+p.anything,
+p.message {
 	margin-top: 0;
 	white-space: pre-wrap;
 }
