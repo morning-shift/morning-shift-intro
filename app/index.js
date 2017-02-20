@@ -717,17 +717,20 @@ app.post('/api/incoming/twilio', function (req, res) {
 
     var lowercase = msg.Body.toLowerCase();
     if (lowercase === "help" || lowercase === "?") {
-        var helpMessage = "Let us know what you're working on!";
-        helpMessage += " Be sure to include #MorningShift or"
-        helpMessage += " #FridayFund in your message."
+        var helpMessage = "Please let us know what actions you've " +
+            "taken this week to turn your passion into action.";
         res.status(200).send(twilioReply(helpMessage));
         return;
     }
 
-    if (!hasValidTags(msg.Body)) {
-        res.sendStatus(204);
-        return;
-    }
+    // Spam is not an issue, yet.
+    //
+    // if (!hasValidTags(msg.Body)) {
+    //     var infoMessage = "Hello! Thank you for txting us. Please include " +
+    //         "#MorningShift in your message"
+    //     res.sendStatus(204);
+    //     return;
+    // }
 
     var text = "From: " + msg.From + '\n';
     text += "Entry: " + formatForSlack(msg.Body);
