@@ -725,7 +725,7 @@ app.post('/api/incoming/facebook', function (req, res) {
         var item = entry[index];
         var userId = item.id;
 
-        if (!item.changed_fields || item.changed_fields.indexOf('statuses') < 0) {
+        if (!item.changed_fields || item.changed_fields.indexOf('feed') < 0) {
             // We only care about status updates.
             continue;
         }
