@@ -67,11 +67,12 @@ html(ng-app="MorningShiftIntro")
           //-- the JavaScript SDK to present a graphical Login button that triggers
           //-- the FB.login() function when clicked.
           
-          button.btn.btn-facebook(ng-click="ctrl.connect()") 
-              span Connect to Facebook
+          div(ng-if="!ctrl.facebookName")
+            button.btn.btn-facebook(ng-click="ctrl.connect()") 
+                span Connect to Facebook
 
           div(ng-if="ctrl.facebookName")
-            p You've successfully connected your Facebook account!
+            p You've successfully connected your Facebook account. Thank you.
 
           h4.privacy Privacy policy
 
