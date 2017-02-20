@@ -846,7 +846,7 @@ function processFacebookPost(post, userId, token) {
         sendSlackMessage(secrets.fbSlackUrl, message);
     }
 
-    function addToCouch(post, userId, token) {
+    function addToCouch(post, userId, userName, token) {
         var firstName = userName.split(" ")[0]
         
         var action = {
