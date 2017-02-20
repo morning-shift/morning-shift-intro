@@ -692,6 +692,10 @@ app.get('/api/actions', function (req, res) {
 });
 
 
+function twilioReply(text) {
+    return "<Response><Message>" + text + "</Message></Response>"
+}
+
 app.post('/api/incoming/twilio', function (req, res) {
     if (!secrets || !secrets.twilio || !secrets.twilio.slackUrl) {
         res.sendStatus(404);
@@ -711,8 +715,17 @@ app.post('/api/incoming/twilio', function (req, res) {
         return;
     }
 
+    var lowercase = msg.Body.toLowerCase();
+    if (lowercase === "help" || lowercase === "?") {
+        var helpMessage = "Let us know what you're working on!";
+        helpMessage += " Be sure to include #MorningShift or"
+        helpMessage += " #FridayFund in your message."
+        res.status(200).send(twilioReply(helpMessage));
+        return;
+    }
+
     if (!hasValidTags(msg.Body)) {
-        res.sendStatus(401);
+        res.sendStatus(204);
         return;
     }
 
@@ -722,7 +735,7 @@ app.post('/api/incoming/twilio', function (req, res) {
     sendSlackMessage(slackUrl, text);
 
     var ack = "Ok!";
-    var reply = "<Response><Message>" + ack + "</Message></Response>";
+    var reply = twilioReply(ack);
 
     res.status(200).send(reply);
 });
