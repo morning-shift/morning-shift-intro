@@ -711,6 +711,11 @@ app.post('/api/incoming/twilio', function (req, res) {
         return;
     }
 
+    if (!hasValidTags(msg.Body)) {
+        res.sendStatus(401);
+        return;
+    }
+
     var text = "From: " + msg.From + '\n';
     text += "Entry: " + formatForSlack(msg.Body);
 
@@ -818,23 +823,30 @@ app.post('/api/incoming/facebook', function (req, res) {
     }
 });
 
-function processFacebookPost(post) {
+function hasValidTags (text) {
     var validTags = {
         '#morningshift': true,
         '#fridayfund': true
     };
 
-    var message = post && post.message;
-    if (message) {
-        var words = message.split(" ");
+    if (text) {
+        var words = text.split(" ");
         for (var index in words) {
             var word = words[index].toLowerCase();
             if (validTags[word]) {
-                sendToSlack(post);
-                addToCouch(post);
-                return;
+                return true;
             }
         }
+    }
+
+    return false;
+}
+
+function processFacebookPost(post) {
+
+    if (hasValidTags(post.message)) {
+        sendToSlack(post);
+        addToCouch(post);
     }
 
     function sendToSlack(post) {
