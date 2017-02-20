@@ -256,7 +256,7 @@ app.get('/about/roles', render('about-roles'));
 
 app.get('/actions', render('actions'));
 
-app.get('/facebook', render('facebook'));
+app.get('/connect/facebook', render('facebook'));
 
 app.get('/sad-clef', function (req, res) {
     res.render('sad-clef');

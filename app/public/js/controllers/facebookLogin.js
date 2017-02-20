@@ -63,7 +63,7 @@ function FacebookLoginCtrl($scope, $http) {
 	// successful.  See statusChangeCallback() for when this call is made.
 	function saveToken(loginResponse) {
 		var authResponse = loginResponse.authResponse;
-		$http.post('api/oauth/facebook/token', {
+		$http.post('/api/oauth/facebook/token', {
 			userID: authResponse.userID,
 			accessToken: authResponse.accessToken
 		});
