@@ -652,7 +652,8 @@ function formatForSlack(text) {
     return text;
 }
 
-app.get('/api/actions', auth, function (req, res) {
+// Temporarily(?) open to public
+app.get('/api/actions', function (req, res) {
     // {keys: [memberId]}
     var options = {
         descending: true,
