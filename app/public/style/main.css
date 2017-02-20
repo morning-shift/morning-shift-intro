@@ -294,6 +294,10 @@ p.submitted-by {
 	margin-top: 0;
 }
 
+.action-page .message {
+	margin-top: 1.1em;
+}
+
 .action {
 	border-bottom: solid 1px #ccc;
 }
