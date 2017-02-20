@@ -847,7 +847,6 @@ function processFacebookPost(post) {
             var headline = post.name || "(untitled)";
 
             message += "\n";
-            message += 
             message += "Link: <" + post.link + "|" + headline  + ">\n";
             message += "Source: " + post.caption;
         }
