@@ -774,7 +774,11 @@ app.post('/api/incoming/facebook', function (req, res) {
             fb.setVersion('2.8');
             fb.setAppSecret(secrets.fbPrivateKey);
 
-            fb.get(userId + "/posts?access_token=" + token, function (err, response) {
+            var getPostsUrl = userId + "/posts";
+            getPostsUrl += "?fields=id,from,message,caption,name,link,type,created_time";
+            getPostsUrl += "&access_token=" + token;
+
+            fb.get(getPostsUrl, function (err, response) {
                 if (err) {
                     console.log(err);
                     return;
@@ -788,7 +792,7 @@ app.post('/api/incoming/facebook', function (req, res) {
                     var postDate = new Date(post.created_time);
 
                     if (facebookUserInfo.processedUpToDate < postDate) {
-                        processFacebookPost(post, userId, token);
+                        processFacebookPost(post);
                         postCount++;
                     }
 
@@ -814,7 +818,7 @@ app.post('/api/incoming/facebook', function (req, res) {
     }
 });
 
-function processFacebookPost(post, userId, token) {
+function processFacebookPost(post) {
     var validTags = {
         '#morningshift': true,
         '#fridayfund': true
@@ -826,33 +830,39 @@ function processFacebookPost(post, userId, token) {
         for (var index in words) {
             var word = words[index].toLowerCase();
             if (validTags[word]) {
-                fb.get(userId + "?access_token=" + token, function (err, response) {
-                    if (err) {
-                        console.log(err);
-                        return;
-                    }
-                    sendToSlack(post, userId, response.name, token);
-                    addToCouch(post, userId, response.name, token);
-                });
+                sendToSlack(post);
+                addToCouch(post);
                 return;
             }
         }
     }
 
-    function sendToSlack(post, userId, userName, token) {
+    function sendToSlack(post) {
         var message = "From: ";
 
-        message += "<https://www.facebook.com/" + userId + "|" + userName + ">\n";
+        message += "<https://www.facebook.com/" + post.from.id + "|" + post.from.name + ">\n";
         message += "Post: " + formatForSlack(post.message);
+
+        if (post.link) {
+            var headline = post.name || "(untitled)";
+
+            message += "\n";
+            message += 
+            message += "Link: <" + post.link + "|" + headline  + ">\n";
+            message += "Source: " + post.caption;
+        }
+
         sendSlackMessage(secrets.fbSlackUrl, message);
     }
 
-    function addToCouch(post, userId, userName, token) {
-        var firstName = userName.split(" ")[0]
+    function addToCouch(post) {
+        var firstName = post.from.name.split(" ")[0]
         
         var action = {
             author: firstName,
             message: post.message,
+
+            post: post, 
 
             type: "action",
             schema: "1.0.1",
