@@ -20,10 +20,8 @@ module.exports = function () {
             sessionSecret: fs.readFileSync(sessionKeyPath, fileReadOptions).trim(),
             slackUrl: fs.readFileSync(slackUrlPath, fileReadOptions).trim(),
             twilio: JSON.parse(fs.readFileSync(twilioConfigPath, fileReadOptions).trim()),
-            fb: {
-                privateKey: fs.readFileSync(fbConfigPath, fileReadOptions).trim(),
-                slackUrl: fs.readFileSync(fbSlackUrlPath, fileReadOptions).trim()
-            }
+            fbPrivateKey: fs.readFileSync(fbConfigPath, fileReadOptions).trim(),
+            fbSlackUrl: fs.readFileSync(fbSlackUrlPath, fileReadOptions).trim()
         };  
     }
     catch (err) {

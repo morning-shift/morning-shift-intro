@@ -822,7 +822,7 @@ function processFacebookPost(post, userId, token) {
         fb.get(userId + "?access_token=" + token, function (err, response) {
             message += "<https://www.facebook.com/" + userId + "|" + response.name + ">\n";
             message += "Post: " + formatForSlack(post.message);
-            sendSlackMessage(secrets.fb.slackUrl, message);
+            sendSlackMessage(secrets.fbSlackUrl, message);
         });
     }
 
@@ -857,7 +857,7 @@ app.post('/api/oauth/facebook/token', function (req, res) {
         var extendTokenRequest = {
             "access_token": token.token,
             "client_id": config.facebookAppId,
-            "client_secret":  secrets.fb.privateKey
+            "client_secret": secrets.fbPrivateKey
         };
 
         fb.extendAccessToken(extendTokenRequest, handleTokenExtension);
