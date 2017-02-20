@@ -756,7 +756,7 @@ app.post('/api/incoming/facebook', function (req, res) {
             var token = facebookUserInfo.token;
 
             fb.setVersion('2.8');
-            fb.setAppSecret(secrets.fb.privateKey);
+            fb.setAppSecret(secrets.fbPrivateKey);
 
             fb.get(userId + "/posts?access_token=" + token, function (err, response) {
                 if (err) {
