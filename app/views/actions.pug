@@ -86,20 +86,20 @@ html(ng-app="MorningShiftIntro")
 
           //- We want a server-side check here because the Clef
           //- stuff doesn't go well with angular ng-if stuff.
-          if !isSignedIn
-            p Please sign in to (possibly) see the contents of this page.
+          //- if !isSignedIn
+          //-   p Please sign in to (possibly) see the contents of this page.
 
-            .sign-in(ng-controller="ClefCtrl as clef") 
-                p
-                  script.clef-button(type="text/javascript" 
-                  src="https://clef.io/v3/clef.js" 
-                  data-color="white" 
-                  data-style="flat"
-                  data-type="login")&attributes({
-                    'data-redirect-url': host + '/clef/redirect/actions',
-                    'data-app-id': clef.publicKey,
-                    'data-state': clef.state
-                  })
+          //-   .sign-in(ng-controller="ClefCtrl as clef") 
+          //-       p
+          //-         script.clef-button(type="text/javascript" 
+          //-         src="https://clef.io/v3/clef.js" 
+          //-         data-color="white" 
+          //-         data-style="flat"
+          //-         data-type="login")&attributes({
+          //-           'data-redirect-url': host + '/clef/redirect/actions',
+          //-           'data-app-id': clef.publicKey,
+          //-           'data-state': clef.state
+          //-         })
 
     include inc/footer
 
