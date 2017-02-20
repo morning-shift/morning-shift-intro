@@ -5,6 +5,12 @@ angular.module('MorningShiftIntro')
 function FacebookLoginCtrl($scope, $http) {
 	var vm = this;
 
+	vm.connect = function () {
+		FB.login(function (response) {
+			// Do nothing. Handled by event listener.
+		}, {scope: 'public_profile,user_posts'});
+	};
+
 	$scope.$on('facebook-sdk-loaded', init);
 
 	// Now that we've initialized the JavaScript SDK, we call 
@@ -25,30 +31,27 @@ function FacebookLoginCtrl($scope, $http) {
 
 	// This is called with the results from from FB.getLoginStatus().
 	function statusChangeCallback(response) {
-		console.log('statusChangeCallback');
-		console.log(response);
 		// The response object is returned with a status field that lets the
 		// app know the current login status of the person.
 		// Full docs on the response object can be found in the documentation
 		// for FB.getLoginStatus().
 		if (response.status === 'connected') {
 			// Logged into your app and Facebook.
-			testAPI(response);
+			saveToken(response);
 		} 
 		else if (response.status === 'not_authorized') {
 			// The person is logged into Facebook, but not your app.
-			vm.status = 'Please log into this app.';
+			// vm.status = 'Please log into this app.';
 		} 
 		else {
 			// The person is not logged into Facebook, so we're not sure if
 			// they are logged into this app or not.
-			vm.status = 'Please log into Facebook.';
+			// vm.status = 'Please log into Facebook.';
 		}
 	}
 
 	// This function is called when someone finishes with the Login
-	// Button.  See the onlogin handler attached to it in the sample
-	// code below.
+	// Button. 
 	function checkLoginState() {
 		FB.getLoginStatus(function (response) {
 			statusChangeCallback(response);
@@ -58,7 +61,7 @@ function FacebookLoginCtrl($scope, $http) {
 
 	// Here we run a very simple test of the Graph API after login is
 	// successful.  See statusChangeCallback() for when this call is made.
-	function testAPI(loginResponse) {
+	function saveToken(loginResponse) {
 		var authResponse = loginResponse.authResponse;
 		$http.post('api/oauth/facebook/token', {
 			userID: authResponse.userID,
@@ -67,12 +70,8 @@ function FacebookLoginCtrl($scope, $http) {
 
 		FB.api('/me', function (response) {
 			$scope.$apply(function() {
-				vm.status = 'Thanks for logging in, ' + response.name + '!';
+				vm.facebookName = response.name;
 			});
 		});
-
-		// FB.api('/me/feed', function (response) {
-		// 	console.log(response);
-		// });
 	}
 }]);

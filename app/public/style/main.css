@@ -178,6 +178,19 @@ a:hover {
 .btn-start:focus {
 	outline: 0;
 }
+.btn-facebook,
+.btn-facebook:focus {
+	color: #eee;
+	border-color: #355088;
+	background-color: #3B5998;
+	font-size: 20px;
+}
+.btn-facebook:hover {
+	background-color: #355088;
+	border-color: #355088;
+	color: #eee;
+}
+
 
 .message {
 	margin-top: 1.1em;

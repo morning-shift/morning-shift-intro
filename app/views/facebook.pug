@@ -42,18 +42,31 @@ html(ng-app="MorningShiftIntro")
         }(document, 'script', 'facebook-jssdk'));
       }]);
 
+    style.
+      h1.coalition {
+        text-align: left;
+        margin-top: 1ex;
+      }
+
     //- script(src="https://checkout.stripe.com/checkout.js")
 
   body(ng-controller="FacebookLoginCtrl as ctrl")
     .container
       .row
         .col-xs-12
-          p Facebook test.
+          h1.coalition Connect
+
+          p To share your stories and actions with a wider audience, connect your Facebook account to the Morning Shift website. 
+
+          p By connecting your account, new Facebook posts that you tag with #MorningShift or #FridayFund will be sent to our volunteer team, helping us understand what is important to you and other Morning Shift members each week.
           //-- Below we include the Login Button social plugin. This button uses
           //-- the JavaScript SDK to present a graphical Login button that triggers
           //-- the FB.login() function when clicked.
-          div.
-            <fb:login-button scope="public_profile,user_posts">
-            </fb:login-button>
+          
+          button.btn.btn-facebook(ng-click="ctrl.connect()") 
+              span Connect to Facebook
 
-          p {{ctrl.status}}
+          div(ng-if="ctrl.facebookName")
+            p You've successfully connected your Facebook account!
+
+    include inc/footer
