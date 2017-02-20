@@ -48,6 +48,10 @@ html(ng-app="MorningShiftIntro")
         margin-top: 1ex;
       }
 
+      .privacy {
+        margin-top: 4em;
+      }
+
     //- script(src="https://checkout.stripe.com/checkout.js")
 
   body(ng-controller="FacebookLoginCtrl as ctrl")
@@ -68,5 +72,15 @@ html(ng-app="MorningShiftIntro")
 
           div(ng-if="ctrl.facebookName")
             p You've successfully connected your Facebook account!
+
+          h4.privacy Privacy policy
+
+          p By connecting your Facebook account to our website, this will allow the Morning Shift Coalition to read your timeline. When you post on Facebook, we will check to see if it contains a #MorningShift or #FridayFund hashtag, or similarly published tag, and if it does then we'll keep a copy. Your post will likely be seen by our volunteers, along with a link to your public profile.
+
+          p We will only look at the Facebook posts you create after connecting your account. If you don't visit our website for 60 days, we'll no longer have access to your timeline. 
+
+          p If you ask us to remove your data from our systems, we will do that.
+
+          p Thank you for connecting with us, and we look forward to working with you on the Morning Shift.
 
     include inc/footer
