@@ -7,7 +7,7 @@ module.exports = function () {
     var slackUrlPath     = '/home/ubuntu/config/slackUrl';
     var twilioConfigPath = '/home/ubuntu/config/twilio';
     var fbConfigPath     = '/home/ubuntu/config/fb';
-    var fbSlackUrlPath   = '/home/ubutnu/config/fbSlackUrl';
+    var fbSlackUrlPath   = '/home/ubuntu/config/fbSlackUrl';
 
     try {
         var fileReadOptions = {
@@ -25,6 +25,7 @@ module.exports = function () {
         };  
     }
     catch (err) {
+        console.log("ERROR PROCESSING CONFIG");
         console.log(err);
         return {
             stripePrivateKey: "",
