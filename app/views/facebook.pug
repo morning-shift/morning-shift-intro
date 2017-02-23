@@ -59,10 +59,13 @@ html(ng-app="MorningShiftIntro")
       .row
         .col-xs-12
           h1.coalition Connect
+            a(href="/")
+              img(src="/img/logo-96.png")
+
 
           p To share your stories and actions with a wider audience, connect your Facebook account to the Morning Shift website. 
 
-          p By connecting your account, new Facebook posts that you tag with #MorningShift or #FridayFund will be sent to our volunteer team, helping us understand what is important to you and other Morning Shift members each week.
+          p By connecting your account, your Facebook posts that you tag with #MorningShift or #FridayFund will be sent to our volunteer team. This will help us understand what is important to you and other Morning Shift members each week, and guide our focus as we grow the coalition.
           //-- Below we include the Login Button social plugin. This button uses
           //-- the JavaScript SDK to present a graphical Login button that triggers
           //-- the FB.login() function when clicked.
@@ -72,13 +75,15 @@ html(ng-app="MorningShiftIntro")
                 span Connect to Facebook
 
           div(ng-if="ctrl.facebookName")
-            p You've successfully connected your Facebook account. Thank you.
+            p You've successfully connected your Facebook account. Thank you. 
+
+            p Things to do: <a href="https://www.facebook.com">Continue to Facebook</a> or <a href="/">Morning Shift Home</a>.
 
           h4.privacy Privacy policy
 
-          p By connecting your Facebook account to our website, this will allow the Morning Shift Coalition to read posts on your timeline. When you post on Facebook, we will check to see if it contains a #MorningShift or #FridayFund hashtag, or similarly published tag, and if it does then we'll keep a copy. Your post will likely be seen by our volunteers, along with a link to your public profile.
+          p By connecting your Facebook account to our website, this will allow the Morning Shift Coalition to read posts on your timeline. When you post on Facebook, we'll check to see if it contains a #MorningShift or #FridayFund hashtag, or a similarly published tag, and if it does then we'll keep a copy. Your post, along with a link to your public profile, will likely be seen by our volunteers.
 
-          p We will only look at the Facebook posts you create after connecting your account. If you don't visit our website for 60 days, we'll no longer have access to your timeline. 
+          p We will only look at the Facebook posts you write after you connect your account. And, if you don't visit our website for 60 days, we'll no longer have access to your timeline. 
 
           p If you ask us to remove your data from our systems, we will do that.
 
