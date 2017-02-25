@@ -202,6 +202,7 @@ var getMember = function (req) {
 app.get('/', function (req, res) {
     var vm = {
         host: getHost(req),
+        originalUrl: req.originalUrl,
         member: {},
         clef: {
             publicKey: config.clefPublicKey,
@@ -227,6 +228,7 @@ var render = function (viewPath) {
     return function (req, res) {
         var vm = {
             host: getHost(req),
+            originalUrl: req.originalUrl,
             clef: {
                 publicKey: config.clefPublicKey,
                 state: req.session.clefState
