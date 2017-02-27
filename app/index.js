@@ -844,7 +844,8 @@ app.post('/api/incoming/facebook', function (req, res) {
 function hasValidTags (text) {
     var validTags = {
         '#morningshift': true,
-        '#fridayfund': true
+        '#fridayfund': true,
+        '#morningshiftcoalition': true
     };
 
     if (text) {
