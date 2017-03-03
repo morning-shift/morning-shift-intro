@@ -780,8 +780,8 @@ app.post('/api/incoming/facebook', function (req, res) {
         facebookMemoryCache[cacheKey] = true;
 
         var viewOptions = {
-            startKey: [userId, {}],
-            endKey: [userId],
+            startkey: [userId, {}],
+            endkey: [userId],
             descending: true
         };
 
@@ -922,8 +922,10 @@ app.get('/api/oauth/facebook', function (req, res) {
 app.post('/api/oauth/facebook/token', function (req, res) {
     var body = req.body;
 
+    console.log(body.userID);
+
     var fbInfo = {
-        userId: body.userID,
+        userId: body.userID.toString(),
         token: body.accessToken,
         tokenDuration: 'short',
         timestamp: Date.now(),
@@ -970,8 +972,8 @@ app.post('/api/oauth/facebook/token', function (req, res) {
     }
 
     var viewOptions = {
-        startKey: [fbInfo.userId, {}],
-        endKey: [fbInfo.userId],
+        startkey: [fbInfo.userId, {}],
+        endkey: [fbInfo.userId],
         descending: true
     };
 
