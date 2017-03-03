@@ -762,14 +762,6 @@ app.post('/api/incoming/facebook', function (req, res) {
 
     var entry = req.body.entry;
 
-    var cacheKey = entry.id + entry.time.toString();
-    if (facebookMemoryCache[cacheKey]) {
-        console.log("Ignoring duplicate request.");
-        return;
-    }
-    facebookMemoryCache[cacheKey] = true;
-
-
     for (var index in entry) {
         var item = entry[index];
         var userId = item.id;
@@ -779,6 +771,13 @@ app.post('/api/incoming/facebook', function (req, res) {
             continue;
         }
         console.log(item);
+
+        var cacheKey = item.id + (item.time || 0).toString();
+        if (facebookMemoryCache[cacheKey]) {
+            console.log("Ignoring duplicate request.");
+            return;
+        }
+        facebookMemoryCache[cacheKey] = true;
 
         var viewOptions = {
             startKey: [userId, {}],
