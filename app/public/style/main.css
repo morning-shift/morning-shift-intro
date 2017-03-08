@@ -25,6 +25,12 @@ body, .footer {
 	padding-bottom: 2em;
 }
 
+body,
+.footer,
+.container {
+	background-color: #990000;
+}
+
 .container, .container-fluid {
 	max-width: 850px;
 }
