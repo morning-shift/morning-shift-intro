@@ -47,21 +47,8 @@ html(ng-app="MorningShiftIntro")
 
           .description
             //-p Let's do this.
-
-            .col-md-6(ng-controller="ClefCtrl as clef") 
-              if isSignedIn
-                p Welcome!
-              else
-                p
-                  script.clef-button(type="text/javascript" 
-                  src="https://clef.io/v3/clef.js" 
-                  data-color="white" 
-                  data-style="flat"
-                  data-type="login")&attributes({
-                    'data-redirect-url': host + '/clef/redirect',
-                    'data-app-id': clef.publicKey,
-                    'data-state': clef.state
-                  })
+            .col-md-6
+              p Welcome!
 
             .col-md-6
               p <a href="/about">About Morning Shift</a>
