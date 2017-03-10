@@ -854,7 +854,9 @@ function hasValidTags (text) {
     var validTags = {
         '#morningshift': true,
         '#fridayfund': true,
-        '#morningshiftcoalition': true
+        '#morningshiftcoalition': true,
+        '#fridayfour': true,
+        '#friday4': true
     };
 
     if (text) {
