@@ -860,7 +860,7 @@ function hasValidTags (text) {
     };
 
     if (text) {
-        var words = text.split(" \n");
+        var words = text.split(/\s/);
         for (var index in words) {
             var word = words[index].toLowerCase();
             if (validTags[word]) {
