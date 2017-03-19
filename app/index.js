@@ -874,6 +874,8 @@ function hasValidTags (text) {
 
 function processFacebookPost(post) {
 
+    console.log(post);
+
     if (hasValidTags(post.message)) {
         sendToSlack(post);
         addToCouch(post);
