@@ -33,7 +33,7 @@ body,
 }
 
 .container, .container-fluid {
-	max-width: 850px;
+	max-width: 1050px;
 }
 
 .header {
@@ -438,6 +438,9 @@ blockquote {
 	}
 	h2 {
 		font-size: 22pt;
+	}
+	h3 {
+		font-size: 18pt;
 	}
 	h4 {
 		font-size: 14pt;

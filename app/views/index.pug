@@ -25,9 +25,13 @@ html(ng-app="MorningShiftIntro")
       .row.debug
 
         .col-md-offset-1.col-md-10.debug
-          h1.the-morning <span class="the">The</span> Morning 
+          h1.the-morning 
+            .the The 
+            span Morning 
           h1.shift Shift
           h1.coalition Coalition
+
+          h3 Volunteer for the revolution. Time to work, together. 
 
           .clockIn(ng-controller="TimeClockCtrl as clock")
             button.btn-start(
