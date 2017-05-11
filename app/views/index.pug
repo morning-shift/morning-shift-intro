@@ -21,9 +21,7 @@ html(ng-app="MorningShiftIntro")
 
   body
     .container
-
       .row.debug
-
         .col-md-offset-1.col-md-10.debug
           h1.the-morning 
             .the The 
@@ -31,7 +29,42 @@ html(ng-app="MorningShiftIntro")
           h1.shift Shift
           h1.coalition Coalition
 
-          h3 Volunteer for the revolution. Time to work, together. 
+          .row.content
+            .col-xs-12.col-lg-6.square
+              .square-inner
+                h2 Meet with people
+
+                p We're gathering over food, and sharing what we're working on. 
+                 | We're listening to each other, and hearing what is important 
+                 | to people in our communities.
+
+            .col-xs-12.col-lg-6.square
+              .square-inner
+                h2 Do the work
+
+                p Set aside time to work on what is important. 
+
+                p We call this work our Morning Shift. It can be personal or in your community, private or public, but what matters is that it is important to you, because this is your time.
+
+            .col-xs-12.col-lg-6.square
+              .square-inner
+                h2 Write a recipe book
+
+                p Name an important cause. Find an organization working on that cause. Write down specific actions that you and other volunteers can take on. 
+
+                p We are writing an online recipe book to help us take action.
+
+
+            .col-xs-12.col-lg-6.square
+              .square-inner
+                h2 Make the story known
+
+                p Tell it.
+
+                p We <a href="connect/facebook">use #MorningShift on Facebook</a>. We publish on <a href="https://medium.com/morning-shift">Medium</a>.
+
+          //- h3 Volunteer for the revolution. Time to work, together. 
+
 
           .clockIn(ng-controller="TimeClockCtrl as clock")
             button.btn-start(
