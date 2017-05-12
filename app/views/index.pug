@@ -75,16 +75,16 @@ html(ng-app="MorningShiftIntro")
           //- h3 Volunteer for the revolution. Time to work, together. 
 
 
-          .clockIn(ng-controller="TimeClockCtrl as clock")
-            button.btn-start(
-              ng-if="!clock.isClockedIn"
-              ng-click="clock.toggleClockIn()" 
-              ng-class="{ 'isClockedIn': clock.isClockedIn }") 
-              span(ng-if="clock.isClockedIn") Stop Shift
-              span(ng-if="!clock.isClockedIn") Start Shift
+          //- .clockIn(ng-controller="TimeClockCtrl as clock")
+          //-   button.btn-start(
+          //-     ng-if="!clock.isClockedIn"
+          //-     ng-click="clock.toggleClockIn()" 
+          //-     ng-class="{ 'isClockedIn': clock.isClockedIn }") 
+          //-     span(ng-if="clock.isClockedIn") Stop Shift
+          //-     span(ng-if="!clock.isClockedIn") Start Shift
 
-            div.message(ng-if="clock.isClockedIn") 
-              include inc/main-message 
+          //-   div.message(ng-if="clock.isClockedIn") 
+          //-     include inc/main-message 
 
             //- Turn off clock for now until we have a better place
             //- to put it
@@ -93,9 +93,8 @@ html(ng-app="MorningShiftIntro")
             //-   ng-if="clock.isDurationValid && (clock.isClockedIn || clock.clockedInDate)") {{clock.shiftDuration}}
 
           .description
-            //-p Let's do this.
             .col-md-6
-              p Welcome!
+              p Time to work, together.
 
             .col-md-6
               p <a href="/about">About Morning Shift</a>

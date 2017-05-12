@@ -25,6 +25,10 @@ angular.module('MorningShiftIntro')
 	}
 
 	function getIsClockedIn(callback) {
+		// Disable
+		callback(false); 
+		return;
+
 		$http.get('/api/shift').then(function (res) {
 
 			var shift = res.data;
