@@ -28,9 +28,6 @@ html(ng-app="MorningShiftIntro")
       h1 a:hover {
         text-decoration: none;
       }
-      h1.the-morning, h1.shift, h1.coalition {
-        font-size: 64pt;
-      }
 
 
     include inc/search-meta
@@ -42,9 +39,12 @@ html(ng-app="MorningShiftIntro")
     .container
       .row.debug
         .col-md-offset-2.col-md-8.debug
-          h1.the-morning <a href="/">Morning</a>
-          h1.shift <a href="/">Shift</a>
-          h1.coalition <a href="/">Coalition</a>
+          .main-heading
+            h1.the-morning 
+              .the The 
+              span <a href="/">Morning</a>
+            h1.shift <a href="/">Shift</a>
+            h1.coalition <a href="/">Coalition</a>
 
           p.first The U.S. election of November 8, 2016 was a terrible event. This is our response.
 
