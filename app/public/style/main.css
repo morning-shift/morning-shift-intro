@@ -36,6 +36,12 @@ body,
 	max-width: 1050px;
 }
 
+.main-heading {
+	text-align: center;
+	padding-left: 3ex;
+	padding-top: 1ex;
+}
+
 .header {
 
 }
@@ -461,10 +467,14 @@ blockquote {
 	h1.the-morning,
 	h1.shift,
 	h1.coalition {
-		font-size: 36pt;
+		font-size: 24pt;
 	}
+	h1 .the {
+		font-size: 10pt;
+	}
+
 	h2 {
-		font-size: 22pt;
+		font-size: 18pt;
 	}
 	h3 {
 		font-size: 18pt;
@@ -473,12 +483,6 @@ blockquote {
 		font-size: 14pt;
 	}
 
-	.meetup {
-		clear: both;
-		margin-top: 3em;
-		padding-top: 3em;
-		height: 2em;
-	}
 
 	.square {
 		width: 100%;
