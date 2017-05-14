@@ -41,11 +41,6 @@ body,
 	padding-left: 3ex;
 	padding-top: 1ex;
 
-	background-image: url('/img/morning-shift-top-logo.png');
-	background-repeat: no-repeat;
-	background-position: right 10% bottom -0.75em;
-	background-size: 50%;
-
 	padding-bottom: 2em;
 }
 
@@ -530,8 +525,12 @@ blockquote {
 	}
 
 	.main-heading {
+		background-image: url('/img/morning-shift-top-logo.png');
+		background-repeat: no-repeat;
+		background-size: 50%;
+
 		padding-bottom: 1em;
-		background-position: bottom right 20%;
+		background-position: bottom right 15%;
 	}
 
 	.square, .square-small {
