@@ -444,19 +444,29 @@ blockquote {
 .square-small {
 	width: 50%;
 	padding-top: 50%;
+}
+.square:nth-child(4n+1),
+.square-small:nth-child(8n+1) {
 	background-color: #553565;
 }
-.square:nth-child(2),
-.square-small:nth-child(2) {
+.square:nth-child(4n+2),
+.square-small:nth-child(8n+2) {
 	background-color: #4b2e58;
 }
-.square:nth-child(3),
-.square-small:nth-child(3) {
+.square:nth-child(4n+3),
+.square-small:nth-child(8n+3) {
 	background-color: #2b1c32;
 }
-.square:nth-child(4),
-.square-small:nth-child(4) {
+.square:nth-child(4n+4),
+.square-small:nth-child(8n+4) {
 	background-color: #160f19;
+}
+
+.square-small:nth-child(8n+5) {
+	background-color: #900;
+}
+.square-small:nth-child(8n+6) {
+	background-color: #a22;
 }
 
 .square-inner {
