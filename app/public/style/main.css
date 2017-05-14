@@ -40,6 +40,13 @@ body,
 	text-align: center;
 	padding-left: 3ex;
 	padding-top: 1ex;
+
+	background-image: url('/img/morning-shift-top-logo.png');
+	background-repeat: no-repeat;
+	background-position: right 10% bottom -0.75em;
+	background-size: 50%;
+
+	padding-bottom: 2em;
 }
 
 .header {
@@ -64,8 +71,7 @@ h1.coalition {
 	font-size: 72pt;
 
 	letter-spacing: -0.15ex;
-/*	line-height: 0.75em;
-*/	text-align: left;
+	text-align: left;
 	margin-top: 0.25em;
 
 	margin-bottom: 0;
@@ -79,6 +85,9 @@ h1.coalition {
 h1 .the {
 	letter-spacing: normal;
 	font-size: 18pt;
+}
+h1.coalition {
+
 }
 
 p, div {
@@ -127,7 +136,7 @@ a:hover {
 }
 
 .content {
-	padding-top: 1.2em;
+	/*padding-top: 1.2em;*/
 }
 .content p {
 
@@ -520,6 +529,10 @@ blockquote {
 		font-size: 14pt;
 	}
 
+	.main-heading {
+		padding-bottom: 1em;
+		background-position: bottom right 20%;
+	}
 
 	.square, .square-small {
 		width: 100%;
