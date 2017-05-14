@@ -497,6 +497,10 @@ blockquote {
 
 /* Smaller font sizes on mobile devices */
 @media (max-width: 667px) {
+	.container {
+		padding-bottom: 0;
+	}
+
 	h1.the-morning,
 	h1.shift,
 	h1.coalition {
@@ -530,9 +534,22 @@ blockquote {
 	.square-small .square-inner {
 		padding-top: 1ex;
 	}
+	.square-small .square-inner p {
+		text-align: left;
+	}
 
+	.slogan-wrapper {
+		margin-left: 3ex;
+	}
 	.slogan {
+		margin-top: 1em;
+		margin-bottom: 1em;
+		padding-bottom: 0;
 		font-size: 18pt;
+		text-align: left;
+	}
+	.slogan span {
+		display: block;
 	}
 
 	p, div {
@@ -550,5 +567,11 @@ blockquote {
 	.mission, .mission p, .mission div {
 		font-size: 12pt;
 		line-height: 18pt;
+	}
+
+	.footer .content {
+		font-size: 10pt;
+		padding: 1ex;
+		padding-top: 2em;
 	}
 }
