@@ -554,11 +554,12 @@ blockquote {
 		margin-left: 3ex;
 	}
 	.slogan {
-		margin-top: 1em;
-		margin-bottom: 1em;
+		margin-top: 1ex;
+		margin-bottom: 1ex;
 		padding-bottom: 0;
-		font-size: 18pt;
+		font-size: 24pt;
 		text-align: left;
+		line-height: 1.2em;
 	}
 	.slogan span {
 		display: block;
