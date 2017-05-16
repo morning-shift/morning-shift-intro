@@ -1,0 +1,86 @@
+doctype html
+html(ng-app="MorningShiftIntro")
+  head
+    title Morning Shift Coalition: Recipe Book
+    link(rel="stylesheet" type="text/css" href="style/main.css")
+    style.
+      .square,
+      .rect {
+        padding: 1ex;
+
+        padding-left: 3ex;
+        padding-right: 3ex;
+
+        color: #eee;
+      }
+
+      .rect {
+        background-color: #2b1c32;
+        width: 100%;
+      }
+      .rect:nth-child(2) {
+        background-color: #160f19;
+      }
+
+      .square-inner {
+        color: #eee;
+      }
+
+      .top-content {
+        background-color: #553565;
+      }
+
+      .top-content:before,
+      .top-content:after {
+         display: table;
+         content: " ";
+      }
+      .top-content:after {
+        clear: both;
+      }
+
+      h1.coalition {
+        text-align: left;
+        margin-top: 1ex;
+      }
+
+    include inc/search-meta
+    include inc/social-meta
+    include inc/mobile-devices
+    include inc/base-scripts
+
+  body
+    .container
+      .row.debug
+        .col-md-offset-1.col-md-10.debug
+          .main-heading.row
+            h1.coalition Recipe Book 
+              a(href="/")
+                img(src="/img/logo-96.png")
+
+          .top-content.row
+            .col-xs-12.col-lg-6.square
+              h2 Preface 
+
+              p We hope this recipe book will help you find organizations to join and actions that you can perform in order to effect change in your communities. 
+
+              p We also hope it can help you share what you're doing and inspire others to act.
+
+            .col-xs-12.col-lg-6.square
+              h2 Rules
+
+              p Organizations in the recipe book can only be entered by coalition members who have donated to or volunteered for that organization.
+
+              p The same rule applies to actions: For an action to be in the book, someone has to do it first. As such, actions are things we can do now.
+
+          .about-content.row
+            .col-xs-12.rect
+              h2 Coming Soon
+
+              p The recipe book will be a fundamental part of the Morning Shift Coalition, but we're just starting out. If you are excited about helping create the book, please contact us.
+
+              p To start sharing organizations and actions that we'll incorporate into the book when it is published, we recommend <a href="/connect/facebook">connecting your Facebook account</a> and posting status updates with #MorningShift or #FridayFund, which will be sent to our volunteer team and saved.
+
+              p Thank you for being here!
+
+    include inc/footer
