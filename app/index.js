@@ -261,6 +261,7 @@ app.get('/actions', render('actions'));
 app.get('/connect/facebook', render('facebook'));
 
 app.get('/recipe-book', render('recipe-book'));
+app.get('/survey', render('survey'));
 
 app.get('/sad-clef', function (req, res) {
     res.render('sad-clef');
