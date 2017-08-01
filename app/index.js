@@ -10,7 +10,7 @@ var stripe   = require('stripe')(secrets.stripePrivateKey);
 
 var db;
 var designDocs = require('./design-docs.js');
-var database = require('./database.js')('morning-shift-intro', designDocs);
+var database = require('@holmwell/couch')('morning-shift-intro', designDocs);
 
 database.whenReady(function () {
     db = database.db;
